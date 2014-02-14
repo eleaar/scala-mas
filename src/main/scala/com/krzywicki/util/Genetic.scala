@@ -7,9 +7,6 @@ object Genetic {
   type Feature = Double
   type Solution = Array[Feature]
   type Fitness = Double
-  type Energy = Int
-  type Agent = (Solution, Fitness, Energy)
-  type Population = List[Agent]
 
   def createSolution(implicit config: Config): Solution =
     Array.fill(config.problemSize)(-50 + random * 100)
@@ -18,15 +15,6 @@ object Genetic {
     solution.foldLeft(0.0)(
       (sum, x) =>
         sum + 10 + x * x - 10 * cos(2 * Pi * x))
-
-  def createAgent(implicit config: Config): Agent = {
-    val solution = createSolution
-    (solution, evaluateSolution(solution), config.initialEnergy)
-  }
-
-  def createPopulation(implicit config: Config): Population = {
-    List.fill(config.populationSize)(createAgent)
-  }
 
   def reproduce(s: Solution)(implicit config: Config) = mutateSolution(s)
 
