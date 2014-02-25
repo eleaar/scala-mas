@@ -11,8 +11,8 @@ object Genetic {
   def createSolution(implicit config: Config): Solution =
     Array.fill(config.problemSize)(-50 + random * 100)
 
-  def evaluateSolution(solution: Solution): Fitness =
-    solution.foldLeft(0.0)(
+  def evaluate(solution: Solution): Fitness =
+    - solution.foldLeft(0.0)(
       (sum, x) =>
         sum + 10 + x * x - 10 * cos(2 * Pi * x))
 

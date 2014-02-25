@@ -2,26 +2,20 @@ package com.krzywicki.seq
 
 import com.krzywicki.util.Config
 import com.krzywicki.util.Genetic._
-import com.krzywicki.util.Agent._
+import com.krzywicki.util.MAS._
+
+import scala.concurrent.duration._
 
 object SeqApp {
 
   def main(args: Array[String]) {
-
     implicit val config = new Config(100)
-
+    val deadline = 10 seconds fromNow
+    
     var population = createPopulation
-    for (i <- 1 to 1000) {
-      population = population.groupBy(behaviour).flatMap {
-        case (Death, _) => List()
-        case (Fight, agents) => agents
-//          agents.grouped(2).flatMap {
-//            case List(a1,a2) => 
-//          }
-        case (Reproduction, agents) => agents
-      }.toList
-      
-      println(population.maxBy(_._2)._2)
+    while(deadline.hasTimeLeft) {
+      population = population.groupBy(behaviour).flatMap(meetings).toList
+      println(population.maxBy(_.fitness).fitness)
     }
   }
 }

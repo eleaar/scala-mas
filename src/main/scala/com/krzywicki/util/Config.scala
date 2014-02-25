@@ -15,6 +15,4 @@ class Config(
   def recombinationChance = 0.3
   def migrationProbability = 0.0001
 
-  def fightNumber = 2
-
 }
