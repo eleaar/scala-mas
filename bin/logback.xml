@@ -7,10 +7,14 @@
 		</encoder>
 	</appender>
 	
-	<logger name="com.krzywicki.hybrid.HybridIsland" level="info">
-		<appender-ref ref="STDOUT" />
+	<appender name="simple" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="com.krzywicki.hybrid.Logger" level="info">
+		<appender-ref ref="simple" />
 	</logger>
-
-
 	
 </configuration>

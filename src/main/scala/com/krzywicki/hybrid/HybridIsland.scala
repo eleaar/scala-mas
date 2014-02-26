@@ -1,17 +1,14 @@
 package com.krzywicki.hybrid
 
-import akka.actor.Actor
 import com.krzywicki.util.Config
 import com.krzywicki.util.Genetic._
 import com.krzywicki.util.MAS._
-import com.krzywicki.util.MAS.Agent
-import akka.actor.ActorLogging
-import akka.actor.Props
+import akka.actor._
 import scala.concurrent.duration._
-import akka.actor.ActorRef
+import com.krzywicki.util.Logger
 
 object HybridIsland {
-  case class Start(migrator: ActorRef)
+  case class Start(migrator: ActorRef, logger: Logger)
   case object Loop
   case class Migrate(agent: Agent)
   case object PrintStats
@@ -25,15 +22,16 @@ class HybridIsland(implicit config: Config) extends Actor with ActorLogging {
 
   var population = createPopulation
   var migrator: ActorRef = _
+  var logger: Logger = _
 
   def getBestFitness(population: Population) = population.maxBy(_.fitness).fitness
   var bestFitness: Fitness = Double.MinValue
   var reproductionCount = 0
-  var migrationCount = 0
 
   def receive = {
-    case Start(ref) =>
-      migrator = ref
+    case Start(_migrator, _logger) =>
+      migrator = _migrator
+      logger = _logger
       bestFitness = getBestFitness(population)
 
       migrator ! HybridMigrator.RegisterIsland(self)
@@ -45,19 +43,15 @@ class HybridIsland(implicit config: Config) extends Actor with ActorLogging {
       population = arenas.flatMap(migration orElse meetings).toList
 
       reproductionCount += arenaCount(arenas, Reproduction)
-      migrationCount += arenaCount(arenas, Migration)
       bestFitness = math.max(bestFitness, getBestFitness(population))
       self ! Loop
 
     case Migrate(a) => population :+= a
 
     case PrintStats =>
-      log.info(s"fitness $bestFitness")
-      log.info(s"reproductionCount $reproductionCount")
-      log.info(s"migrationCount $migrationCount")
-      log.info(s"population ${population.size}")
+      capture(bestFitness)(f => logger.fitness send (math.max(_, f)))
+      capture(reproductionCount)(r => logger.reproduction send (_ + r))
       reproductionCount = 0
-      migrationCount = 0
       scheduleNextStats
   }
 
@@ -70,4 +64,6 @@ class HybridIsland(implicit config: Config) extends Actor with ActorLogging {
   def scheduleNextStats = context.system.scheduler.scheduleOnce(1 second, self, PrintStats)
 
   def arenaCount[T <: Behaviour](groups: Map[T, List[Agent]], beh: T) = groups.getOrElse(beh, Seq.empty).size
+  
+  def capture[T](t: T)(body: T => Unit) = body(t)
 }
