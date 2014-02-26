@@ -23,11 +23,13 @@ object MAS {
   case object Death extends Behaviour
   case object Fight extends Behaviour
   case object Reproduction extends Behaviour
+  case object Migration extends Behaviour
 
   def behaviour(agent: Agent)(implicit config: Config) =
     agent.energy match {
       case 0 => Death
-      case energy if energy > config.reproductionThreshold => Reproduction
+      case _ if random < config.migrationProbability => Migration
+      case energy if energy >= config.reproductionThreshold => Reproduction
       case _ => Fight
     }
 
@@ -37,6 +39,7 @@ object MAS {
       agents.shuffled.grouped(2).flatMap(fight).toList
     case (Reproduction, agents) =>
       agents.shuffled.grouped(2).flatMap(reproduction).toList
+    case (Migration, agents) => agents
   }
 
   def fight(agents: List[Agent])(implicit config: Config) = agents match {

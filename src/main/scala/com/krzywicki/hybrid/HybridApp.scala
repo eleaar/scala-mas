@@ -7,19 +7,22 @@ import akka.actor.ActorSystem
 import scala.concurrent.duration._
 import akka.actor.Props
 
+
+class Stats()
+
 object HybridApp {
 
   def main(args: Array[String]) {
 	  implicit val config = new Config(100)
-	  val duration = 10 seconds
+	  val duration = 100 seconds
 	  
 	  val system = ActorSystem("hybrid")
 	  import system.dispatcher
 	  system.scheduler.scheduleOnce(duration)(system.shutdown)
 
+	  val migrator = system.actorOf(HybridMigrator.props)
 	  val islands = List.fill(2)(system.actorOf(HybridIsland.props))
 	  
-	  islands.foreach(_ ! HybridIsland.Loop)
-	  
+	  islands.foreach(_ ! HybridIsland.Start(migrator))
   }
 }
