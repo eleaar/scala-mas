@@ -17,8 +17,8 @@ class Logger(implicit context: ExecutionContext) {
     val rep = reproduction.future
 
     for (x <- fit; y <- rep) {
-      log.info(s"fitness $x")
-      log.info(s"reproduction $y")
+      println(s"fitness $x")
+      println(s"reproduction $y")
     }
   }
 }

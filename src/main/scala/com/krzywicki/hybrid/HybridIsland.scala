@@ -45,6 +45,7 @@ class HybridIsland(implicit config: Config) extends Actor with ActorLogging {
       reproductionCount += arenaCount(arenas, Reproduction)
       bestFitness = math.max(bestFitness, getBestFitness(population))
       self ! Loop
+      
 
     case Migrate(a) => population :+= a
 

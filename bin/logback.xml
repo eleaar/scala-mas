@@ -13,8 +13,12 @@
 		</encoder>
 	</appender>
 	
-	<logger name="com.krzywicki.hybrid.Logger" level="info">
+	<logger name="com.krzywicki.util.Logger" level="info">
 		<appender-ref ref="simple" />
 	</logger>
+	
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+	</root>
 	
 </configuration>
