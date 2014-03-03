@@ -8,33 +8,35 @@ import scala.concurrent.duration._
 import com.krzywicki.util.Logger
 
 object HybridIsland {
-  case class Start(migrator: ActorRef, logger: Logger)
+
+  case object Start
+
+  case object Stop
+
+  case object StopAck
+
   case object Loop
+
   case class Migrate(agent: Agent)
+
   case object PrintStats
 
-  def props(implicit config: Config) = Props(classOf[HybridIsland], config)
+  case class Stat[T](stat: String, source: ActorRef, data: T)
+
+  def props(migrator: ActorRef)(implicit config: Config) = Props(classOf[HybridIsland], migrator, config)
 }
 
-class HybridIsland(implicit config: Config) extends Actor with ActorLogging {
+class HybridIsland(val migrator: ActorRef, implicit val config: Config) extends Actor with ActorLogging {
+
   import HybridIsland._
   import context.dispatcher
 
   var population = createPopulation
-  var migrator: ActorRef = _
-  var logger: Logger = _
-
-  def getBestFitness(population: Population) = population.maxBy(_.fitness).fitness
-  var bestFitness: Fitness = Double.MinValue
-  var reproductionCount = 0
+  var bestFitness = getBestFitness(population)
+  var reproductions = 0L
 
   def receive = {
-    case Start(_migrator, _logger) =>
-      migrator = _migrator
-      logger = _logger
-      bestFitness = getBestFitness(population)
-
-      migrator ! HybridMigrator.RegisterIsland(self)
+    case Start =>
       scheduleNextStats
       self ! Loop
 
@@ -42,18 +44,21 @@ class HybridIsland(implicit config: Config) extends Actor with ActorLogging {
       val arenas = population.groupBy(behaviour)
       population = arenas.flatMap(migration orElse meetings).toList
 
-      reproductionCount += arenaCount(arenas, Reproduction)
+      reproductions += arenaCount(arenas, Reproduction)
       bestFitness = math.max(bestFitness, getBestFitness(population))
       self ! Loop
-      
 
-    case Migrate(a) => population :+= a
+    case Migrate(a) =>
+      population :+= a
+      bestFitness = math.max(bestFitness, a.fitness)
 
     case PrintStats =>
-      capture(bestFitness)(f => logger.fitness send (math.max(_, f)))
-      capture(reproductionCount)(r => logger.reproduction send (_ + r))
-      reproductionCount = 0
+      publishStats
       scheduleNextStats
+
+    case Stop =>
+      publishStats
+      context stop self
   }
 
   def migration: PartialFunction[(Behaviour, List[Agent]), List[Agent]] = {
@@ -62,9 +67,17 @@ class HybridIsland(implicit config: Config) extends Actor with ActorLogging {
       List.empty
   }
 
+  def publishStats = {
+    log info s"fitness $self $bestFitness"
+    log info s"reproductions $self $reproductions"
+//    context.system.eventStream.publish(Stat("fitness", self, bestFitness))
+//    context.system.eventStream.publish(Stat("reproductions", self, reproductionCount))
+  }
+
+  def getBestFitness(population: Population) = population.maxBy(_.fitness).fitness
+
   def scheduleNextStats = context.system.scheduler.scheduleOnce(1 second, self, PrintStats)
 
   def arenaCount[T <: Behaviour](groups: Map[T, List[Agent]], beh: T) = groups.getOrElse(beh, Seq.empty).size
-  
-  def capture[T](t: T)(body: T => Unit) = body(t)
+
 }
