@@ -1,23 +1,34 @@
 package com.krzywicki.util
 
-import akka.actor.{Terminated, Actor, Props, ActorRef}
+import akka.actor._
+import scala.concurrent.Promise
+import akka.actor.Terminated
+import scala.util.Success
 
-/**
- * Created by krzywick on 03.03.14.
- */
 object Reaper {
-  def props(initialSouls: Seq[ActorRef]) = Props(classOf[Reaper], initialSouls)
+  def actorsTerminate(actors: Seq[ActorRef])(implicit system: ActorSystem) = {
+    val p = Promise[Unit]()
+    system.actorOf(Props(classOf[PromiseReaper], p, actors), "reaper")
+    p.future
+  }
 }
 
-class Reaper(initialSouls: Seq[ActorRef]) extends Actor {
+class PromiseReaper(p: Promise[Unit], actors: Seq[ActorRef]) extends Reaper(actors) {
+  def onNoActiveSouls = p.complete(Success())
+}
 
-  initialSouls foreach (context watch _)
-  var activeSouls = initialSouls.toSet
+abstract class Reaper(souls: Seq[ActorRef]) extends Actor with ActorLogging {
+  var activeSouls = souls.toSet
+  activeSouls foreach (context watch _)
 
   def receive = {
     case Terminated(soul) =>
       activeSouls -= soul
-      if (activeSouls.isEmpty) context.system.shutdown
+      if (activeSouls.isEmpty) {
+        log info "no more active souls"
+        onNoActiveSouls
+      }
   }
 
+  def onNoActiveSouls
 }

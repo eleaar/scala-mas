@@ -5,7 +5,8 @@ import com.krzywicki.util.Genetic._
 import com.krzywicki.util.MAS._
 import akka.actor._
 import scala.concurrent.duration._
-import com.krzywicki.util.Logger
+import com.krzywicki.util.Util._
+import HybridIsland._
 
 object HybridIsland {
 
@@ -21,12 +22,12 @@ object HybridIsland {
 
   case object PrintStats
 
-  case class Stat[T](stat: String, source: ActorRef, data: T)
+  type Stats = akka.agent.Agent[(Double, Long)]
 
-  def props(migrator: ActorRef)(implicit config: Config) = Props(classOf[HybridIsland], migrator, config)
+  def props(migrator: ActorRef, stats: Stats)(implicit config: Config) = Props(classOf[HybridIsland], migrator, stats, config).withDispatcher("agent-dispatcher")
 }
 
-class HybridIsland(val migrator: ActorRef, implicit val config: Config) extends Actor with ActorLogging {
+class HybridIsland(val migrator: ActorRef, val stats: Stats, implicit val config: Config) extends Actor with ActorLogging {
 
   import HybridIsland._
   import context.dispatcher
@@ -37,6 +38,7 @@ class HybridIsland(val migrator: ActorRef, implicit val config: Config) extends 
 
   def receive = {
     case Start =>
+      publishStats
       scheduleNextStats
       self ! Loop
 
@@ -47,10 +49,12 @@ class HybridIsland(val migrator: ActorRef, implicit val config: Config) extends 
       reproductions += arenaCount(arenas, Reproduction)
       bestFitness = math.max(bestFitness, getBestFitness(population))
       self ! Loop
+//      publishStats
 
     case Migrate(a) =>
       population :+= a
       bestFitness = math.max(bestFitness, a.fitness)
+//      publishStats
 
     case PrintStats =>
       publishStats
@@ -68,10 +72,11 @@ class HybridIsland(val migrator: ActorRef, implicit val config: Config) extends 
   }
 
   def publishStats = {
-    log info s"fitness $self $bestFitness"
-    log info s"reproductions $self $reproductions"
-//    context.system.eventStream.publish(Stat("fitness", self, bestFitness))
-//    context.system.eventStream.publish(Stat("reproductions", self, reproductionCount))
+    using((bestFitness, reproductions)) {
+      case (newF, newR) =>
+          stats send ((oldF: Double, oldR: Long) => (math.max(oldF, newF), oldR + newR)).tupled
+    }
+    reproductions = 0
   }
 
   def getBestFitness(population: Population) = population.maxBy(_.fitness).fitness
