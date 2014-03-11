@@ -4,9 +4,8 @@ import com.krzywicki.util.{Reaper, Config}
 import com.krzywicki.util.Util._
 import com.krzywicki.util.Genetic._
 import com.krzywicki.util.MAS._
-import akka.actor.ActorSystem
+import akka.actor.{PoisonPill, ActorSystem, Props}
 import scala.concurrent.duration._
-import akka.actor.Props
 import akka.agent.Agent
 import scala.util.Success
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -32,8 +31,8 @@ object HybridApp {
     val islands = List.tabulate(islandsNumber)(i => system.actorOf(HybridIsland.props(migrator, stats), s"island$i"))
     migrator ! HybridMigrator.RegisterIslands(islands)
 
-    islands.foreach(_ ! HybridIsland.Start)
-    system.scheduler.scheduleOnce(duration)(islands.foreach(_ ! HybridIsland.Stop))
+    islands.foreach(_ ! HybridIsland.Loop)
+    system.scheduler.scheduleOnce(duration)(islands.foreach(_ ! PoisonPill))
 
     val log = Logging(system, getClass)
     val startTime = System.currentTimeMillis()
