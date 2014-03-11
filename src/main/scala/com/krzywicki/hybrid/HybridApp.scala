@@ -1,6 +1,6 @@
 package com.krzywicki.hybrid
 
-import com.krzywicki.util.{Reaper, Config}
+import com.krzywicki.util.{Statistics, Reaper, Config}
 import com.krzywicki.util.Util._
 import com.krzywicki.util.Genetic._
 import com.krzywicki.util.MAS._
@@ -25,8 +25,7 @@ object HybridApp {
     implicit val config = new Config(problemSize)
     implicit val system = ActorSystem("hybrid")
 
-    val stats = Agent((Double.MinValue, 0L))
-
+    val stats = Statistics()
     val migrator = system.actorOf(HybridMigrator.props, "migrator")
     val islands = List.tabulate(islandsNumber)(i => system.actorOf(HybridIsland.props(migrator, stats), s"island$i"))
     migrator ! HybridMigrator.RegisterIslands(islands)
@@ -45,7 +44,7 @@ object HybridApp {
     val loggerTicks = system.scheduler.schedule(0 second, 1 second)(printLogs(stats()))
     for (
       _ <- Reaper.actorsTerminate(islands);
-      _ <- stats.future()) {
+      _ <- stats.updatesDone) {
       loggerTicks.cancel();
       printLogs(stats())
       system.shutdown()

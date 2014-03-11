@@ -1,6 +1,6 @@
 package com.krzywicki.hybrid
 
-import com.krzywicki.util.Config
+import com.krzywicki.util.{Statistics, Config}
 import com.krzywicki.util.Genetic._
 import com.krzywicki.util.MAS._
 import akka.actor._
@@ -14,48 +14,33 @@ object HybridIsland {
 
   case class Migrate(agent: Agent)
 
-  type Stats = akka.agent.Agent[(Double, Long)]
-
-  def props(migrator: ActorRef, stats: Stats)(implicit config: Config) = Props(classOf[HybridIsland], migrator, stats, config).withDispatcher("agent-dispatcher")
+  def props(migrator: ActorRef, stats: Statistics)(implicit config: Config) = Props(classOf[HybridIsland], migrator, stats, config).withDispatcher("agent-dispatcher")
 }
 
-class HybridIsland(val migrator: ActorRef, val stats: Stats, implicit val config: Config) extends Actor with ActorLogging {
+class HybridIsland(val migrator: ActorRef, val stats: Statistics, implicit val config: Config) extends Actor with ActorLogging {
 
   import HybridIsland._
 
   var population = createPopulation
-  var bestFitness = getBestFitness(population)
-  var reproductions = 0L
-  publishStats
+  stats.update(getBestFitness(population), 0L)
 
   def receive = {
     case Loop =>
       val arenas = population.groupBy(behaviour)
       population = arenas.flatMap(migration orElse meetings).toList
 
-      reproductions += arenaCount(arenas, Reproduction)
-      bestFitness = math.max(bestFitness, getBestFitness(population))
+      stats.update(getBestFitness(population), arenaCount(arenas, Reproduction))
       self ! Loop
-      publishStats
 
     case Migrate(a) =>
       population :+= a
-      bestFitness = math.max(bestFitness, a.fitness)
-      publishStats
+      stats.update(a.fitness, 0L)
   }
 
   def migration: PartialFunction[(Behaviour, List[Agent]), List[Agent]] = {
     case (Migration, agents) =>
       migrator ! HybridMigrator.RecieveEmigrants(agents);
       List.empty
-  }
-
-  def publishStats = {
-    using((bestFitness, reproductions)) {
-      case (newF, newR) =>
-        stats send ((oldF: Double, oldR: Long) => (math.max(oldF, newF), oldR + newR)).tupled
-    }
-    reproductions = 0
   }
 
   def getBestFitness(population: Population) = population.maxBy(_.fitness).fitness
