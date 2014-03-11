@@ -8,26 +8,28 @@ import scala.util.Random
 import com.krzywicki.util.MAS.Agent
 
 object HybridMigrator {
-  case class RegisterIslands(refs: List[ActorRef])
-  case class RecieveEmigrants(agents: List[Agent])
+
+  case class RegisterIsland(island: ActorRef)
+
+  case class ReceiveEmigrants(agents: List[Agent])
 
   def props(implicit config: Config) = Props(classOf[HybridMigrator])
 }
 
 class HybridMigrator extends Actor {
+
   import HybridMigrator._
   import HybridIsland._
-  
+
   var islands = List.empty[ActorRef]
-  
+
   def receive = {
-    case RegisterIslands(refs) => islands ++= refs
-    case RecieveEmigrants(agents) =>
-      val destinations = islands.toList
+    case RegisterIsland(island) => islands :+= island
+    case ReceiveEmigrants(agents) =>
       agents.foreach {
-        agent => randomFrom(destinations) ! Migrate(agent)
+        agent => randomFrom(islands) ! Migrate(agent)
       }
   }
-  
-  def  randomFrom[T](list: List[T]) = list(Random.nextInt(list.size))
+
+  def randomFrom[T](list: List[T]) = list(Random.nextInt(list.size))
 }

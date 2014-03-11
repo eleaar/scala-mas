@@ -28,7 +28,6 @@ object HybridApp {
     val stats = Statistics()
     val migrator = system.actorOf(HybridMigrator.props, "migrator")
     val islands = List.tabulate(islandsNumber)(i => system.actorOf(HybridIsland.props(migrator, stats), s"island$i"))
-    migrator ! HybridMigrator.RegisterIslands(islands)
 
     islands.foreach(_ ! HybridIsland.Loop)
     system.scheduler.scheduleOnce(duration)(islands.foreach(_ ! PoisonPill))

@@ -1,12 +1,8 @@
 package com.krzywicki.hybrid
 
 import com.krzywicki.util.{Statistics, Config}
-import com.krzywicki.util.Genetic._
 import com.krzywicki.util.MAS._
 import akka.actor._
-import scala.concurrent.duration._
-import com.krzywicki.util.Util._
-import HybridIsland._
 
 object HybridIsland {
 
@@ -23,6 +19,7 @@ class HybridIsland(val migrator: ActorRef, val stats: Statistics, implicit val c
 
   var population = createPopulation
   stats.update(getBestFitness(population), 0L)
+  migrator ! HybridMigrator.RegisterIsland(self)
 
   def receive = {
     case Loop =>
@@ -39,7 +36,7 @@ class HybridIsland(val migrator: ActorRef, val stats: Statistics, implicit val c
 
   def migration: PartialFunction[(Behaviour, List[Agent]), List[Agent]] = {
     case (Migration, agents) =>
-      migrator ! HybridMigrator.RecieveEmigrants(agents);
+      migrator ! HybridMigrator.ReceiveEmigrants(agents);
       List.empty
   }
 
