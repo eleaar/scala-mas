@@ -7,25 +7,31 @@ import com.krzywicki.util.Util._
 object MAS {
 
   type Energy = Int
+
   class Agent(val solution: Solution, val fitness: Fitness, var energy: Energy)
+
   type Population = List[Agent]
 
-  def createAgent(implicit config: Config): Agent = {
+  def createAgent(implicit config: EmasConfig): Agent = {
     val solution = createSolution
     new Agent(solution, evaluate(solution), config.initialEnergy)
   }
 
-  def createPopulation(implicit config: Config): Population = {
+  def createPopulation(implicit config: EmasConfig): Population = {
     List.fill(config.populationSize)(createAgent)
   }
 
-  trait Behaviour
+  sealed trait Behaviour
+
   case object Death extends Behaviour
+
   case object Fight extends Behaviour
+
   case object Reproduction extends Behaviour
+
   case object Migration extends Behaviour
 
-  def behaviour(agent: Agent)(implicit config: Config) =
+  def behaviour(agent: Agent)(implicit config: EmasConfig) =
     agent.energy match {
       case 0 => Death
       case _ if random < config.migrationProbability => Migration
@@ -33,7 +39,7 @@ object MAS {
       case _ => Fight
     }
 
-  def meetings(implicit config: Config): PartialFunction[(Behaviour, List[Agent]), List[Agent]] = {
+  def meetings(implicit config: EmasConfig): PartialFunction[(Behaviour, List[Agent]), List[Agent]] = {
     case (Death, _) => List.empty[Agent]
     case (Fight, agents) =>
       agents.shuffled.grouped(2).flatMap(fight).toList
@@ -42,7 +48,8 @@ object MAS {
     case (Migration, agents) => agents
   }
 
-  def fight(agents: List[Agent])(implicit config: Config) = agents match {
+
+  def fight(agents: List[Agent])(implicit config: EmasConfig) = agents match {
     case List(a) => List(a)
     case List(a1, a2) =>
       val AtoBTransfer =
@@ -55,7 +62,7 @@ object MAS {
       List(a1, a2)
   }
 
-  def reproduction(agents: List[Agent])(implicit config: Config) = agents match {
+  def reproduction(agents: List[Agent])(implicit config: EmasConfig) = agents match {
     case List(a) =>
       val s = reproduce(a.solution)
       val f = evaluate(s)

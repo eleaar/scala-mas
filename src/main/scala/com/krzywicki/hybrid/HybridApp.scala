@@ -1,6 +1,6 @@
 package com.krzywicki.hybrid
 
-import com.krzywicki.util.{Statistics, Reaper, Config}
+import com.krzywicki.util.{Statistics, Reaper}
 import com.krzywicki.util.Util._
 import com.krzywicki.util.Genetic._
 import com.krzywicki.util.MAS._
@@ -22,7 +22,6 @@ object HybridApp {
     val islandsNumber = if (args.length > 1) args(1).toInt else 4
     val duration = if (args.length > 3) FiniteDuration(args(2).toLong, args(3)) else 10 seconds
 
-    implicit val config = new Config(problemSize)
     implicit val system = ActorSystem("hybrid")
 
     val stats = Statistics()

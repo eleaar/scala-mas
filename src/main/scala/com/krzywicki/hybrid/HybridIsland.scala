@@ -1,8 +1,9 @@
 package com.krzywicki.hybrid
 
-import com.krzywicki.util.{Statistics, Config}
+import com.krzywicki.util.Statistics
 import com.krzywicki.util.MAS._
 import akka.actor._
+import com.krzywicki.concur.ConcurrentConfig
 
 object HybridIsland {
 
@@ -10,12 +11,14 @@ object HybridIsland {
 
   case class Migrate(agent: Agent)
 
-  def props(migrator: ActorRef, stats: Statistics)(implicit config: Config) = Props(classOf[HybridIsland], migrator, stats, config).withDispatcher("agent-dispatcher")
+  def props(migrator: ActorRef, stats: Statistics) = Props(classOf[HybridIsland], migrator, stats).withDispatcher("agent-dispatcher")
 }
 
-class HybridIsland(val migrator: ActorRef, val stats: Statistics, implicit val config: Config) extends Actor with ActorLogging {
+class HybridIsland(val migrator: ActorRef, val stats: Statistics) extends Actor with ActorLogging {
 
   import HybridIsland._
+
+  implicit val settings = ConcurrentConfig(context.system)
 
   var population = createPopulation
   stats.update(getBestFitness(population), 0L)

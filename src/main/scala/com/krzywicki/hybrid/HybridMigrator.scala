@@ -2,10 +2,10 @@ package com.krzywicki.hybrid
 
 import akka.actor.Actor
 import akka.actor.Props
-import com.krzywicki.util.Config
 import akka.actor.ActorRef
 import scala.util.Random
 import com.krzywicki.util.MAS.Agent
+import com.krzywicki.concur.ConcurrentConfig
 
 object HybridMigrator {
 
@@ -13,13 +13,15 @@ object HybridMigrator {
 
   case class ReceiveEmigrants(agents: List[Agent])
 
-  def props(implicit config: Config) = Props(classOf[HybridMigrator])
+  def props = Props(classOf[HybridMigrator])
 }
 
 class HybridMigrator extends Actor {
 
   import HybridMigrator._
   import HybridIsland._
+
+  implicit val settings = ConcurrentConfig(context.system)
 
   var islands = List.empty[ActorRef]
 
