@@ -7,16 +7,6 @@
 		</encoder>
 	</appender>
 	
-	<appender name="simple" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>%msg%n</pattern>
-		</encoder>
-	</appender>
-	
-	<logger name="com.krzywicki.util.Logger" level="info">
-		<appender-ref ref="simple" />
-	</logger>
-	
 	<root level="info">
 		<appender-ref ref="STDOUT" />
 	</root>

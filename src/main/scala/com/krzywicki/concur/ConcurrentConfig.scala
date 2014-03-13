@@ -6,15 +6,23 @@ import akka.actor.ExtensionIdProvider
 import akka.actor.ExtendedActorSystem
 import com.typesafe.config.Config
 import com.krzywicki.util.EmasConfig
+import com.krzywicki.util.MAS._
 
-class HybridConfig(config: Config) extends EmasConfig(config) with Extension {
+class ConcurrentConfig(config: Config) extends EmasConfig(config) with Extension {
+  private val c = config.getConfig("concurrent")
 
- }
+  val capacities = Map[Behaviour, Int](
+    Fight -> c.getInt("fightCapacity"),
+    Reproduction -> c.getInt("reproductionCapacity"),
+    Migration -> c.getInt("migrationCapacity"),
+    Death -> c.getInt("deathCapacity")
+  )
+}
 
-object HybridConfig extends ExtensionId[HybridConfig] with ExtensionIdProvider {
+object ConcurrentConfig extends ExtensionId[ConcurrentConfig] with ExtensionIdProvider {
 
-  override def lookup = HybridConfig
+  override def lookup = ConcurrentConfig
 
   override def createExtension(system: ExtendedActorSystem) =
-    new HybridConfig(system.settings.config.getConfig("emas"))
+    new ConcurrentConfig(system.settings.config.getConfig("emas"))
 }

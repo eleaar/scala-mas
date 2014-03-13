@@ -1,22 +1,23 @@
 package com.krzywicki.concur
 
-import akka.actor.{ActorRef, Props, Actor}
+import akka.actor.{PoisonPill, ActorRef, Props, Actor}
 import com.krzywicki.util.MAS._
 import scala.collection.mutable.ArrayBuffer
-import com.krzywicki.util.Config
 
 object Arena {
 
   case class Join(agent: Agent)
 
-  def props(capacity: Int) = Props(classOf[Arena], capacity)
+  def props(capacity: Int, meeting: (List[Agent]) => List[Agent]) = Props(classOf[Arena], capacity, meeting)
 }
 
-class Arena(val capacity: Int, val behaviour: Behaviour, val config: Config) extends Actor {
+class Arena(capacity: Int, meeting: (List[Agent]) => List[Agent]) extends Actor {
 
   import Arena._
   import Individual._
   import ConcurrentIsland._
+
+  implicit val settings = ConcurrentConfig(context.system)
 
   val actors = ArrayBuffer.empty[ActorRef]
   val agents = ArrayBuffer.empty[Agent]
@@ -31,16 +32,17 @@ class Arena(val capacity: Int, val behaviour: Behaviour, val config: Config) ext
   }
 
   def performMeeting {
-//    val (existingAgents, newAgents) =  meetings((behaviour, agents.toList)).splitAt(actors.size)
-//
-//    existingAgents.zip(actors).foreach {
-//      case (agent, actor) => actor ! UpdateState(agent)
-//    }
-//    newAgents foreach {
-//      agent => context.parent ! SpawnIndividual(agent)
-//    }
+    val newAgents =  meeting(agents.toList)
 
-    // zakończyc tych pustych
+    actors.zip(newAgents) foreach {
+      case (actor, agent) => actor ! UpdateState(agent)
+    }
+    actors.drop(newAgents.size) foreach {
+      actor => actor ! PoisonPill
+    }
+    newAgents.drop(actors.size) foreach {
+      agent => context.parent ! Add(agent)
+    }
 
     actors.clear()
     agents.clear()

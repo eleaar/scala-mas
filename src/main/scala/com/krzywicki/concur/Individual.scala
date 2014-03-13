@@ -2,33 +2,29 @@ package com.krzywicki.concur
 
 import com.krzywicki.util.MAS._
 import akka.actor.{Actor, Props, ActorRef}
-import com.krzywicki.util.Config
 
 object Individual {
 
   case class UpdateState(state: Agent)
 
-  case class UpdateArenas(arenas: Map[Behaviour, ActorRef])
-
-  def props(state: Agent, arenas: Map[Behaviour, ActorRef])(implicit config: Config) =
-    Props(classOf[Individual], state, arenas, config)
+  def props(state: Agent, arenas: Map[Behaviour, ActorRef]) =
+    Props(classOf[Individual], state, arenas)
 }
 
-class Individual(var state: Agent, var arenas: Map[Behaviour, ActorRef],  implicit val config: Config) extends Actor {
+class Individual(var state: Agent, var arenas: Map[Behaviour, ActorRef]) extends Actor {
 
   import Individual._
+  import Arena._
 
-  joinArena
+  implicit val settings = ConcurrentConfig(context.system)
+
+  override def preStart = joinArena
 
   def receive = {
     case UpdateState(s) =>
       state = s
       joinArena
-    case UpdateArenas(a) =>
-      arenas = a
-      joinArena
   }
 
-  def joinArena = arenas(behaviour(state)) ! "join"
-
+  def joinArena = arenas(behaviour(state)) ! Join(state)
 }
