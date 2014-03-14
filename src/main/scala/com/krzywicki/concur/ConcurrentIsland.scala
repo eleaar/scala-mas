@@ -1,35 +1,48 @@
 package com.krzywicki.concur
 
 import com.krzywicki.util.MAS._
-import akka.actor.{ActorRef, Actor}
-import com.krzywicki.util.Statistics
-import com.krzywicki.hybrid.HybridMigrator
+import akka.actor.{Props, ActorRef, Actor}
+import com.krzywicki.util.{Migrator, Statistics}
+import com.krzywicki.util.MeetingsInterceptor._
 
 object ConcurrentIsland {
 
-  case class Add(agent: Agent)
-
+  def props(migrator: ActorRef, stats: Statistics) = Props(classOf[ConcurrentIsland], migrator, stats)
 }
 
 class ConcurrentIsland(val migrator: ActorRef, val stats: Statistics) extends Actor {
 
-  import ConcurrentIsland._
+  import Migrator._
 
   implicit val settings = ConcurrentConfig(context.system)
 
-  val arenas = arenasForBehaviours(List(Migration, Fight, Reproduction, Death), migration orElse meetings)
+  migrator ! RegisterIsland(self)
+
+  val supportedBehaviours = List(Migration, Fight, Reproduction, Death)
+  val arenas = arenasForBehaviours(supportedBehaviours, (migration orElse meetings).intercepted {
+    case (Reproduction, agents) => stats.update(agents.maxBy(_.fitness).fitness, agents.size/2)
+  })
+
+  val population = createPopulation
+  stats.update(population.maxBy(_.fitness).fitness, 0L)
+  population.foreach(agent => context.actorOf(Individual.props(agent, arenas)))
 
   def receive = {
-    case Add(agent) => context.actorOf(Individual.props(agent, arenas))
+    case Add(agent) =>
+      stats.update(agent.fitness, 0L)
+      context.actorOf(Individual.props(agent, arenas))
   }
 
-  def migration: PartialFunction[(Behaviour, List[Agent]), List[Agent]] = {
+  def migration: Meetings = {
     case (Migration, agents) =>
-      migrator ! HybridMigrator.ReceiveEmigrants(agents);
+      migrator ! MigrateAgents(agents);
       List.empty
   }
 
-  def arenasForBehaviours(behaviours: List[Behaviour], meetings: PartialFunction[(Behaviour, List[Agent]), List[Agent]]) =
+
+
+
+  def arenasForBehaviours(behaviours: List[Behaviour], meetings: Meetings) =
     behaviours map {
       behaviour =>
         val capacity = settings.capacities(behaviour)

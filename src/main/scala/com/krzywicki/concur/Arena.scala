@@ -3,6 +3,7 @@ package com.krzywicki.concur
 import akka.actor.{PoisonPill, ActorRef, Props, Actor}
 import com.krzywicki.util.MAS._
 import scala.collection.mutable.ArrayBuffer
+import com.krzywicki.util.Migrator.Add
 
 object Arena {
 
@@ -15,7 +16,6 @@ class Arena(capacity: Int, meeting: (List[Agent]) => List[Agent]) extends Actor 
 
   import Arena._
   import Individual._
-  import ConcurrentIsland._
 
   implicit val settings = ConcurrentConfig(context.system)
 
@@ -32,7 +32,7 @@ class Arena(capacity: Int, meeting: (List[Agent]) => List[Agent]) extends Actor 
   }
 
   def performMeeting {
-    val newAgents =  meeting(agents.toList)
+    val newAgents = meeting(agents.toList)
 
     actors.zip(newAgents) foreach {
       case (actor, agent) => actor ! UpdateState(agent)

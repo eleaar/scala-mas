@@ -11,6 +11,8 @@ object MAS {
   class Agent(val solution: Solution, val fitness: Fitness, var energy: Energy)
 
   type Population = List[Agent]
+  type Group = (Behaviour, Population)
+  type Meetings = PartialFunction[Group, Population]
 
   def createAgent(implicit config: EmasConfig): Agent = {
     val solution = createSolution
@@ -39,7 +41,7 @@ object MAS {
       case _ => Fight
     }
 
-  def meetings(implicit config: EmasConfig): PartialFunction[(Behaviour, List[Agent]), List[Agent]] = {
+  def meetings(implicit config: EmasConfig): Meetings = {
     case (Death, _) => List.empty[Agent]
     case (Fight, agents) =>
       agents.shuffled.grouped(2).flatMap(fight).toList

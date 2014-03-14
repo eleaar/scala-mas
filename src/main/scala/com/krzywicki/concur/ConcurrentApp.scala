@@ -1,29 +1,27 @@
-package com.krzywicki.hybrid
+package com.krzywicki.concur
 
 import com.krzywicki.util.{Migrator, Statistics, Reaper}
 import com.krzywicki.util.Util._
 import akka.actor.{PoisonPill, ActorSystem}
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Await
-import akka.pattern._
+import scala.concurrent.Future
 import akka.event.Logging
 
 
-object HybridApp {
+object ConcurrentApp {
 
   def main(args: Array[String]) {
     val problemSize = if (args.length > 0) args(0).toInt else 100
-    val islandsNumber = if (args.length > 1) args(1).toInt else 4
+    val islandsNumber = if (args.length > 1) args(1).toInt else 1
     val duration = if (args.length > 3) FiniteDuration(args(2).toLong, args(3)) else 10 seconds
 
-    implicit val system = ActorSystem("hybrid")
+    implicit val system = ActorSystem("concurrent")
 
     val stats = Statistics()
     val migrator = system.actorOf(Migrator.props, "migrator")
-    val islands = List.tabulate(islandsNumber)(i => system.actorOf(HybridIsland.props(migrator, stats), s"island$i"))
+    val islands = List.tabulate(islandsNumber)(i => system.actorOf(ConcurrentIsland.props(migrator, stats), s"island$i"))
 
-    islands.foreach(_ ! HybridIsland.Loop)
     system.scheduler.scheduleOnce(duration)(islands.foreach(_ ! PoisonPill))
 
     val log = Logging(system, getClass)
