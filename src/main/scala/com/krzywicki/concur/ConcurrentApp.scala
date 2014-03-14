@@ -1,12 +1,13 @@
 package com.krzywicki.concur
 
-import com.krzywicki.util.{Migrator, Statistics, Reaper}
+import com.krzywicki.util.{Migrator, Reaper}
 import com.krzywicki.util.Util._
 import akka.actor.{PoisonPill, ActorSystem}
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import akka.event.Logging
+import com.krzywicki.stat.Statistics
 
 
 object ConcurrentApp {

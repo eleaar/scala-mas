@@ -2,15 +2,17 @@ package com.krzywicki.concur
 
 import com.krzywicki.util.MAS._
 import akka.actor.{Props, ActorRef, Actor}
-import com.krzywicki.util.{Migrator, Statistics}
-import com.krzywicki.util.MeetingsInterceptor._
+import com.krzywicki.util.Migrator
+import com.krzywicki.stat.{MeetingsInterceptor, Statistics}
+import MeetingsInterceptor._
+import com.krzywicki.stat.Statistics._
 
 object ConcurrentIsland {
 
   def props(migrator: ActorRef, stats: Statistics) = Props(classOf[ConcurrentIsland], migrator, stats)
 }
 
-class ConcurrentIsland(val migrator: ActorRef, val stats: Statistics) extends Actor {
+class ConcurrentIsland(val migrator: ActorRef, implicit val stats: Statistics) extends Actor {
 
   import Migrator._
 
@@ -19,9 +21,7 @@ class ConcurrentIsland(val migrator: ActorRef, val stats: Statistics) extends Ac
   migrator ! RegisterIsland(self)
 
   val supportedBehaviours = List(Migration, Fight, Reproduction, Death)
-  val arenas = arenasForBehaviours(supportedBehaviours, (migration orElse meetings).intercepted {
-    case (Reproduction, agents) => stats.update(agents.maxBy(_.fitness).fitness, agents.size/2)
-  })
+  val arenas = arenasForBehaviours(supportedBehaviours, migration orElse monitored(meetings))
 
   val population = createPopulation
   stats.update(population.maxBy(_.fitness).fitness, 0L)
@@ -29,7 +29,6 @@ class ConcurrentIsland(val migrator: ActorRef, val stats: Statistics) extends Ac
 
   def receive = {
     case Add(agent) =>
-      stats.update(agent.fitness, 0L)
       context.actorOf(Individual.props(agent, arenas))
   }
 
@@ -38,9 +37,6 @@ class ConcurrentIsland(val migrator: ActorRef, val stats: Statistics) extends Ac
       migrator ! MigrateAgents(agents);
       List.empty
   }
-
-
-
 
   def arenasForBehaviours(behaviours: List[Behaviour], meetings: Meetings) =
     behaviours map {

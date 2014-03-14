@@ -8,7 +8,7 @@ object MAS {
 
   type Energy = Int
 
-  class Agent(val solution: Solution, val fitness: Fitness, var energy: Energy)
+  case class Agent(val solution: Solution, val fitness: Fitness, var energy: Energy)
 
   type Population = List[Agent]
   type Group = (Behaviour, Population)
@@ -16,7 +16,7 @@ object MAS {
 
   def createAgent(implicit config: EmasConfig): Agent = {
     val solution = createSolution
-    new Agent(solution, evaluate(solution), config.initialEnergy)
+    Agent(solution, evaluate(solution), config.initialEnergy)
   }
 
   def createPopulation(implicit config: EmasConfig): Population = {
@@ -53,15 +53,13 @@ object MAS {
 
   def fight(agents: List[Agent])(implicit config: EmasConfig) = agents match {
     case List(a) => List(a)
-    case List(a1, a2) =>
+    case List(a, b) =>
       val AtoBTransfer =
-        if (a1.fitness < a2.fitness)
-          min(config.fightTransfer, a1.energy)
+        if (a.fitness < b.fitness)
+          min(config.fightTransfer, a.energy)
         else
-          -min(config.fightTransfer, a2.energy)
-      a1.energy -= AtoBTransfer
-      a2.energy += AtoBTransfer
-      List(a1, a2)
+          -min(config.fightTransfer, b.energy)
+      List(a.copy(energy = a.energy - AtoBTransfer), b.copy(energy = b.energy + AtoBTransfer))
   }
 
   def reproduction(agents: List[Agent])(implicit config: EmasConfig) = agents match {
@@ -69,15 +67,12 @@ object MAS {
       val s = reproduce(a.solution)
       val f = evaluate(s)
       val e = min(config.reproductionTransfer, a.energy)
-      a.energy -= e;
-      List(a, new Agent(s, f, e))
+      List(a.copy(energy = a.energy - e), Agent(s, f, e))
     case List(a1, a2) =>
       val (s1, s2) = reproduce(a1.solution, a2.solution)
       val (f1, f2) = (evaluate(s1), evaluate(s2))
       val (e1, e2) = (min(config.reproductionTransfer, a1.energy), min(config.reproductionTransfer, a2.energy))
-      a1.energy -= e1;
-      a2.energy -= e2;
-      List(a1, a2, new Agent(s1, f1, e1), new Agent(s2, f2, e2))
+      List(a1.copy(energy = a1.energy - e1), a2.copy(energy = a2.energy - e2), Agent(s1, f1, e1), Agent(s2, f2, e2))
   }
 
 }
