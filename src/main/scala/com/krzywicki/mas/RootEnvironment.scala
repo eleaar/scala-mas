@@ -1,23 +1,22 @@
-package com.krzywicki.emas
+package com.krzywicki.mas
 
 import akka.actor.{Props, Actor}
 import com.krzywicki.util.MAS.Agent
-import com.krzywicki.util._
 import scala.util.Random
 import com.krzywicki.config.AppConfig
 
-object EmasRoot {
+object RootEnvironment {
 
   case class Migrate(agents: List[Agent])
 
   case class Add(agent: Agent)
 
-  def props(islandProps: Props) = Props(classOf[EmasRoot], islandProps)
+  def props(islandProps: Props) = Props(classOf[RootEnvironment], islandProps)
 }
 
-class EmasRoot(islandProps: Props) extends Actor {
+class RootEnvironment(islandProps: Props) extends Actor {
 
-  import EmasRoot._
+  import RootEnvironment._
 
   val settings = AppConfig(context.system)
 

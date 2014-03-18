@@ -1,13 +1,13 @@
-package com.krzywicki.emas
+package com.krzywicki.mas
 
 import akka.actor.Actor
 import com.krzywicki.util.MAS._
 import com.krzywicki.util.MAS.Agent
 import com.krzywicki.config.AppConfig
 
-abstract class EmasIsland extends Actor {
+abstract class Environment extends Actor {
 
-  import EmasRoot._
+  import RootEnvironment._
 
   implicit val settings = AppConfig(context.system)
 

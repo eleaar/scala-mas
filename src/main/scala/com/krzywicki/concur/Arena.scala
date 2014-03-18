@@ -3,8 +3,8 @@ package com.krzywicki.concur
 import akka.actor.{PoisonPill, ActorRef, Props, Actor}
 import com.krzywicki.util.MAS._
 import scala.collection.mutable.ArrayBuffer
-import com.krzywicki.emas.EmasRoot
 import com.krzywicki.config.{AppConfig, ConcurrentConfig}
+import com.krzywicki.mas.RootEnvironment
 
 object Arena {
 
@@ -17,7 +17,7 @@ class Arena(capacity: Int, meeting: (List[Agent]) => List[Agent]) extends Actor 
 
   import Arena._
   import Individual._
-  import EmasRoot._
+  import RootEnvironment._
 
   implicit val settings = AppConfig(context.system)
 

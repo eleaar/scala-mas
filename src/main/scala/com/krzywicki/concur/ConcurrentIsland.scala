@@ -4,14 +4,14 @@ import com.krzywicki.util.MAS._
 import akka.actor.Props
 import com.krzywicki.stat.Statistics
 import com.krzywicki.stat.Statistics._
-import com.krzywicki.emas.EmasIsland
+import com.krzywicki.mas.Environment
 
 object ConcurrentIsland {
 
   def props(stats: Statistics) = Props(classOf[ConcurrentIsland], stats)
 }
 
-class ConcurrentIsland(implicit val stats: Statistics) extends EmasIsland {
+class ConcurrentIsland(implicit val stats: Statistics) extends Environment {
 
   val supportedBehaviours = List(Migration, Fight, Reproduction, Death)
   val arenas = arenasForBehaviours(supportedBehaviours, migration orElse monitored(meetings))

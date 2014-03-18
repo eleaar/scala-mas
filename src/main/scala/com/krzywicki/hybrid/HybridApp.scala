@@ -1,7 +1,7 @@
 package com.krzywicki.hybrid
 
 import scala.concurrent.duration._
-import com.krzywicki.emas.{EmasLogicImpl, EmasRoot, EmasApp}
+import com.krzywicki.emas.{EmasLogicImpl, EmasApp}
 import com.krzywicki.stat.{MonitoredEmasLogic, Statistics}
 import com.krzywicki.config.AppConfig
 import com.krzywicki.util.MAS._
@@ -11,6 +11,7 @@ import akka.event.Logging
 import com.krzywicki.util.{Reaper, Logger}
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import com.krzywicki.mas.RootEnvironment
 
 object HybridApp extends EmasApp {
 
@@ -31,7 +32,7 @@ object HybridApp extends EmasApp {
 
     val islandProps = HybridIsland.props(MonitoredEmasLogic(new EmasLogicImpl))
 
-    val root = system.actorOf(EmasRoot.props(islandProps), "root")
+    val root = system.actorOf(RootEnvironment.props(islandProps), "root")
     for (
       _ <- Reaper.terminateAfter(root, duration);
       _ <- stats.updatesDone) {

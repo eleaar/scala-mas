@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 import akka.event.Logging
 import com.krzywicki.stat.Statistics
 import scala.concurrent.ExecutionContext.Implicits.global
+import com.krzywicki.mas.RootEnvironment
 
 class EmasApp {
 
@@ -21,7 +22,7 @@ class EmasApp {
         log info (s"reproductions $time $reproductions")
     }
 
-    val root = system.actorOf(EmasRoot.props(islandsProps(stats)), "root")
+    val root = system.actorOf(RootEnvironment.props(islandsProps(stats)), "root")
     for (
       _ <- Reaper.terminateAfter(root, duration);
       _ <- stats.updatesDone) {

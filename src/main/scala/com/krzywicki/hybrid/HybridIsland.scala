@@ -1,16 +1,16 @@
 package com.krzywicki.hybrid
 
 import akka.actor._
-import com.krzywicki.emas.{EmasLogic, EmasIsland}
+import com.krzywicki.mas.{Logic, Environment}
 
 object HybridIsland {
 
   case object Loop
 
-  def props(logic: EmasLogic) = Props(classOf[HybridIsland], logic)
+  def props(logic: Logic) = Props(classOf[HybridIsland], logic)
 }
 
-class HybridIsland(logic: EmasLogic) extends EmasIsland {
+class HybridIsland(logic: Logic) extends Environment {
 
   import HybridIsland._
   import logic._
