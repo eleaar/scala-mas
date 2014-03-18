@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import akka.event.Logging
 import com.krzywicki.stat.Statistics
 import com.krzywicki.EmasRoot
-
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object ConcurrentApp {
 

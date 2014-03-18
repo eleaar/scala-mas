@@ -6,6 +6,7 @@ import com.krzywicki.stat.{MeetingsInterceptor, Statistics}
 import MeetingsInterceptor._
 import com.krzywicki.stat.Statistics._
 import com.krzywicki.EmasRoot
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object ConcurrentIsland {
 

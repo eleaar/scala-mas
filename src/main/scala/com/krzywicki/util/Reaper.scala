@@ -1,11 +1,10 @@
 package com.krzywicki.util
 
 import akka.actor._
-import scala.concurrent.Promise
+import scala.concurrent.{ExecutionContext, Promise}
 import akka.actor.Terminated
 import scala.util.Success
 import scala.concurrent.duration.{FiniteDuration, Duration}
-import scala.concurrent.ExecutionContext.Implicits.global
 
 object Reaper {
   def actorsTerminate(actors: Seq[ActorRef])(implicit system: ActorSystem) = {
@@ -14,7 +13,7 @@ object Reaper {
     p.future
   }
 
-  def terminateAfter(actor: ActorRef, duration: FiniteDuration)(implicit system: ActorSystem) = {
+  def terminateAfter(actor: ActorRef, duration: FiniteDuration)(implicit system: ActorSystem, executionContext: ExecutionContext) = {
     system.scheduler.scheduleOnce(duration, actor, PoisonPill)
     actorsTerminate(List(actor))
   }

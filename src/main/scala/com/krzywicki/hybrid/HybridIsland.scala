@@ -1,29 +1,29 @@
 package com.krzywicki.hybrid
 
-import com.krzywicki.util.Migrator
 import com.krzywicki.util.MAS._
 import akka.actor._
 import com.krzywicki.concur.ConcurrentConfig
 import com.krzywicki.stat.Statistics
 import com.krzywicki.stat.Statistics._
+import com.krzywicki.EmasRoot
 
 object HybridIsland {
 
   case object Loop
 
-  def props(migrator: ActorRef, stats: Statistics) = Props(classOf[HybridIsland], migrator, stats)
+  def props(stats: Statistics) = Props(classOf[HybridIsland], stats)
 }
 
-class HybridIsland(val migrator: ActorRef, implicit val stats: Statistics) extends Actor with ActorLogging {
+class HybridIsland(implicit val stats: Statistics) extends Actor with ActorLogging {
 
   import HybridIsland._
-  import Migrator._
+  import EmasRoot._
 
   implicit val settings = ConcurrentConfig(context.system)
 
   var population = createPopulation
   stats.update(population.maxBy(_.fitness).fitness, 0L)
-  migrator ! RegisterIsland(self)
+  self ! Loop
 
   def receive = {
     case Loop =>
@@ -36,7 +36,7 @@ class HybridIsland(val migrator: ActorRef, implicit val stats: Statistics) exten
 
   def migration: PartialFunction[(Behaviour, List[Agent]), List[Agent]] = {
     case (Migration, agents) =>
-      migrator ! MigrateAgents(agents);
+      context.parent ! Migrate(agents);
       List.empty
   }
 }
