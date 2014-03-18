@@ -3,7 +3,7 @@ package com.krzywicki.concur
 import akka.actor.{PoisonPill, ActorRef, Props, Actor}
 import com.krzywicki.util.MAS._
 import scala.collection.mutable.ArrayBuffer
-import com.krzywicki.util.Migrator.Add
+import com.krzywicki.EmasRoot
 
 object Arena {
 
@@ -16,6 +16,7 @@ class Arena(capacity: Int, meeting: (List[Agent]) => List[Agent]) extends Actor 
 
   import Arena._
   import Individual._
+  import EmasRoot._
 
   implicit val settings = ConcurrentConfig(context.system)
 

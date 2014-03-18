@@ -11,7 +11,7 @@ object Individual {
     Props(classOf[Individual], state, arenas)
 }
 
-class Individual(var state: Agent, var arenas: Map[Behaviour, ActorRef]) extends Actor {
+class Individual(var state: Agent, val arenas: Map[Behaviour, ActorRef]) extends Actor {
 
   import Individual._
   import Arena._

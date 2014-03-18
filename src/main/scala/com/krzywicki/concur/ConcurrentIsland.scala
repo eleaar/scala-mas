@@ -2,23 +2,21 @@ package com.krzywicki.concur
 
 import com.krzywicki.util.MAS._
 import akka.actor.{Props, ActorRef, Actor}
-import com.krzywicki.util.Migrator
 import com.krzywicki.stat.{MeetingsInterceptor, Statistics}
 import MeetingsInterceptor._
 import com.krzywicki.stat.Statistics._
+import com.krzywicki.EmasRoot
 
 object ConcurrentIsland {
 
-  def props(migrator: ActorRef, stats: Statistics) = Props(classOf[ConcurrentIsland], migrator, stats)
+  def props(stats: Statistics) = Props(classOf[ConcurrentIsland], stats)
 }
 
-class ConcurrentIsland(val migrator: ActorRef, implicit val stats: Statistics) extends Actor {
+class ConcurrentIsland(implicit val stats: Statistics) extends Actor {
 
-  import Migrator._
+  import EmasRoot._
 
   implicit val settings = ConcurrentConfig(context.system)
-
-  migrator ! RegisterIsland(self)
 
   val supportedBehaviours = List(Migration, Fight, Reproduction, Death)
   val arenas = arenasForBehaviours(supportedBehaviours, migration orElse monitored(meetings))
@@ -34,7 +32,7 @@ class ConcurrentIsland(val migrator: ActorRef, implicit val stats: Statistics) e
 
   def migration: Meetings = {
     case (Migration, agents) =>
-      migrator ! MigrateAgents(agents);
+      context.parent ! Migrate(agents);
       List.empty
   }
 

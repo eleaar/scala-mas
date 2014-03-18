@@ -8,7 +8,7 @@ import com.typesafe.config.Config
 import com.krzywicki.util.EmasConfig
 import com.krzywicki.util.MAS._
 
-class ConcurrentConfig(config: Config) extends EmasConfig(config) with Extension {
+class ConcurrentConfig(config: Config) extends EmasConfig(config) {
   private val c = config.getConfig("concurrent")
 
   val capacities = Map[Behaviour, Int](

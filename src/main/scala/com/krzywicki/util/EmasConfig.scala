@@ -1,8 +1,12 @@
 package com.krzywicki.util
 
-import com.typesafe.config.Config
 
-class EmasConfig(config: Config) {
+import akka.actor.Extension
+import com.typesafe.config.Config
+import akka.actor.{ExtendedActorSystem, ExtensionIdProvider, ExtensionId}
+
+class EmasConfig(config: Config) extends Extension {
+  val islandsNumber = config.getInt("islandsNumber")
   val problemSize = config.getInt("problemSize")
 
   val populationSize = config.getInt("populationSize")
@@ -16,5 +20,13 @@ class EmasConfig(config: Config) {
   val mutationChance = config.getDouble("mutationChance")
   val recombinationChance = config.getDouble("recombinationChance")
   val migrationProbability = config.getDouble("migrationProbability")
+}
+
+object EmasConfig extends ExtensionId[EmasConfig] with ExtensionIdProvider {
+
+  override def lookup = EmasConfig
+
+  override def createExtension(system: ExtendedActorSystem) =
+    new EmasConfig(system.settings.config.getConfig("emas"))
 }
 

@@ -4,12 +4,19 @@ import akka.actor._
 import scala.concurrent.Promise
 import akka.actor.Terminated
 import scala.util.Success
+import scala.concurrent.duration.{FiniteDuration, Duration}
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object Reaper {
   def actorsTerminate(actors: Seq[ActorRef])(implicit system: ActorSystem) = {
     val p = Promise[Unit]()
     system.actorOf(Props(classOf[PromiseReaper], p, actors), "reaper")
     p.future
+  }
+
+  def terminateAfter(actor: ActorRef, duration: FiniteDuration)(implicit system: ActorSystem) = {
+    system.scheduler.scheduleOnce(duration, actor, PoisonPill)
+    actorsTerminate(List(actor))
   }
 }
 
