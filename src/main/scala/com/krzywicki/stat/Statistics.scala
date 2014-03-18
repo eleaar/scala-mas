@@ -10,8 +10,6 @@ object Statistics {
 
   def monitored(m: => Meetings)(implicit stats: Statistics) = m.intercepted {
     case (Reproduction, agentsBefore, agentsAfter) =>
-//      println(s"$agentsBefore $agentsAfter")
-
       stats.update(agentsAfter.maxBy(_.fitness).fitness, agentsBefore.size)
   }
 }
