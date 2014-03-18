@@ -5,9 +5,9 @@ import akka.actor.ActorSystem
 import scala.concurrent.duration._
 import akka.event.Logging
 import com.krzywicki.stat.Statistics
-import com.krzywicki.EmasRoot
 import com.krzywicki.concur.ConcurrentIsland
 import scala.concurrent.ExecutionContext.Implicits.global
+import com.krzywicki.emas.EmasRoot
 
 object HybridApp {
 

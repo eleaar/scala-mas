@@ -5,8 +5,9 @@ import akka.actor.{Props, ActorRef, Actor}
 import com.krzywicki.stat.{MeetingsInterceptor, Statistics}
 import MeetingsInterceptor._
 import com.krzywicki.stat.Statistics._
-import com.krzywicki.EmasRoot
 import scala.concurrent.ExecutionContext.Implicits.global
+import com.krzywicki.emas.EmasRoot
+import com.krzywicki.config.AppConfig
 
 object ConcurrentIsland {
 
@@ -17,7 +18,7 @@ class ConcurrentIsland(implicit val stats: Statistics) extends Actor {
 
   import EmasRoot._
 
-  implicit val settings = ConcurrentConfig(context.system)
+  implicit val settings = AppConfig(context.system)
 
   val supportedBehaviours = List(Migration, Fight, Reproduction, Death)
   val arenas = arenasForBehaviours(supportedBehaviours, migration orElse monitored(meetings))
@@ -40,7 +41,7 @@ class ConcurrentIsland(implicit val stats: Statistics) extends Actor {
   def arenasForBehaviours(behaviours: List[Behaviour], meetings: Meetings) =
     behaviours map {
       behaviour =>
-        val capacity = settings.capacities(behaviour)
+        val capacity = settings.emas.concurrent.capacities(behaviour)
         val meeting = (agents: List[Agent]) => meetings((behaviour, agents))
         behaviour -> context.actorOf(Arena.props(capacity, meeting), behaviour.toString)
     } toMap

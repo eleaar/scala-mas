@@ -2,10 +2,10 @@ package com.krzywicki.hybrid
 
 import com.krzywicki.util.MAS._
 import akka.actor._
-import com.krzywicki.concur.ConcurrentConfig
 import com.krzywicki.stat.Statistics
 import com.krzywicki.stat.Statistics._
-import com.krzywicki.EmasRoot
+import com.krzywicki.emas.EmasRoot
+import com.krzywicki.config.{ConcurrentConfig, AppConfig}
 
 object HybridIsland {
 
@@ -19,7 +19,7 @@ class HybridIsland(implicit val stats: Statistics) extends Actor with ActorLoggi
   import HybridIsland._
   import EmasRoot._
 
-  implicit val settings = ConcurrentConfig(context.system)
+  implicit val settings = AppConfig(context.system)
 
   var population = createPopulation
   stats.update(population.maxBy(_.fitness).fitness, 0L)

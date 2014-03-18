@@ -4,13 +4,13 @@ import com.krzywicki.util.MAS._
 
 import scala.concurrent.duration._
 import com.typesafe.config.ConfigFactory
-import com.krzywicki.util.EmasConfig
+import com.krzywicki.config.AppConfig
 
 
 object SeqApp {
 
   def main(args: Array[String]) {
-    implicit val config = new EmasConfig(ConfigFactory.load().getConfig("emas"))
+    implicit val config = new AppConfig(ConfigFactory.load().getConfig("emas"))
     val deadline = 10 seconds fromNow
 
     var population = createPopulation

@@ -2,6 +2,7 @@ package com.krzywicki.concur
 
 import com.krzywicki.util.MAS._
 import akka.actor.{Actor, Props, ActorRef}
+import com.krzywicki.config.{AppConfig, ConcurrentConfig}
 
 object Individual {
 
@@ -16,7 +17,7 @@ class Individual(var state: Agent, val arenas: Map[Behaviour, ActorRef]) extends
   import Individual._
   import Arena._
 
-  implicit val settings = ConcurrentConfig(context.system)
+  implicit val settings = AppConfig(context.system)
 
   override def preStart = joinArena
 

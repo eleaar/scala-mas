@@ -1,9 +1,10 @@
-package com.krzywicki
+package com.krzywicki.emas
 
 import akka.actor.{Props, Actor}
 import com.krzywicki.util.MAS.Agent
 import com.krzywicki.util._
 import scala.util.Random
+import com.krzywicki.config.AppConfig
 
 object EmasRoot {
 
@@ -18,9 +19,9 @@ class EmasRoot(islandProps: Props) extends Actor {
 
   import EmasRoot._
 
-  val settings = EmasConfig(context.system)
+  val settings = AppConfig(context.system)
 
-  val islands = List.tabulate(settings.islandsNumber)(i => context.actorOf(islandProps, s"island-$i"))
+  val islands = List.tabulate(settings.emas.islandsNumber)(i => context.actorOf(islandProps, s"island-$i"))
 
   def receive = {
     case Migrate(agents) =>
