@@ -14,6 +14,7 @@ object MAS {
   type Population = List[Agent]
   type Group = (Behaviour, Population)
   type Meetings = PartialFunction[Group, Population]
+  type BehaviourFun = (Agent) => Behaviour
 
   def createAgent(implicit config: AppConfig): Agent = {
     val solution = createSolution

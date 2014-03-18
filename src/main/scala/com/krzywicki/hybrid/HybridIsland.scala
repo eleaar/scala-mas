@@ -1,29 +1,26 @@
 package com.krzywicki.hybrid
 
-import com.krzywicki.util.MAS._
 import akka.actor._
-import com.krzywicki.stat.Statistics
-import com.krzywicki.stat.Statistics._
-import com.krzywicki.emas.EmasIsland
+import com.krzywicki.emas.{EmasLogic, EmasIsland}
 
 object HybridIsland {
 
   case object Loop
 
-  def props(stats: Statistics) = Props(classOf[HybridIsland], stats)
+  def props(logic: EmasLogic) = Props(classOf[HybridIsland], logic)
 }
 
-class HybridIsland(implicit val stats: Statistics) extends EmasIsland {
+class HybridIsland(logic: EmasLogic) extends EmasIsland {
 
   import HybridIsland._
+  import logic._
 
-  var population = createPopulation
-  stats.update(population.maxBy(_.fitness).fitness, 0L)
+  var population = initialPopulation
   self ! Loop
 
   override def receive = super.receive orElse {
     case Loop =>
-      population = population.groupBy(behaviour).flatMap(migration orElse monitored(meetings)).toList
+      population = population.groupBy(behaviourFunction).flatMap(migration orElse meetingsFunction).toList
       self ! Loop
   }
 
