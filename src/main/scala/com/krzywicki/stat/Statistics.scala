@@ -2,15 +2,17 @@ package com.krzywicki.stat
 
 import akka.actor.ActorSystem
 import akka.agent.Agent
-import com.krzywicki.util.MAS._
+import com.krzywicki.emas.EmasLogic
+import com.krzywicki.mas.LogicTypes._
+import EmasLogic._
 import com.krzywicki.stat.MeetingsInterceptor._
 
 object Statistics {
   def apply()(implicit system: ActorSystem) = new Statistics(system)
 
-  def monitored(m: => Meetings)(implicit stats: Statistics) = m.intercepted {
+  def monitored(m: => MeetingFunction)(implicit stats: Statistics) = m.intercepted {
     case (Reproduction, agentsBefore, agentsAfter) =>
-      stats.update(agentsAfter.maxBy(_.fitness).fitness, agentsBefore.size)
+      stats.update(checked(agentsAfter).maxBy(_.fitness).fitness, agentsBefore.size)
   }
 }
 

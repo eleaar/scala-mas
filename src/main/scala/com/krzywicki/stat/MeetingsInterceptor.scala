@@ -1,9 +1,9 @@
 package com.krzywicki.stat
 
-import com.krzywicki.util.MAS._
+import com.krzywicki.mas.LogicTypes._
 import com.krzywicki.stat.MeetingsInterceptor._
 
-class MeetingsInterceptor(meetings: Meetings, interceptor: Interceptor) extends Meetings {
+class MeetingsInterceptor(meetings: MeetingFunction, interceptor: Interceptor) extends MeetingFunction {
 
   def apply(group: Group) = {
     val behaviour = group._1
@@ -22,7 +22,7 @@ object MeetingsInterceptor {
 
   type Interceptor = PartialFunction[(Behaviour, Population, Population), Unit]
 
-  implicit class InterceptedMeetings(meetings: Meetings) {
+  implicit class InterceptedMeetings(meetings: MeetingFunction) {
     def intercepted(interceptor: Interceptor) = new MeetingsInterceptor(meetings, interceptor)
   }
 

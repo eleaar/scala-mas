@@ -1,12 +1,10 @@
 package com.krzywicki.mas
 
 import akka.actor.Actor
-import com.krzywicki.util.MAS._
-import com.krzywicki.util.MAS.Agent
 import com.krzywicki.config.AppConfig
+import com.krzywicki.mas.LogicTypes._
 
 abstract class Environment extends Actor {
-
   import RootEnvironment._
 
   implicit val settings = AppConfig(context.system)
@@ -17,7 +15,7 @@ abstract class Environment extends Actor {
 
   def addAgent(agent: Agent)
 
-  def migration: Meetings = {
+  def migration: MeetingFunction = {
     case (Migration, agents) =>
       context.parent ! Migrate(agents);
       List.empty

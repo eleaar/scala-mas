@@ -1,33 +1,33 @@
 package com.krzywicki.concur
 
-import com.krzywicki.util.MAS._
+import com.krzywicki.emas.EmasLogic
 import akka.actor.Props
 import com.krzywicki.stat.Statistics
 import com.krzywicki.stat.Statistics._
-import com.krzywicki.mas.Environment
+import com.krzywicki.mas.{Logic, Environment}
+import com.krzywicki.mas.LogicTypes._
 
 object ConcurrentIsland {
 
-  def props(stats: Statistics) = Props(classOf[ConcurrentIsland], stats)
+  def props(logic: Logic) = Props(classOf[ConcurrentIsland], logic)
 }
 
-class ConcurrentIsland(implicit val stats: Statistics) extends Environment {
+class ConcurrentIsland(logic: Logic) extends Environment {
 
-  val supportedBehaviours = List(Migration, Fight, Reproduction, Death)
-  val arenas = arenasForBehaviours(supportedBehaviours, migration orElse monitored(meetings))
+  import logic._
 
-  val population = createPopulation
-  stats.update(population.maxBy(_.fitness).fitness, 0L)
-  population.foreach(agent => context.actorOf(Individual.props(agent, arenas)))
+  val arenas = arenasForBehaviours(behaviours, migration orElse meetingsFunction)
+  val switchingBehaviour = (agent: Agent) => arenas(behaviourFunction(agent))
 
-  def addAgent(agent: Agent) = context.actorOf(Individual.props(agent, arenas))
+  initialPopulation.foreach(addAgent)
 
-  def arenasForBehaviours(behaviours: List[Behaviour], meetings: Meetings) =
+  def addAgent(agent: Agent) = context.actorOf(Individual.props(agent, switchingBehaviour))
+
+  def arenasForBehaviours(behaviours: Seq[Behaviour], meetings: MeetingFunction) =
     behaviours map {
       behaviour =>
         val capacity = settings.emas.concurrent.capacities(behaviour)
         val meeting = (agents: List[Agent]) => meetings((behaviour, agents))
         behaviour -> context.actorOf(Arena.props(capacity, meeting), behaviour.toString)
     } toMap
-
 }

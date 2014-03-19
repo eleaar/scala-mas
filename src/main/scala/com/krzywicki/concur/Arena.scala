@@ -1,31 +1,28 @@
 package com.krzywicki.concur
 
 import akka.actor.{PoisonPill, ActorRef, Props, Actor}
-import com.krzywicki.util.MAS._
 import scala.collection.mutable.ArrayBuffer
-import com.krzywicki.config.{AppConfig, ConcurrentConfig}
+import com.krzywicki.mas.LogicTypes._
 import com.krzywicki.mas.RootEnvironment
 
 object Arena {
 
   case class Join(agent: Agent)
 
-  def props(capacity: Int, meeting: (List[Agent]) => List[Agent]) = Props(classOf[Arena], capacity, meeting)
+  def props(capacity: Int, meeting: (Population) => Population) = Props(classOf[Arena], capacity, meeting)
 }
 
-class Arena(capacity: Int, meeting: (List[Agent]) => List[Agent]) extends Actor {
+class Arena(val capacity: Int, val meeting: (Population) => Population) extends Actor {
 
+  import RootEnvironment._
   import Arena._
   import Individual._
-  import RootEnvironment._
-
-  implicit val settings = AppConfig(context.system)
 
   val actors = ArrayBuffer.empty[ActorRef]
   val agents = ArrayBuffer.empty[Agent]
 
   def receive = {
-    case Join(agent: Agent) =>
+    case Join(agent) =>
       actors += sender
       agents += agent
       if (agents.size == capacity) {

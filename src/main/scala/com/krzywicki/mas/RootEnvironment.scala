@@ -1,13 +1,13 @@
 package com.krzywicki.mas
 
 import akka.actor.{Props, Actor}
-import com.krzywicki.util.MAS.Agent
 import scala.util.Random
 import com.krzywicki.config.AppConfig
+import com.krzywicki.mas.LogicTypes._
 
 object RootEnvironment {
 
-  case class Migrate(agents: List[Agent])
+  case class Migrate(agents: Seq[Agent])
 
   case class Add(agent: Agent)
 
@@ -19,15 +19,14 @@ class RootEnvironment(islandProps: Props) extends Actor {
   import RootEnvironment._
 
   val settings = AppConfig(context.system)
-
-  val islands = List.tabulate(settings.emas.islandsNumber)(i => context.actorOf(islandProps, s"island-$i"))
+  val islands = Array.tabulate(settings.emas.islandsNumber)(i => context.actorOf(islandProps, s"island-$i"))
 
   def receive = {
     case Migrate(agents) =>
       agents.foreach {
-        agent => randomFrom(islands) ! Add(agent)
+        agent => randomIsland ! Add(agent)
       }
   }
 
-  def randomFrom[T](list: List[T]) = list(Random.nextInt(list.size))
+  def randomIsland = islands(Random.nextInt(islands.size))
 }

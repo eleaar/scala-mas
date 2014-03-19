@@ -1,16 +1,25 @@
 package com.krzywicki.mas
 
-import com.krzywicki.util.MAS._
+object LogicTypes {
+  trait Agent {}
+  type Population = List[Agent]
 
-import com.krzywicki.config.AppConfig
+  trait Behaviour
+  case object Migration extends Behaviour
+  type BehaviourFunction = PartialFunction[Agent, Behaviour]
+
+  type Group = (Behaviour, Population)
+  type MeetingFunction = PartialFunction[Group, Population]
+}
 
 trait Logic {
-  type Agent = com.krzywicki.util.MAS.Agent
-
+  import LogicTypes._
   def initialPopulation: Population
-  def behaviourFunction: BehaviourFun
-  def meetingsFunction: Meetings
+  def behaviours: Seq[Behaviour]
+  def behaviourFunction: BehaviourFunction
+  def meetingsFunction: MeetingFunction
 }
+
 
 
 

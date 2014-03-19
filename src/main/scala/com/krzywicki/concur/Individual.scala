@@ -1,18 +1,19 @@
 package com.krzywicki.concur
 
-import com.krzywicki.util.MAS._
 import akka.actor.{Actor, Props, ActorRef}
-import com.krzywicki.config.{AppConfig, ConcurrentConfig}
+import com.krzywicki.config.AppConfig
+import com.krzywicki.mas.LogicTypes._
 
 object Individual {
 
   case class UpdateState(state: Agent)
 
-  def props(state: Agent, arenas: Map[Behaviour, ActorRef]) =
-    Props(classOf[Individual], state, arenas)
+  def props(state: Agent, switchingBehaviour: (Agent) => ActorRef) =
+    Props(classOf[Individual], state, switchingBehaviour)
 }
 
-class Individual(var state: Agent, val arenas: Map[Behaviour, ActorRef]) extends Actor {
+
+class Individual(var state: Agent, val switchingBehaviour: (Agent) => ActorRef) extends Actor {
 
   import Individual._
   import Arena._
@@ -27,5 +28,5 @@ class Individual(var state: Agent, val arenas: Map[Behaviour, ActorRef]) extends
       joinArena
   }
 
-  def joinArena = arenas(behaviour(state)) ! Join(state)
+  def joinArena = switchingBehaviour(state) ! Join(state)
 }

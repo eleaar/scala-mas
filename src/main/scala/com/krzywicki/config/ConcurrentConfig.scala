@@ -1,10 +1,8 @@
 package com.krzywicki.config
 
-import akka.actor.ExtensionId
-import akka.actor.ExtensionIdProvider
-import akka.actor.ExtendedActorSystem
 import com.typesafe.config.Config
-import com.krzywicki.util.MAS._
+import com.krzywicki.emas.EmasLogic._
+import com.krzywicki.mas.LogicTypes._
 
 class ConcurrentConfig(config: Config) {
 

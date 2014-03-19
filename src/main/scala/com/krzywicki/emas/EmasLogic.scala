@@ -1,59 +1,52 @@
-package com.krzywicki.util
+package com.krzywicki.emas
 
 import com.krzywicki.util.Genetic._
 import scala.math._
 import com.krzywicki.util.Util._
 import com.krzywicki.config.AppConfig
+import com.krzywicki.mas.{LogicTypes, Logic}
+import com.krzywicki.mas.LogicTypes._
 
-object MAS {
-
-  type Energy = Int
-
-  case class Agent(val solution: Solution, val fitness: Fitness, var energy: Energy)
-
-  type Population = List[Agent]
-  type Group = (Behaviour, Population)
-  type Meetings = PartialFunction[Group, Population]
-  type BehaviourFun = (Agent) => Behaviour
-
-  def createAgent(implicit config: AppConfig): Agent = {
-    val solution = createSolution
-    Agent(solution, evaluate(solution), config.emas.initialEnergy)
-  }
-
-  def createPopulation(implicit config: AppConfig): Population = {
-    List.fill(config.emas.populationSize)(createAgent)
-  }
-
-  sealed trait Behaviour
-
+object EmasLogic {
+  case class Agent(val solution: Solution, val fitness: Fitness, var energy: Int) extends LogicTypes.Agent
   case object Death extends Behaviour
-
   case object Fight extends Behaviour
-
   case object Reproduction extends Behaviour
 
-  case object Migration extends Behaviour
+  def checked(pop: Population) = pop.collect{ case a: EmasLogic.Agent => a}
+}
 
-  def behaviour(agent: Agent)(implicit config: AppConfig) =
-    agent.energy match {
+class EmasLogic(implicit val config: AppConfig) extends Logic {
+ import EmasLogic._
+
+
+  def initialPopulation: Population =
+    List.fill(config.emas.populationSize) {
+      val solution = createSolution
+      Agent(solution, evaluate(solution), config.emas.initialEnergy)
+    }
+
+  val behaviours = List(Death, Fight, Reproduction, Migration)
+
+  def behaviourFunction = {
+    case Agent(_,_,energy) => energy match {
       case 0 => Death
       case _ if random < config.emas.migrationProbability => Migration
       case energy if energy >= config.emas.reproductionThreshold => Reproduction
       case _ => Fight
     }
+  }
 
-  def meetings(implicit config: AppConfig): Meetings = {
+  def meetingsFunction = {
     case (Death, _) => List.empty[Agent]
     case (Fight, agents) =>
-      agents.shuffled.grouped(2).flatMap(fight).toList
+      checked(agents).shuffled.grouped(2).flatMap(fight).toList
     case (Reproduction, agents) =>
-      agents.shuffled.grouped(2).flatMap(reproduction).toList
+      checked(agents).shuffled.grouped(2).flatMap(reproduction).toList
     case (Migration, agents) => agents
   }
 
-
-  def fight(agents: List[Agent])(implicit config: AppConfig) = agents match {
+  private def fight(agents: List[Agent])(implicit config: AppConfig) = agents match {
     case List(a) => List(a)
     case List(a, b) =>
       val AtoBTransfer =
@@ -64,7 +57,7 @@ object MAS {
       List(a.copy(energy = a.energy - AtoBTransfer), b.copy(energy = b.energy + AtoBTransfer))
   }
 
-  def reproduction(agents: List[Agent])(implicit config: AppConfig) = agents match {
+  private def reproduction(agents: List[Agent])(implicit config: AppConfig) = agents match {
     case List(a) =>
       val s = reproduce(a.solution)
       val f = evaluate(s)

@@ -3,8 +3,9 @@ package com.krzywicki.hybrid
 import akka.actor._
 import com.krzywicki.mas.{Logic, Environment}
 
-object HybridIsland {
+import com.krzywicki.mas.LogicTypes._
 
+object HybridIsland {
   case object Loop
 
   def props(logic: Logic) = Props(classOf[HybridIsland], logic)
