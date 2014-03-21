@@ -13,6 +13,3 @@ libraryDependencies ++= Seq(
   "com.typesafe" % "config" % "0.4.0",
   "ch.qos.logback" % "logback-classic" % "1.0.7"
    )
-
-   
-mainClass in (Compile, run) := Some("com.krzywicki.hybrid.HybridApp")
