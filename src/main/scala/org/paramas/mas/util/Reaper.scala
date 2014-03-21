@@ -1,10 +1,10 @@
-package com.krzywicki.util
+package org.paramas.mas.util
 
 import akka.actor._
 import scala.concurrent.{ExecutionContext, Promise}
 import akka.actor.Terminated
 import scala.util.Success
-import scala.concurrent.duration.{FiniteDuration, Duration}
+import scala.concurrent.duration.FiniteDuration
 
 object Reaper {
   def actorsTerminate(actors: Seq[ActorRef])(implicit system: ActorSystem) = {

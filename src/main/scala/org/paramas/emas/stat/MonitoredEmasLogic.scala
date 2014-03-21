@@ -1,9 +1,9 @@
-package com.krzywicki.stat
+package org.paramas.emas.stat
 
-import com.krzywicki.stat.Statistics._
-import com.krzywicki.mas.Logic
-import com.krzywicki.emas.EmasLogic
-import com.krzywicki.emas.EmasLogic._
+import org.paramas.emas.stat.Statistics._
+import org.paramas.mas.Logic
+import org.paramas.emas.EmasLogic
+import org.paramas.emas.EmasLogic._
 
 class MonitoredEmasLogic(val delegate: EmasLogic, implicit val stats: Statistics) extends Logic {
   def initialPopulation = {

@@ -1,4 +1,4 @@
-package com.krzywicki.config
+package org.paramas.emas.config
 
 import com.typesafe.config.Config
 

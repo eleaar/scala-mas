@@ -1,4 +1,4 @@
-package com.krzywicki.util
+package org.paramas.mas.util
 
 import scala.collection.generic.CanBuildFrom
 import scala.util.Random

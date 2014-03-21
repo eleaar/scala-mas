@@ -1,8 +1,8 @@
-package com.krzywicki.concur
+package org.paramas.mas.async
 
 import akka.actor.{Actor, Props, ActorRef}
-import com.krzywicki.config.AppConfig
-import com.krzywicki.mas.LogicTypes._
+import org.paramas.emas.config.AppConfig
+import org.paramas.mas.LogicTypes._
 
 object Individual {
 

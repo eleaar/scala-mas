@@ -1,18 +1,15 @@
-package com.krzywicki.concur
+package org.paramas.mas.async
 
-import com.krzywicki.emas.EmasLogic
 import akka.actor.Props
-import com.krzywicki.stat.Statistics
-import com.krzywicki.stat.Statistics._
-import com.krzywicki.mas.{Logic, Environment}
-import com.krzywicki.mas.LogicTypes._
+import org.paramas.mas.{Logic, Environment}
+import org.paramas.mas.LogicTypes._
 
-object ConcurrentIsland {
+object AsyncEnvironment {
 
-  def props(logic: Logic) = Props(classOf[ConcurrentIsland], logic)
+  def props(logic: Logic) = Props(classOf[AsyncEnvironment], logic)
 }
 
-class ConcurrentIsland(logic: Logic) extends Environment {
+class AsyncEnvironment(logic: Logic) extends Environment {
 
   import logic._
 
@@ -26,8 +23,7 @@ class ConcurrentIsland(logic: Logic) extends Environment {
   def arenasForBehaviours(behaviours: Seq[Behaviour], meetings: MeetingFunction) =
     behaviours map {
       behaviour =>
-        val capacity = settings.emas.concurrent.capacities(behaviour)
         val meeting = (agents: List[Agent]) => meetings((behaviour, agents))
-        behaviour -> context.actorOf(Arena.props(capacity, meeting), behaviour.toString)
+        behaviour -> context.actorOf(Arena.props(behaviour.capacity, meeting), behaviour.getClass.getSimpleName)
     } toMap
 }

@@ -1,8 +1,8 @@
-package com.krzywicki.mas
+package org.paramas.mas
 
 import akka.actor.Actor
-import com.krzywicki.config.AppConfig
-import com.krzywicki.mas.LogicTypes._
+import org.paramas.emas.config.AppConfig
+import org.paramas.mas.LogicTypes._
 
 abstract class Environment extends Actor {
   import RootEnvironment._
@@ -16,7 +16,8 @@ abstract class Environment extends Actor {
   def addAgent(agent: Agent)
 
   def migration: MeetingFunction = {
-    case (Migration, agents) =>
+    case (Migration(cap), agents) =>
+//      agents grouped(cap) foreach { context.parent ! Migrate(_)}
       context.parent ! Migrate(agents);
       List.empty
   }

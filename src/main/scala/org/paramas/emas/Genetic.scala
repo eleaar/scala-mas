@@ -1,7 +1,7 @@
-package com.krzywicki.util
-import scala.collection.JavaConversions._
+package org.paramas.emas
+
 import scala.math._
-import com.krzywicki.config.AppConfig
+import org.paramas.emas.config.AppConfig
 
 object Genetic {
 
@@ -17,9 +17,9 @@ object Genetic {
       (sum, x) =>
         sum + 10 + x * x - 10 * cos(2 * Pi * x))
 
-  def reproduce(s: Solution)(implicit config: AppConfig) = mutateSolution(s)
+  def transform(s: Solution)(implicit config: AppConfig) = mutateSolution(s)
 
-  def reproduce(s1: Solution, s2: Solution)(implicit config: AppConfig) =
+  def transform(s1: Solution, s2: Solution)(implicit config: AppConfig) =
     mutateSolutions(recombineSolutions(s1, s2))
 
   def mutateSolution(s: Solution)(implicit config: AppConfig) =

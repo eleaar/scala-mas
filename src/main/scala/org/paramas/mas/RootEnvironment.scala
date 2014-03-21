@@ -1,9 +1,9 @@
-package com.krzywicki.mas
+package org.paramas.mas
 
 import akka.actor.{Props, Actor}
 import scala.util.Random
-import com.krzywicki.config.AppConfig
-import com.krzywicki.mas.LogicTypes._
+import org.paramas.emas.config.AppConfig
+import org.paramas.mas.LogicTypes._
 
 object RootEnvironment {
 

@@ -1,11 +1,11 @@
-package com.krzywicki.seq
+package org.paramas.seq
 
-import com.krzywicki.emas.EmasLogic
-import com.krzywicki.emas.EmasLogic._
+import org.paramas.emas.EmasLogic
+import org.paramas.emas.EmasLogic._
 
 import scala.concurrent.duration._
 import com.typesafe.config.ConfigFactory
-import com.krzywicki.config.AppConfig
+import org.paramas.emas.config.AppConfig
 
 object SeqApp {
 
