@@ -1,4 +1,4 @@
-package com.krzywicki.concur
+package com.krzywicki.mas.async
 
 import akka.actor.{Actor, Props, ActorRef}
 import com.krzywicki.config.AppConfig

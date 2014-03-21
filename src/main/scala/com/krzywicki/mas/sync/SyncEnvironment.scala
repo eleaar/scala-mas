@@ -1,19 +1,19 @@
-package com.krzywicki.hybrid
+package com.krzywicki.mas.sync
 
 import akka.actor._
-import com.krzywicki.mas.{Logic, Environment}
+import com.krzywicki.mas.{Environment, Logic}
 
 import com.krzywicki.mas.LogicTypes._
 
-object HybridIsland {
+object SyncEnvironment {
   case object Loop
 
-  def props(logic: Logic) = Props(classOf[HybridIsland], logic)
+  def props(logic: Logic) = Props(classOf[SyncEnvironment], logic)
 }
 
-class HybridIsland(logic: Logic) extends Environment {
+class SyncEnvironment(logic: Logic) extends Environment {
 
-  import HybridIsland._
+  import SyncEnvironment._
   import logic._
 
   var population = initialPopulation

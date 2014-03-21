@@ -6,6 +6,6 @@ import com.krzywicki.emas.EmasApp
 object HybridApp extends EmasApp {
 
   def main(args: Array[String]) {
-    run("hybrid", HybridIsland.props, 10 seconds)
+    run("hybrid", SyncEnvironment.props, 10 seconds)
   }
 }

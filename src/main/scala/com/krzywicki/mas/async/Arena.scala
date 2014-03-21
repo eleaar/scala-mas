@@ -1,4 +1,4 @@
-package com.krzywicki.concur
+package com.krzywicki.mas.async
 
 import akka.actor.{PoisonPill, ActorRef, Props, Actor}
 import scala.collection.mutable.ArrayBuffer

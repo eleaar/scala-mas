@@ -1,18 +1,15 @@
-package com.krzywicki.concur
+package com.krzywicki.mas.async
 
-import com.krzywicki.emas.EmasLogic
 import akka.actor.Props
-import com.krzywicki.stat.Statistics
-import com.krzywicki.stat.Statistics._
 import com.krzywicki.mas.{Logic, Environment}
 import com.krzywicki.mas.LogicTypes._
 
-object ConcurrentIsland {
+object AsyncEnvironment {
 
-  def props(logic: Logic) = Props(classOf[ConcurrentIsland], logic)
+  def props(logic: Logic) = Props(classOf[AsyncEnvironment], logic)
 }
 
-class ConcurrentIsland(logic: Logic) extends Environment {
+class AsyncEnvironment(logic: Logic) extends Environment {
 
   import logic._
 
