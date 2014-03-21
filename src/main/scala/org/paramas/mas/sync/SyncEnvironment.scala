@@ -1,9 +1,9 @@
-package com.krzywicki.mas.sync
+package org.paramas.mas.sync
 
 import akka.actor._
-import com.krzywicki.mas.{Environment, Logic}
+import org.paramas.mas.{Environment, Logic}
 
-import com.krzywicki.mas.LogicTypes._
+import org.paramas.mas.LogicTypes._
 
 object SyncEnvironment {
   case object Loop

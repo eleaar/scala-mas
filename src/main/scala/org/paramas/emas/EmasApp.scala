@@ -1,15 +1,15 @@
-package com.krzywicki.emas
+package org.paramas.emas
 
-import com.krzywicki.mas.util.{Logger, Reaper}
+import org.paramas.mas.util.{Logger, Reaper}
 import akka.actor.{Props, ActorSystem}
 import scala.concurrent.duration._
 import akka.event.Logging
-import com.krzywicki.emas.stat.{MonitoredEmasLogic, Statistics}
+import org.paramas.emas.stat.{MonitoredEmasLogic, Statistics}
 import scala.concurrent.ExecutionContext.Implicits.global
-import com.krzywicki.mas.{Logic, RootEnvironment}
-import com.krzywicki.emas.config.AppConfig
-import com.krzywicki.mas.async.AsyncEnvironment
-import com.krzywicki.mas.sync.SyncEnvironment
+import org.paramas.mas.{Logic, RootEnvironment}
+import org.paramas.emas.config.AppConfig
+import org.paramas.mas.async.AsyncEnvironment
+import org.paramas.mas.sync.SyncEnvironment
 
 object Async extends EmasApp {
 

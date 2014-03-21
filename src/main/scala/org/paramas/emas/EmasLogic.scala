@@ -1,11 +1,11 @@
-package com.krzywicki.emas
+package org.paramas.emas
 
 import Genetic._
 import scala.math._
-import com.krzywicki.mas.util.Util._
-import com.krzywicki.emas.config.AppConfig
-import com.krzywicki.mas.{LogicTypes, Logic}
-import com.krzywicki.mas.LogicTypes._
+import org.paramas.mas.util.Util._
+import org.paramas.emas.config.AppConfig
+import org.paramas.mas.{LogicTypes, Logic}
+import org.paramas.mas.LogicTypes._
 
 object EmasLogic {
   case class Agent(val solution: Solution, val fitness: Fitness, var energy: Int) extends LogicTypes.Agent

@@ -1,11 +1,11 @@
-package com.krzywicki.emas.stat
+package org.paramas.emas.stat
 
 import akka.actor.ActorSystem
 import akka.agent.Agent
-import com.krzywicki.emas.EmasLogic
-import com.krzywicki.mas.LogicTypes._
+import org.paramas.emas.EmasLogic
+import org.paramas.mas.LogicTypes._
 import EmasLogic._
-import com.krzywicki.mas.util.MeetingsInterceptor
+import org.paramas.mas.util.MeetingsInterceptor
 import MeetingsInterceptor._
 
 object Statistics {

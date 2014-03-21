@@ -1,8 +1,8 @@
-package com.krzywicki.mas.async
+package org.paramas.mas.async
 
 import akka.actor.Props
-import com.krzywicki.mas.{Logic, Environment}
-import com.krzywicki.mas.LogicTypes._
+import org.paramas.mas.{Logic, Environment}
+import org.paramas.mas.LogicTypes._
 
 object AsyncEnvironment {
 

@@ -1,4 +1,4 @@
-package com.krzywicki.emas.config
+package org.paramas.emas.config
 
 import akka.actor.{Extension, ExtendedActorSystem, ExtensionIdProvider, ExtensionId}
 import com.typesafe.config.Config

@@ -1,7 +1,7 @@
-package com.krzywicki.emas
+package org.paramas.emas
 
 import scala.math._
-import com.krzywicki.emas.config.AppConfig
+import org.paramas.emas.config.AppConfig
 
 object Genetic {
 

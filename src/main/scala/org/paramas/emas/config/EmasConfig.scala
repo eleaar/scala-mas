@@ -1,8 +1,8 @@
-package com.krzywicki.emas.config
+package org.paramas.emas.config
 
 import com.typesafe.config.Config
-import com.krzywicki.mas.LogicTypes.{Migration, Behaviour}
-import com.krzywicki.emas.EmasLogic.{Death, Reproduction, Fight}
+import org.paramas.mas.LogicTypes.{Migration, Behaviour}
+import org.paramas.emas.EmasLogic.{Death, Reproduction, Fight}
 
 class EmasConfig(config: Config) {
   val islandsNumber = config.getInt("islandsNumber")

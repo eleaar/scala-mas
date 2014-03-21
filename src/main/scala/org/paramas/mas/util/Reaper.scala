@@ -1,4 +1,4 @@
-package com.krzywicki.mas.util
+package org.paramas.mas.util
 
 import akka.actor._
 import scala.concurrent.{ExecutionContext, Promise}

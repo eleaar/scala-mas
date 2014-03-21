@@ -1,9 +1,9 @@
-package com.krzywicki.mas.async
+package org.paramas.mas.async
 
 import akka.actor.{PoisonPill, ActorRef, Props, Actor}
 import scala.collection.mutable.ArrayBuffer
-import com.krzywicki.mas.LogicTypes._
-import com.krzywicki.mas.RootEnvironment
+import org.paramas.mas.LogicTypes._
+import org.paramas.mas.RootEnvironment
 
 object Arena {
 

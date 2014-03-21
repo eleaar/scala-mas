@@ -1,4 +1,4 @@
-package com.krzywicki.mas
+package org.paramas.mas
 
 object LogicTypes {
   trait Agent {}
