@@ -16,7 +16,8 @@ abstract class Environment extends Actor {
   def addAgent(agent: Agent)
 
   def migration: MeetingFunction = {
-    case (Migration, agents) =>
+    case (Migration(cap), agents) =>
+//      agents grouped(cap) foreach { context.parent ! Migrate(_)}
       context.parent ! Migrate(agents);
       List.empty
   }

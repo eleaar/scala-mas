@@ -4,8 +4,10 @@ object LogicTypes {
   trait Agent {}
   type Population = List[Agent]
 
-  trait Behaviour
-  case object Migration extends Behaviour
+  trait Behaviour  {
+    def capacity: Int
+  }
+  case class Migration(capacity: Int) extends Behaviour
   type BehaviourFunction = PartialFunction[Agent, Behaviour]
 
   type Group = (Behaviour, Population)

@@ -23,8 +23,7 @@ class AsyncEnvironment(logic: Logic) extends Environment {
   def arenasForBehaviours(behaviours: Seq[Behaviour], meetings: MeetingFunction) =
     behaviours map {
       behaviour =>
-        val capacity = settings.emas.concurrent.capacities(behaviour)
         val meeting = (agents: List[Agent]) => meetings((behaviour, agents))
-        behaviour -> context.actorOf(Arena.props(capacity, meeting), behaviour.toString)
+        behaviour -> context.actorOf(Arena.props(behaviour.capacity, meeting), behaviour.getClass.getSimpleName)
     } toMap
 }

@@ -18,7 +18,7 @@ object Async extends EmasApp {
   }
 }
 
-object HybridApp extends EmasApp {
+object Sync extends EmasApp {
 
   def main(args: Array[String]) {
     run("hybrid", SyncEnvironment.props, 10 seconds)

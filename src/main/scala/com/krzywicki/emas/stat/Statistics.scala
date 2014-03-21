@@ -12,7 +12,7 @@ object Statistics {
   def apply()(implicit system: ActorSystem) = new Statistics(system)
 
   def monitored(m: => MeetingFunction)(implicit stats: Statistics) = m.intercepted {
-    case (Reproduction, agentsBefore, agentsAfter) =>
+    case (Reproduction(_), agentsBefore, agentsAfter) =>
       stats.update(checked(agentsAfter).maxBy(_.fitness).fitness, agentsBefore.size)
   }
 }
