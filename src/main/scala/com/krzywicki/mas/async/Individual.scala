@@ -1,7 +1,7 @@
 package com.krzywicki.mas.async
 
 import akka.actor.{Actor, Props, ActorRef}
-import com.krzywicki.config.AppConfig
+import com.krzywicki.emas.config.AppConfig
 import com.krzywicki.mas.LogicTypes._
 
 object Individual {

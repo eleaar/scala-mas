@@ -1,4 +1,4 @@
-package com.krzywicki.util
+package com.krzywicki.mas.util
 
 import scala.concurrent.duration._
 import akka.actor.{Cancellable, ActorSystem}

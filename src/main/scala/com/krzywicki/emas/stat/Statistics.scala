@@ -1,11 +1,12 @@
-package com.krzywicki.stat
+package com.krzywicki.emas.stat
 
 import akka.actor.ActorSystem
 import akka.agent.Agent
 import com.krzywicki.emas.EmasLogic
 import com.krzywicki.mas.LogicTypes._
 import EmasLogic._
-import com.krzywicki.stat.MeetingsInterceptor._
+import com.krzywicki.mas.util.MeetingsInterceptor
+import MeetingsInterceptor._
 
 object Statistics {
   def apply()(implicit system: ActorSystem) = new Statistics(system)

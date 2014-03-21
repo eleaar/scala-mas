@@ -1,13 +1,29 @@
 package com.krzywicki.emas
 
-import com.krzywicki.util.{Logger, Reaper}
+import com.krzywicki.mas.util.{Logger, Reaper}
 import akka.actor.{Props, ActorSystem}
 import scala.concurrent.duration._
 import akka.event.Logging
-import com.krzywicki.stat.{MonitoredEmasLogic, Statistics}
+import com.krzywicki.emas.stat.{MonitoredEmasLogic, Statistics}
 import scala.concurrent.ExecutionContext.Implicits.global
 import com.krzywicki.mas.{Logic, RootEnvironment}
-import com.krzywicki.config.AppConfig
+import com.krzywicki.emas.config.AppConfig
+import com.krzywicki.mas.async.AsyncEnvironment
+import com.krzywicki.mas.sync.SyncEnvironment
+
+object Async extends EmasApp {
+
+  def main(args: Array[String]) {
+    run("concurrent", AsyncEnvironment.props, 10 seconds)
+  }
+}
+
+object HybridApp extends EmasApp {
+
+  def main(args: Array[String]) {
+    run("hybrid", SyncEnvironment.props, 10 seconds)
+  }
+}
 
 class EmasApp {
 

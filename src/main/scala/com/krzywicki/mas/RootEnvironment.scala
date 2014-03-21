@@ -2,7 +2,7 @@ package com.krzywicki.mas
 
 import akka.actor.{Props, Actor}
 import scala.util.Random
-import com.krzywicki.config.AppConfig
+import com.krzywicki.emas.config.AppConfig
 import com.krzywicki.mas.LogicTypes._
 
 object RootEnvironment {

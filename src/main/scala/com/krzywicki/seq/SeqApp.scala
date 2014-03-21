@@ -5,7 +5,7 @@ import com.krzywicki.emas.EmasLogic._
 
 import scala.concurrent.duration._
 import com.typesafe.config.ConfigFactory
-import com.krzywicki.config.AppConfig
+import com.krzywicki.emas.config.AppConfig
 
 object SeqApp {
 

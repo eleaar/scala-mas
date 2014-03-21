@@ -1,6 +1,6 @@
-package com.krzywicki.stat
+package com.krzywicki.emas.stat
 
-import com.krzywicki.stat.Statistics._
+import com.krzywicki.emas.stat.Statistics._
 import com.krzywicki.mas.Logic
 import com.krzywicki.emas.EmasLogic
 import com.krzywicki.emas.EmasLogic._

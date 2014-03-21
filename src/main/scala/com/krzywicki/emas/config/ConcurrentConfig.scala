@@ -1,4 +1,4 @@
-package com.krzywicki.config
+package com.krzywicki.emas.config
 
 import com.typesafe.config.Config
 import com.krzywicki.emas.EmasLogic._

@@ -1,7 +1,7 @@
 package com.krzywicki.mas
 
 import akka.actor.Actor
-import com.krzywicki.config.AppConfig
+import com.krzywicki.emas.config.AppConfig
 import com.krzywicki.mas.LogicTypes._
 
 abstract class Environment extends Actor {

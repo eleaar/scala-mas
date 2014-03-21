@@ -1,9 +1,9 @@
 package com.krzywicki.emas
 
-import com.krzywicki.util.Genetic._
+import Genetic._
 import scala.math._
-import com.krzywicki.util.Util._
-import com.krzywicki.config.AppConfig
+import com.krzywicki.mas.util.Util._
+import com.krzywicki.emas.config.AppConfig
 import com.krzywicki.mas.{LogicTypes, Logic}
 import com.krzywicki.mas.LogicTypes._
 

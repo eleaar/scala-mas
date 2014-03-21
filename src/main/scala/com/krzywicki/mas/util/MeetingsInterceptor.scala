@@ -1,7 +1,6 @@
-package com.krzywicki.stat
+package com.krzywicki.mas.util
 
 import com.krzywicki.mas.LogicTypes._
-import com.krzywicki.stat.MeetingsInterceptor._
 
 class MeetingsInterceptor(meetings: MeetingFunction, interceptor: Interceptor) extends MeetingFunction {
 

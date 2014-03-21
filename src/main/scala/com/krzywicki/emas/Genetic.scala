@@ -1,7 +1,7 @@
-package com.krzywicki.util
-import scala.collection.JavaConversions._
+package com.krzywicki.emas
+
 import scala.math._
-import com.krzywicki.config.AppConfig
+import com.krzywicki.emas.config.AppConfig
 
 object Genetic {
 
