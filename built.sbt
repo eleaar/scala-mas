@@ -14,5 +14,6 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
   "com.typesafe" % "config" % "0.4.0",
   "ch.qos.logback" % "logback-classic" % "1.0.7",
-  "org.scalatest" % "scalatest_2.10" % "2.1.0" % "test"
+  "org.scalatest" %% "scalatest" % "2.1.3" % "test",
+  "org.mockito" % "mockito-core" % "1.9.5" % "test"
    )

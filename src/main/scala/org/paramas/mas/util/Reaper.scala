@@ -9,7 +9,8 @@ import scala.concurrent.duration.FiniteDuration
 object Reaper {
   def actorsTerminate(actors: Seq[ActorRef])(implicit system: ActorSystem) = {
     val p = Promise[Unit]()
-    system.actorOf(Props(classOf[PromiseReaper], p, actors), "reaper")
+    val callback = () => p.complete(Success())
+    system.actorOf(Props(classOf[Reaper], actors, callback), "reaper")
     p.future
   }
 
@@ -19,22 +20,20 @@ object Reaper {
   }
 }
 
-class PromiseReaper(p: Promise[Unit], actors: Seq[ActorRef]) extends Reaper(actors) {
-  def onNoActiveSouls = p.complete(Success())
-}
-
-abstract class Reaper(souls: Seq[ActorRef]) extends Actor with ActorLogging {
+class Reaper(souls: Seq[ActorRef], callback: () => Unit) extends Actor with ActorLogging {
   var activeSouls = souls.toSet
   activeSouls foreach (context watch _)
+  checkSouls
 
   def receive = {
-    case Terminated(soul) =>
+    case Terminated(soul) if activeSouls.contains(soul) =>
       activeSouls -= soul
-      if (activeSouls.isEmpty) {
-        log info "no more active souls"
-        onNoActiveSouls
-      }
+      checkSouls
   }
 
-  def onNoActiveSouls
+  def checkSouls = if (activeSouls.isEmpty) {
+    log info "no more active souls"
+    callback()
+    context stop self
+  }
 }
