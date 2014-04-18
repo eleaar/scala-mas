@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import akka.event.Logging
 import org.paramas.emas.stat.{MonitoredEmasLogic, Statistics}
 import scala.concurrent.ExecutionContext.Implicits.global
-import org.paramas.mas.{Logic, RootEnvironment}
+import org.paramas.mas.{Stats, Logic, RootEnvironment}
 import org.paramas.emas.config.AppConfig
 import org.paramas.mas.async.AsyncEnvironment
 import org.paramas.mas.sync.SyncEnvironment
@@ -30,20 +30,22 @@ class EmasApp {
   def run(name: String, islandsProps: (Logic) => Props, duration: FiniteDuration) {
     implicit val system = ActorSystem(name)
     implicit val settings = AppConfig(system)
-    implicit val stats = Statistics()
+    implicit val stats = Stats.concurrent((Double.MinValue, 0L)) {
+      case ((oldFitness, oldReps), (newFitness, newReps)) => (math.max(oldFitness, newFitness), oldReps + newReps)
+    }
 
     val log = Logging(system, getClass)
     Logger(frequency = 1 second) {
       time =>
-        val (fitness, reproductions) = stats()
+        val (fitness, reproductions) = stats.getNow
         log info (s"fitness $time $fitness")
         log info (s"reproductions $time $reproductions")
     }
 
-    val root = system.actorOf(RootEnvironment.props(islandsProps(MonitoredEmasLogic(new EmasLogic))), "root")
+    val root = system.actorOf(RootEnvironment.props(islandsProps(new EmasLogic)), "root")
     for (
       _ <- Reaper.terminateAfter(root, duration);
-      _ <- stats.updatesDone) {
+      _ <- stats.get) {
       system.shutdown()
     }
   }

@@ -4,7 +4,7 @@ import Genetic._
 import scala.math._
 import org.paramas.mas.util.Util._
 import org.paramas.emas.config.AppConfig
-import org.paramas.mas.{LogicTypes, Logic}
+import org.paramas.mas.{Stats, LogicTypes, Logic}
 import org.paramas.mas.LogicTypes._
 
 object EmasLogic {
@@ -16,16 +16,18 @@ object EmasLogic {
   def checked(pop: Population) = pop.collect{ case a: EmasLogic.Agent => a}
 }
 
-class EmasLogic(implicit val config: AppConfig) extends Logic {
+class EmasLogic(implicit val stats: Stats[(Double, Long)], implicit val config: AppConfig) extends Logic {
  import EmasLogic._
 
 
-  def initialPopulation: Population =
-    List.fill(config.emas.populationSize) {
+  def initialPopulation: Population = {
+    val population = List.fill(config.emas.populationSize) {
       val solution = createSolution
       Agent(solution, evaluate(solution), config.emas.initialEnergy)
     }
-
+    stats.update((population.maxBy(_.fitness).fitness, 0L))
+    population
+  }
   val death = Death(config.emas.deathCapacity)
   val fight = Fight(config.emas.fightCapacity)
   val reproduce = Reproduction(config.emas.reproductionCapacity)
@@ -47,7 +49,9 @@ class EmasLogic(implicit val config: AppConfig) extends Logic {
     case (Fight(cap), agents) =>
       checked(agents).shuffled.grouped(cap).flatMap(doFight).toList
     case (Reproduction(cap), agents) =>
-      checked(agents).shuffled.grouped(cap).flatMap(doReproduce).toList
+      val newAgents = checked(agents).shuffled.grouped(cap).flatMap(doReproduce).toList
+      stats.update(newAgents.maxBy(_.fitness).fitness, agents.size)
+      newAgents
     case (Migration(_), agents) => agents
   }
 
