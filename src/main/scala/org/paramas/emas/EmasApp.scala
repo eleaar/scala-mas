@@ -4,7 +4,6 @@ import org.paramas.mas.util.{Logger, Reaper}
 import akka.actor.{Props, ActorSystem}
 import scala.concurrent.duration._
 import akka.event.Logging
-import org.paramas.emas.stat.{MonitoredEmasLogic, Statistics}
 import scala.concurrent.ExecutionContext.Implicits.global
 import org.paramas.mas.{Stats, Logic, RootEnvironment}
 import org.paramas.emas.config.AppConfig

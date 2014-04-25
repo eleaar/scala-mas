@@ -15,5 +15,7 @@ libraryDependencies ++= Seq(
   "com.typesafe" % "config" % "0.4.0",
   "ch.qos.logback" % "logback-classic" % "1.0.7",
   "org.scalatest" %% "scalatest" % "2.1.3" % "test",
-  "org.mockito" % "mockito-core" % "1.9.5" % "test"
+  "org.mockito" % "mockito-core" % "1.9.5" % "test",
+  "org.scalamock" %% "scalamock-specs2-support" % "3.0.1" % "test",
+  "org.scalacheck" %% "scalacheck" % "1.11.3" % "test"
    )

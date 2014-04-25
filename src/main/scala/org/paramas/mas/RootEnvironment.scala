@@ -1,6 +1,6 @@
 package org.paramas.mas
 
-import akka.actor.{Props, Actor}
+import akka.actor.{ActorContext, Props, Actor}
 import scala.util.Random
 import org.paramas.emas.config.AppConfig
 import org.paramas.mas.LogicTypes._
@@ -12,6 +12,13 @@ object RootEnvironment {
   case class Add(agent: Agent)
 
   def props(islandProps: Props) = Props(classOf[RootEnvironment], islandProps)
+
+  def migration(implicit context: ActorContext): MeetingFunction = {
+    case (Migration(cap), agents) =>
+      //      agents grouped(cap) foreach { context.parent ! Migrate(_)}
+      context.parent ! Migrate(agents);
+      List.empty
+  }
 }
 
 class RootEnvironment(islandProps: Props) extends Actor {
