@@ -41,7 +41,7 @@ class EmasApp {
         log info (s"reproductions $time $reproductions")
     }
 
-    val root = system.actorOf(RootEnvironment.props(islandsProps(new EmasLogic)), "root")
+    val root = system.actorOf(RootEnvironment.props(islandsProps(new EmasLogic), settings.emas.islandsNumber), "root")
     for (
       _ <- Reaper.terminateAfter(root, duration);
       _ <- stats.get) {

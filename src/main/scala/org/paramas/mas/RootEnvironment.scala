@@ -11,7 +11,7 @@ object RootEnvironment {
 
   case class Add(agent: Agent)
 
-  def props(islandProps: Props) = Props(classOf[RootEnvironment], islandProps)
+  def props(islandProps: Props, islandsNumber: Int) = Props(classOf[RootEnvironment], islandProps, islandsNumber)
 
   def migration(implicit context: ActorContext): MeetingFunction = {
     case (Migration(cap), agents) =>
@@ -21,12 +21,12 @@ object RootEnvironment {
   }
 }
 
-class RootEnvironment(islandProps: Props) extends Actor {
+class RootEnvironment(islandProps: Props, islandsNumber: Int) extends Actor {
+  require(islandsNumber > 0)
 
   import RootEnvironment._
 
-  val settings = AppConfig(context.system)
-  val islands = Array.tabulate(settings.emas.islandsNumber)(i => context.actorOf(islandProps, s"island-$i"))
+  val islands = Array.tabulate(islandsNumber)(i => context.actorOf(islandProps, s"island-$i"))
 
   def receive = {
     case Migrate(agents) =>

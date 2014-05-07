@@ -10,7 +10,7 @@ object Reaper {
   def actorsTerminate(actors: Seq[ActorRef])(implicit system: ActorSystem) = {
     val p = Promise[Unit]()
     val callback = () => p.complete(Success())
-    system.actorOf(Props(classOf[Reaper], actors, callback), "reaper")
+    system.actorOf(Props(classOf[Reaper], actors, callback))
     p.future
   }
 
