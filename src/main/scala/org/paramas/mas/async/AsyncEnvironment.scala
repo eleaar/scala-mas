@@ -10,6 +10,14 @@ object AsyncEnvironment {
   def props(logic: Logic) = Props(classOf[AsyncEnvironment], logic)
 }
 
+/**
+ * An asynchronous island implementation. This island spawns separate actors for all agents (individuals actors).
+ * It also spawns a separate actor for every supported behaviour (arena actors). The individuals choose an arena based
+ * on the behaviour function and the state of the agent and send the agent to the arena. Arenas gather incoming agents
+ * and perform the meeting according to the meetings function and the capacity of the behaviour.
+ *
+ * @param logic the callbacks of the simulation
+ */
 class AsyncEnvironment(logic: Logic) extends Actor {
   import RootEnvironment._
   import logic._

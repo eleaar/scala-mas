@@ -10,6 +10,13 @@ object SyncEnvironment {
   def props(logic: Logic) = Props(classOf[SyncEnvironment], logic)
 }
 
+/**
+ * A synchronous island implementation. This actor spins in a messages loop. In each iteration it updates synchronously
+ * the population accordingly to the behaviour and meetings functions. This islands supports migration, assuming its
+ * parent is a RootEnvironment.
+ *
+ * @param logic the callbacks for the simulation
+ */
 class SyncEnvironment(logic: Logic) extends Actor {
   import RootEnvironment._
   import SyncEnvironment._
@@ -24,9 +31,4 @@ class SyncEnvironment(logic: Logic) extends Actor {
       self ! Loop
     case Add(agent) => population :+= agent
   }
-
-  def updatePopulation = {
-    population = population.groupBy(behaviourFunction).flatMap(migration orElse meetingsFunction).toList
-  }
-
 }

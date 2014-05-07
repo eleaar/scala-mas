@@ -18,8 +18,6 @@ class Individual(var state: Agent, val switchingBehaviour: (Agent) => ActorRef) 
   import Individual._
   import Arena._
 
-  implicit val settings = AppConfig(context.system)
-
   override def preStart = joinArena
 
   def receive = {
