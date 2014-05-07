@@ -13,7 +13,7 @@ import org.scalatest.prop.PropertyChecks
 import org.scalacheck.Gen
 import scala.concurrent.duration._
 
-class ArenaSpecs extends ActorUnitSpecs(ActorSystem("ArenaSpecs")) with MockitoSugar with PropertyChecks {
+class ArenaSpecs extends ActorUnitSpecs(ActorSystem("ArenaSpecs")) {
 
   def fixture(sizeBefore: Int, sizeAfter: Int) =
     new {

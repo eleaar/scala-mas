@@ -3,6 +3,8 @@ package org.paramas.mas
 import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
 import akka.actor.{Props, ActorRef, Actor, ActorSystem}
+import org.scalatest.mock.MockitoSugar
+import org.scalatest.prop.PropertyChecks
 
 object TestActorProps {
   def mockActor = Props[MockActor]
@@ -23,7 +25,7 @@ class ForwardingActor(next: ActorRef) extends Actor {
 }
 
 abstract class ActorUnitSpecs(_system: ActorSystem) extends TestKit(_system) with ImplicitSender
-with WordSpecLike with Matchers with BeforeAndAfterAll {
+with WordSpecLike with Matchers with BeforeAndAfterAll with MockitoSugar with PropertyChecks {
 
   override def afterAll {
     TestKit.shutdownActorSystem(system)
