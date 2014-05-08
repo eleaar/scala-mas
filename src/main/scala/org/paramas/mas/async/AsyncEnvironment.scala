@@ -20,7 +20,7 @@
 package org.paramas.mas.async
 
 import akka.actor.{Actor, Props}
-import org.paramas.mas.{RootEnvironment, Logic, Environment}
+import org.paramas.mas.{RootEnvironment, Logic}
 import org.paramas.mas.LogicTypes._
 import org.paramas.mas.RootEnvironment.Add
 
