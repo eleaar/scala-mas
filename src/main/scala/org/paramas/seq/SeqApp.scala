@@ -21,10 +21,12 @@ package org.paramas.seq
 
 import org.paramas.emas.EmasLogic
 import org.paramas.emas.EmasLogic._
+import org.paramas.emas.genetic.RastriginProblem
+import org.paramas.emas.random.DefaultRandomGenerator
 
 import scala.concurrent.duration._
 import com.typesafe.config.ConfigFactory
-import org.paramas.emas.config.AppConfig
+import org.paramas.emas.config.{GeneticConfig, AppConfig}
 import org.paramas.mas.Stats
 
 object SeqApp {
@@ -34,6 +36,7 @@ object SeqApp {
     implicit val stats = Stats.simple((Double.MinValue, 0L)) {
       case ((oldFitness, oldReps), (newFitness, newReps)) => (math.max(oldFitness, newFitness), oldReps + newReps)
     }
+    implicit val ops: RastriginProblem = new GeneticConfig(ConfigFactory.load().getConfig("genetic")) with RastriginProblem with DefaultRandomGenerator
 
     val deadline = 10 seconds fromNow
 

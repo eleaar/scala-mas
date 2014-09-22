@@ -19,13 +19,15 @@
 
 package org.paramas.emas
 
+import org.paramas.emas.genetic.{GeneticOps, RastriginProblem}
+import org.paramas.emas.random.DefaultRandomGenerator
 import org.paramas.mas.util.{Logger, Reaper}
 import akka.actor.{Props, ActorSystem}
 import scala.concurrent.duration._
 import akka.event.Logging
 import scala.concurrent.ExecutionContext.Implicits.global
 import org.paramas.mas.{Stats, Logic, RootEnvironment}
-import org.paramas.emas.config.AppConfig
+import org.paramas.emas.config.{GeneticConfig, AppConfig}
 import org.paramas.mas.async.AsyncEnvironment
 import org.paramas.mas.sync.SyncEnvironment
 
@@ -46,8 +48,11 @@ object Sync extends EmasApp {
 class EmasApp {
 
   def run(name: String, islandsProps: (Logic) => Props, duration: FiniteDuration) {
+
     implicit val system = ActorSystem(name)
     implicit val settings = AppConfig(system)
+    implicit val ops: RastriginProblem = new GeneticConfig(system.settings.config.getConfig("genetic")) with RastriginProblem with DefaultRandomGenerator
+
     implicit val stats = Stats.concurrent((Double.MinValue, 0L)) {
       case ((oldFitness, oldReps), (newFitness, newReps)) => (math.max(oldFitness, newFitness), oldReps + newReps)
     }

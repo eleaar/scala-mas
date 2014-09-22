@@ -19,7 +19,8 @@
 
 package org.paramas.emas
 
-import Genetic._
+import org.paramas.emas.genetic.GeneticOps
+
 import scala.math._
 import org.paramas.mas.util.Util._
 import org.paramas.emas.config.AppConfig
@@ -27,26 +28,34 @@ import org.paramas.mas.{Stats, LogicTypes, Logic}
 import org.paramas.mas.LogicTypes._
 
 object EmasLogic {
-  case class Agent(val solution: Solution, val fitness: Fitness, var energy: Int) extends LogicTypes.Agent
+  case class Agent[G <: GeneticOps[G]](val solution: G#Solution, val fitness: G#Evaluation, var energy: Int) extends LogicTypes.Agent
   case class Death(capacity: Int) extends Behaviour
   case class Fight(capacity: Int) extends Behaviour
   case class Reproduction(capacity: Int) extends Behaviour
 
-  def checked(pop: Population) = pop.collect{ case a: EmasLogic.Agent => a}
+  def checked[G <: GeneticOps[G]](pop: Population) = pop.collect{ case a: EmasLogic.Agent[G] => a}
 }
 
-class EmasLogic(implicit val stats: Stats[(Double, Long)], implicit val config: AppConfig) extends Logic {
- import EmasLogic._
+class EmasLogic[G <: GeneticOps[G]](implicit val ops: G, implicit val stats: Stats[(G#Evaluation, Long)], implicit val config: AppConfig) extends Logic {
 
+  import ops._
+  import EmasLogic._
+
+  implicit val ordering = ops.ordering
+
+  def random = math.random
 
   def initialPopulation: Population = {
     val population = List.fill(config.emas.populationSize) {
-      val solution = createSolution
-      Agent(solution, evaluate(solution), config.emas.initialEnergy)
+      val solution = generate
+      Agent[G](solution, evaluate(solution), config.emas.initialEnergy)
     }
+    population.maxBy(_.fitness).fitness
     stats.update((population.maxBy(_.fitness).fitness, 0L))
     population
   }
+
+
   val death = Death(config.emas.deathCapacity)
   val fight = Fight(config.emas.fightCapacity)
   val reproduce = Reproduction(config.emas.reproductionCapacity)
@@ -64,38 +73,39 @@ class EmasLogic(implicit val stats: Stats[(Double, Long)], implicit val config: 
   }
 
   def meetingsFunction = {
-    case (Death(_), _) => List.empty[Agent]
+    case (Death(_), _) => List.empty[Agent[G]]
     case (Fight(cap), agents) =>
-      checked(agents).shuffled.grouped(cap).flatMap(doFight).toList
+      checked[G](agents).shuffled.grouped(cap).flatMap(doFight).toList
     case (Reproduction(cap), agents) =>
-      val newAgents = checked(agents).shuffled.grouped(cap).flatMap(doReproduce).toList
-      stats.update(newAgents.maxBy(_.fitness).fitness, agents.size)
+      val newAgents = checked[G](agents).shuffled.grouped(cap).flatMap(doReproduce).toList
+      newAgents.maxBy(_.fitness).fitness
+      stats.update((newAgents.maxBy(_.fitness).fitness, agents.size))
       newAgents
     case (Migration(_), agents) => agents
   }
 
-  private def doFight(agents: List[Agent])(implicit config: AppConfig) = agents match {
+  private def doFight(agents: List[Agent[G]])(implicit config: AppConfig): List[Agent[G]] = agents match {
     case List(a) => List(a)
     case List(a, b) =>
       val AtoBTransfer =
-        if (a.fitness < b.fitness)
+        if (ordering.lt(a.fitness, b.fitness))
           min(config.emas.fightTransfer, a.energy)
         else
           -min(config.emas.fightTransfer, b.energy)
       List(a.copy(energy = a.energy - AtoBTransfer), b.copy(energy = b.energy + AtoBTransfer))
   }
 
-  private def doReproduce(agents: List[Agent])(implicit config: AppConfig) = agents match {
+  private def doReproduce(agents: List[Agent[G]])(implicit config: AppConfig): List[Agent[G]] = agents match {
     case List(a) =>
       val s = transform(a.solution)
       val f = evaluate(s)
       val e = min(config.emas.reproductionTransfer, a.energy)
-      List(a.copy(energy = a.energy - e), Agent(s, f, e))
+      List(a.copy(energy = a.energy - e), Agent[G](s, f, e))
     case List(a1, a2) =>
       val (s1, s2) = transform(a1.solution, a2.solution)
       val (f1, f2) = (evaluate(s1), evaluate(s2))
       val (e1, e2) = (min(config.emas.reproductionTransfer, a1.energy), min(config.emas.reproductionTransfer, a2.energy))
-      List(a1.copy(energy = a1.energy - e1), a2.copy(energy = a2.energy - e2), Agent(s1, f1, e1), Agent(s2, f2, e2))
+      List(a1.copy(energy = a1.energy - e1), a2.copy(energy = a2.energy - e2), Agent[G](s1, f1, e1), Agent[G](s2, f2, e2))
   }
 
 }
