@@ -2,9 +2,9 @@ name := "Paramas-scala"
 
 version := "0.1"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.11.2"
 
-val akkaVersion = "2.3.0"
+val akkaVersion = "2.3.6"
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor" % akkaVersion,
@@ -12,10 +12,10 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-agent" % akkaVersion,
   "com.typesafe.akka" %% "akka-agent" % akkaVersion,
   "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
-  "com.typesafe" % "config" % "0.4.0",
-  "ch.qos.logback" % "logback-classic" % "1.0.7",
-  "org.scalatest" %% "scalatest" % "2.1.3" % "test",
+  "com.typesafe" % "config" % "1.2.1",
+  "ch.qos.logback" % "logback-classic" % "1.1.2",
+  "org.scalatest" %% "scalatest" % "2.2.2" % "test",
   "org.mockito" % "mockito-core" % "1.9.5" % "test",
-  "org.scalamock" %% "scalamock-specs2-support" % "3.0.1" % "test",
-  "org.scalacheck" %% "scalacheck" % "1.11.3" % "test"
+  "org.scalamock" %% "scalamock-specs2-support" % "3.1.2" % "test",
+  "org.scalacheck" %% "scalacheck" % "1.11.5" % "test"
    )
