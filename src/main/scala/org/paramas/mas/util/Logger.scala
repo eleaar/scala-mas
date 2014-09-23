@@ -38,8 +38,8 @@ object Logger {
    * Executes the provided callback at some provided frequency, passing the relative time in ms.
    * The first call will receive a time of '0'ms, the following will receive time relative to the first call.
    */
-  def apply(frequency: Duration)(fun: (Long) => Unit)(implicit system: ActorSystem) = {
+  def apply(frequency: FiniteDuration)(fun: (Long) => Unit)(implicit system: ActorSystem) = {
     val ticker = new LazyTicker
-    system.scheduler.schedule(0 second, 1 second)(fun(ticker.time))
+    system.scheduler.schedule(0 second, frequency)(fun(ticker.time))
   }
 }

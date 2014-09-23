@@ -34,14 +34,14 @@ import org.paramas.mas.sync.SyncEnvironment
 object Async extends EmasApp {
 
   def main(args: Array[String]) {
-    run("concurrent", AsyncEnvironment.props, 10 seconds)
+    run("concurrent", AsyncEnvironment.props, 15 minutes)
   }
 }
 
 object Sync extends EmasApp {
 
   def main(args: Array[String]) {
-    run("hybrid", SyncEnvironment.props, 10 seconds)
+    run("hybrid", SyncEnvironment.props, 15 minutes)
   }
 }
 
@@ -58,7 +58,7 @@ class EmasApp {
     }
 
     val log = Logging(system, getClass)
-    Logger(frequency = 1 second) {
+    Logger(frequency = 10 second) {
       time =>
         val (fitness, reproductions) = stats.getNow
         log info (s"fitness $time $fitness")
