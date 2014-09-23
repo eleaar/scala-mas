@@ -1,4 +1,6 @@
-name := "Paramas-scala"
+organization := "pl.edu.agh"
+
+name := "paraphrase-scala"
 
 version := "0.1"
 
