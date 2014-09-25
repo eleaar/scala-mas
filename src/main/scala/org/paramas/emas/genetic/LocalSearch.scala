@@ -34,6 +34,8 @@ trait SteepestDescend extends LocalSearch[LabsProblem] {
     localSearch0(maxIterations, s.clone(), OneBitFastFlipper(s))
   }
 
+}
+
   case class OneBitFastFlipper(s: Array[Boolean]) {
     private val size = s.size
     private val computedProducts = Array.ofDim[Double](size - 1, size - 1)
@@ -59,4 +61,4 @@ trait SteepestDescend extends LocalSearch[LabsProblem] {
 
       size * size / (2.0 * energy)
     }
-  }
+}
