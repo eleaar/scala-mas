@@ -19,7 +19,8 @@
 
 package org.paramas.emas
 
-import org.paramas.emas.genetic.{GeneticOps, RastriginProblem}
+import com.typesafe.config.Config
+import org.paramas.emas.genetic.{SteepestDescend, LabsProblem, GeneticOps, RastriginProblem}
 import org.paramas.emas.random.DefaultRandomGenerator
 import org.paramas.mas.util.{Logger, Reaper}
 import akka.actor.{Props, ActorSystem}
@@ -31,34 +32,39 @@ import org.paramas.emas.config.{GeneticConfig, AppConfig}
 import org.paramas.mas.async.AsyncEnvironment
 import org.paramas.mas.sync.SyncEnvironment
 
-object Async extends EmasApp {
+trait RastriginConfig {
+  def ops(c: Config): RastriginProblem = new GeneticConfig(c) with RastriginProblem with DefaultRandomGenerator
+}
+
+object Async extends EmasApp with RastriginConfig {
 
   def main(args: Array[String]) {
-    run("concurrent", AsyncEnvironment.props, 15 minutes)
+    run("concurrent", ops, AsyncEnvironment.props, 15 minutes)
   }
 }
 
-object Sync extends EmasApp {
+object Sync extends EmasApp with RastriginConfig {
 
   def main(args: Array[String]) {
-    run("hybrid", SyncEnvironment.props, 15 minutes)
+    run("hybrid", ops, SyncEnvironment.props, 15 minutes)
   }
 }
 
 class EmasApp {
 
-  def run(name: String, islandsProps: (Logic) => Props, duration: FiniteDuration) {
+  def run[G <: GeneticOps[G]](name: String, opsF: (Config) => G, islandsProps: (Logic) => Props, duration: FiniteDuration) {
 
     implicit val system = ActorSystem(name)
     implicit val settings = AppConfig(system)
-    implicit val ops: RastriginProblem = new GeneticConfig(system.settings.config.getConfig("genetic")) with RastriginProblem with DefaultRandomGenerator
+    implicit val ops: LabsProblem = new GeneticConfig(system.settings.config.getConfig("genetic")) with LabsProblem with SteepestDescend with DefaultRandomGenerator
+//    implicit val ops: G = opsF(system.settings.config.getConfig("genetic"))
 
     implicit val stats = Stats.concurrent((Double.MinValue, 0L)) {
       case ((oldFitness, oldReps), (newFitness, newReps)) => (math.max(oldFitness, newFitness), oldReps + newReps)
     }
 
     val log = Logging(system, getClass)
-    Logger(frequency = 10 second) {
+    Logger(frequency = 1 second) {
       time =>
         val (fitness, reproductions) = stats.getNow
         log info (s"fitness $time $fitness")
