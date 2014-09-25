@@ -40,7 +40,7 @@ object SeqApp {
 
     val deadline = 10 seconds fromNow
 
-    val logic = new EmasLogic
+    val logic = new EmasLogic[RastriginProblem](ops, stats, config)
     import logic._
 
     var population = initialPopulation
