@@ -24,7 +24,7 @@ import com.typesafe.config.Config
 
 class AppConfig(config: Config) extends Extension {
   val emas = new EmasConfig(config.getConfig("emas"))
-  val genetic = new GeneticConfig(config.getConfig("genetic"))
+//  val genetic = new GeneticConfig(config.getConfig("genetic"))
 }
 
 object AppConfig extends ExtensionId[AppConfig] with ExtensionIdProvider {

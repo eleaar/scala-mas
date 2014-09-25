@@ -36,7 +36,7 @@ object EmasLogic {
   def checked[G <: GeneticOps[G]](pop: Population) = pop.collect{ case a: EmasLogic.Agent[G] => a}
 }
 
-class EmasLogic[G <: GeneticOps[G]](implicit val ops: G, implicit val stats: Stats[(G#Evaluation, Long)], implicit val config: AppConfig) extends Logic {
+class EmasLogic[G <: GeneticOps[G]](val ops: G, val stats: Stats[(G#Evaluation, Long)], implicit val config: AppConfig) extends Logic {
 
   import ops._
   import EmasLogic._
