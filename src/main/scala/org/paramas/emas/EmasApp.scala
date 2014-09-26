@@ -33,23 +33,15 @@ import org.paramas.mas.async.AsyncEnvironment
 import org.paramas.mas.sync.SyncEnvironment
 
 trait RastriginConfig {
-  def ops(c: Config) = new GeneticConfig(c.getConfig("rastrigin")) with RastriginProblem with DefaultRandomGenerator
-
-  def stats(system: ActorSystem) = Stats.concurrent((Double.MinValue, 0L))({
-    case ((oldFitness, oldReps), (newFitness, newReps)) => (math.max(oldFitness, newFitness), oldReps + newReps)
-  })(system)
-}
-
-trait RastriginConfig2 {
   def ops(c: Config) = new GeneticConfig(c.getConfig("rastrigin")) with RastriginProblem with ConcurrentRandomGenerator
 
-  def stats(system: ActorSystem) = Stats.concurrent((Double.MinValue, 0L))({
+  def stats(system: ActorSystem) = Stats.concurrent((10000.0, 0L))({
     case ((oldFitness, oldReps), (newFitness, newReps)) => (math.max(oldFitness, newFitness), oldReps + newReps)
   })(system)
 }
 
 trait LabsConfig {
-  def ops(c: Config) = new GeneticConfig(c.getConfig("labs")) with LabsProblem with SteepestDescend with DefaultRandomGenerator
+  def ops(c: Config) = new GeneticConfig(c.getConfig("labs")) with LabsProblem with SteepestDescend with ConcurrentRandomGenerator
 
   def stats(system: ActorSystem) = Stats.concurrent((0.0, 0L))({
     case ((oldFitness, oldReps), (newFitness, newReps)) => (math.max(oldFitness, newFitness), oldReps + newReps)
@@ -63,24 +55,10 @@ object RastriginAsync extends EmasApp with RastriginConfig {
   }
 }
 
-object RastriginAsync2 extends EmasApp with RastriginConfig2 {
-
-  def main(args: Array[String]) {
-    run[RastriginProblem]("RastriginAsync2", ops, stats, AsyncEnvironment.props, 15 minutes)
-  }
-}
-
 object RastriginSync extends EmasApp with RastriginConfig {
 
   def main(args: Array[String]) {
     run[RastriginProblem]("RastriginSync", ops, stats, SyncEnvironment.props, 15 minutes)
-  }
-}
-
-object RastriginSync2 extends EmasApp with RastriginConfig2 {
-
-  def main(args: Array[String]) {
-    run[RastriginProblem]("RastriginSync2", ops, stats, SyncEnvironment.props, 15 minutes)
   }
 }
 
