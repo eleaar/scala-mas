@@ -35,7 +35,7 @@ import org.paramas.mas.sync.SyncEnvironment
 trait RastriginConfig {
   def ops(c: Config) = new GeneticConfig(c.getConfig("rastrigin")) with RastriginProblem with ConcurrentRandomGenerator
 
-  def stats(system: ActorSystem) = Stats.concurrent((10000.0, 0L))({
+  def stats(system: ActorSystem) = Stats.concurrent((-10000.0, 0L))({
     case ((oldFitness, oldReps), (newFitness, newReps)) => (math.max(oldFitness, newFitness), oldReps + newReps)
   })(system)
 }
