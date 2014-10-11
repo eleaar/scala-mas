@@ -38,6 +38,8 @@ trait RastriginConfig {
   def stats(system: ActorSystem) = Stats.concurrent((-10000.0, 0L))({
     case ((oldFitness, oldReps), (newFitness, newReps)) => (math.max(oldFitness, newFitness), oldReps + newReps)
   })(system)
+
+  def time = 50 minutes
 }
 
 trait LabsConfig {
@@ -46,33 +48,35 @@ trait LabsConfig {
   def stats(system: ActorSystem) = Stats.concurrent((0.0, 0L))({
     case ((oldFitness, oldReps), (newFitness, newReps)) => (math.max(oldFitness, newFitness), oldReps + newReps)
   })(system)
+
+  def time = 60 minutes
 }
 
 object RastriginAsync extends EmasApp with RastriginConfig {
 
   def main(args: Array[String]) {
-    run[RastriginProblem]("RastriginAsync", ops, stats, AsyncEnvironment.props, 15 minutes)
+    run[RastriginProblem]("RastriginAsync", ops, stats, AsyncEnvironment.props, time)
   }
 }
 
 object RastriginSync extends EmasApp with RastriginConfig {
 
   def main(args: Array[String]) {
-    run[RastriginProblem]("RastriginSync", ops, stats, SyncEnvironment.props, 15 minutes)
+    run[RastriginProblem]("RastriginSync", ops, stats, SyncEnvironment.props, time)
   }
 }
 
 object LabsAsync extends EmasApp with LabsConfig {
 
   def main(args: Array[String]) {
-    run[LabsProblem]("LabsAsync", ops, stats, AsyncEnvironment.props, 15 minutes)
+    run[LabsProblem]("LabsAsync", ops, stats, AsyncEnvironment.props, time)
   }
 }
 
 object LabsSync extends EmasApp with LabsConfig {
 
   def main(args: Array[String]) {
-    run[LabsProblem]("LabsSync", ops, stats, SyncEnvironment.props, 15 minutes)
+    run[LabsProblem]("LabsSync", ops, stats, SyncEnvironment.props, time)
   }
 }
 
