@@ -20,12 +20,13 @@
 package org.paramas.mas
 
 import akka.actor.ActorSystem
-import org.scalatest.mock.MockitoSugar
-import org.scalacheck.Gen
-import org.scalatest.prop.PropertyChecks
-import akka.testkit.{TestProbe, TestActorRef}
+import akka.testkit.{TestActorRef, TestProbe}
 import org.paramas.mas.LogicTypes.Agent
 import org.paramas.mas.RootEnvironment.{Add, Migrate}
+import org.scalacheck.Gen
+import org.scalatest.mock.MockitoSugar
+import org.scalatest.prop.PropertyChecks
+
 import scala.concurrent.duration._
 
 class RootEnvironmentSpecs extends ActorUnitSpecs(ActorSystem("RootEnvironmentSpecs")) with MockitoSugar with PropertyChecks {

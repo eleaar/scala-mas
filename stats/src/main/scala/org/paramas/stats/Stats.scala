@@ -17,11 +17,12 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.mas
+package org.paramas.stats
 
-import scala.concurrent.Future
 import akka.actor.ActorSystem
 import akka.agent.Agent
+
+import scala.concurrent.Future
 
 /**
  * Interface for the gathering of statistics during computations. The statistics value is the result of folding in time all the provided updates.
@@ -44,7 +45,7 @@ trait Stats[T] {
   def getNow: T
 }
 
-private[mas] class SimpleStats[T](initialValue: T, updateFunction: (T, T) => T) extends Stats[T] {
+private[stats] class SimpleStats[T](initialValue: T, updateFunction: (T, T) => T) extends Stats[T] {
   private var oldValue = initialValue
 
   def update(newValue: T) = {
@@ -56,7 +57,7 @@ private[mas] class SimpleStats[T](initialValue: T, updateFunction: (T, T) => T) 
   def getNow = oldValue
 }
 
-private[mas] class ConcurrentStats[T](initialValue: T, updateFunction: (T, T) => T, system: ActorSystem) extends Stats[T] {
+private[stats] class ConcurrentStats[T](initialValue: T, updateFunction: (T, T) => T, system: ActorSystem) extends Stats[T] {
 
   import system.dispatcher
 

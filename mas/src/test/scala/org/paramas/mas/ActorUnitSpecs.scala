@@ -19,11 +19,11 @@
 
 package org.paramas.mas
 
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit}
-import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
-import akka.actor.{Props, ActorRef, Actor, ActorSystem}
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.prop.PropertyChecks
+import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
 
 object TestActorProps {
   def mockActor = Props[MockActor]

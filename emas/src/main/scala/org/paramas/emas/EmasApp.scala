@@ -15,22 +15,24 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 package org.paramas.emas
 
-import com.typesafe.config.Config
-import org.paramas.emas.genetic.{SteepestDescend, LabsProblem, GeneticOps, RastriginProblem}
-import org.paramas.emas.random.{ConcurrentRandomGenerator, DefaultRandomGenerator}
-import org.paramas.mas.util.{Logger, Reaper}
-import akka.actor.{Props, ActorSystem}
-import scala.concurrent.duration._
+import akka.actor.{ActorSystem, Props}
 import akka.event.Logging
-import scala.concurrent.ExecutionContext.Implicits.global
-import org.paramas.mas.{Stats, Logic, RootEnvironment}
-import org.paramas.emas.config.{GeneticConfig, AppConfig}
+import com.typesafe.config.Config
+import org.paramas.emas.config.{AppConfig, GeneticConfig}
+import org.paramas.emas.genetic.{GeneticOps, LabsProblem, RastriginProblem, SteepestDescend}
+import org.paramas.emas.random.ConcurrentRandomGenerator
 import org.paramas.mas.async.AsyncEnvironment
 import org.paramas.mas.sync.SyncEnvironment
+import org.paramas.mas.util.{Logger, Reaper}
+import org.paramas.mas.{Logic, RootEnvironment}
+import org.paramas.stats.Stats
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration._
 
 trait RastriginConfig {
   def ops(c: Config) = new GeneticConfig(c.getConfig("rastrigin")) with RastriginProblem with ConcurrentRandomGenerator

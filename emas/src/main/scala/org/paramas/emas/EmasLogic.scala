@@ -24,8 +24,9 @@ import org.paramas.emas.genetic.GeneticOps
 import scala.math._
 import org.paramas.mas.util.Util._
 import org.paramas.emas.config.AppConfig
-import org.paramas.mas.{Stats, LogicTypes, Logic}
+import org.paramas.mas.{LogicTypes, Logic}
 import org.paramas.mas.LogicTypes._
+import org.paramas.stats.Stats
 
 object EmasLogic {
   case class Agent[G <: GeneticOps[G]](val solution: G#Solution, val fitness: G#Evaluation, var energy: Int) extends LogicTypes.Agent
@@ -39,7 +40,7 @@ object EmasLogic {
 class EmasLogic[G <: GeneticOps[G]](val ops: G, val stats: Stats[(G#Evaluation, Long)], implicit val config: AppConfig) extends Logic {
 
   import ops._
-  import EmasLogic._
+  import org.paramas.emas.EmasLogic._
 
   implicit val ordering = ops.ordering
 

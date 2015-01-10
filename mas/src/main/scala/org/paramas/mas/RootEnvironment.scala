@@ -19,10 +19,10 @@
 
 package org.paramas.mas
 
-import akka.actor.{ActorContext, Props, Actor}
-import scala.util.Random
-import org.paramas.emas.config.AppConfig
+import akka.actor.{Actor, ActorContext, Props}
 import org.paramas.mas.LogicTypes._
+
+import scala.util.Random
 
 object RootEnvironment {
 
@@ -68,7 +68,7 @@ object RootEnvironment {
 class RootEnvironment(islandProps: Props, islandsNumber: Int) extends Actor {
   require(islandsNumber > 0)
 
-  import RootEnvironment._
+  import org.paramas.mas.RootEnvironment._
 
   val islands = Array.tabulate(islandsNumber)(i => context.actorOf(islandProps, s"island-$i"))
 

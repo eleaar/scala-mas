@@ -67,7 +67,7 @@ object LogicTypes {
  */
 trait Logic {
 
-  import LogicTypes._
+  import org.paramas.mas.LogicTypes._
 
   /**
    * A generator fo the initial agent population on an island

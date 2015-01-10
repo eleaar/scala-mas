@@ -20,7 +20,6 @@
 package org.paramas.mas.async
 
 import akka.actor.{Actor, Props, ActorRef}
-import org.paramas.emas.config.AppConfig
 import org.paramas.mas.LogicTypes._
 
 object Individual {
