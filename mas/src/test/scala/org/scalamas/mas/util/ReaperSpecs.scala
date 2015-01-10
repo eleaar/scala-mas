@@ -22,6 +22,7 @@ package org.paramas.mas.util
 
 import akka.actor._
 import akka.testkit.{TestProbe, TestActorRef}
+import akka.testkit._
 import org.paramas.mas.{MockActor, ActorUnitSpecs}
 import org.scalatest.mock.MockitoSugar
 import scala.concurrent.duration._
@@ -89,7 +90,7 @@ class ReaperSpecs extends ActorUnitSpecs(ActorSystem("ReaperSpecs")) with Mockit
 
           // when
           souls.foreach(_ ! PoisonPill)
-          Thread.sleep(duration.toMillis)
+          Thread.sleep(duration.dilated.toMillis)
 
           // then
           future shouldBe 'completed
@@ -101,13 +102,13 @@ class ReaperSpecs extends ActorUnitSpecs(ActorSystem("ReaperSpecs")) with Mockit
   "Method terminateAfter" should {
     "complete the future after the specified interval" in {
       //given
-      import scala.concurrent.ExecutionContext.Implicits.global
+      import system.dispatcher
       val soul = TestActorRef[MockActor]
       val duration = 100 millis
 
       // when
       val future = Reaper.terminateAfter(soul, duration)
-      Thread.sleep(duration.toMillis * 2)
+      Thread.sleep(duration.dilated.toMillis)
 
       // then
       future shouldBe 'completed
