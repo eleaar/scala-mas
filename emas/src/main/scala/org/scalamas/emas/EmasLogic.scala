@@ -19,7 +19,7 @@
 
 package org.paramas.emas
 
-import org.paramas.emas.genetic.GeneticOps
+import org.scalamas.genetic.GeneticOps
 
 import scala.math._
 import org.paramas.mas.util.Util._

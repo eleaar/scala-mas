@@ -2,10 +2,10 @@ package org.paramas.emas
 
 import com.typesafe.config.ConfigFactory
 import org.paramas.emas.config.{AppConfig, GeneticConfig}
-import org.paramas.emas.genetic.RastriginProblem
 import org.paramas.emas.random.DefaultRandomGenerator
 import org.paramas.mas.LogicTypes.{MeetingFunction, Agent, Migration}
 import org.paramas.stats.Stats
+import org.scalamas.genetic.RastriginProblem
 
 import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.duration._

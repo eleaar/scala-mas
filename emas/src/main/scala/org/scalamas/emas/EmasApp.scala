@@ -23,13 +23,13 @@ import akka.actor.{ActorSystem, Props}
 import akka.event.Logging
 import com.typesafe.config.Config
 import org.paramas.emas.config.{AppConfig, GeneticConfig}
-import org.paramas.emas.genetic.{GeneticOps, LabsProblem, RastriginProblem, SteepestDescend}
 import org.paramas.emas.random.ConcurrentRandomGenerator
 import org.paramas.mas.async.AsyncEnvironment
 import org.paramas.mas.sync.SyncEnvironment
 import org.paramas.mas.util.{Logger, Reaper}
 import org.paramas.mas.{Logic, RootEnvironment}
 import org.paramas.stats.Stats
+import org.scalamas.genetic.{RastriginProblem, SteepestDescend, LabsProblem, GeneticOps}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._

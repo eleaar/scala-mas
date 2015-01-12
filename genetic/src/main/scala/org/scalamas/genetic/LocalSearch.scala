@@ -1,4 +1,4 @@
-package org.paramas.emas.genetic
+package org.scalamas.genetic
 
 /**
  * Created by Daniel on 2014-09-25.
