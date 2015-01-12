@@ -5,7 +5,7 @@ import org.scalamas.mas.random.RandomGenerator
 import scala.math._
 
 /**
- * Created by Daniel on 2014-08-14.
+ * An implementation of genetic operators for finding the minimum of the Rastrigin function.
  */
 trait RastriginProblem extends GeneticOps[RastriginProblem] with RandomGenerator {
 
@@ -20,11 +20,11 @@ trait RastriginProblem extends GeneticOps[RastriginProblem] with RandomGenerator
   def generate = Array.fill(problemSize)(-50 + random * 100)
 
   def evaluate(solution: Solution) = {
-    -solution.foldLeft(0.0)(
+    solution.foldLeft(0.0)(
       (sum, x) => sum + 10 + x * x - 10 * cos(2 * Pi * x))
   }
 
-  def ordering = scala.math.Ordering.Double
+  lazy val ordering = scala.math.Ordering.Double.reverse
 
   def transform(solution: Solution) =
     mutateSolution(solution)

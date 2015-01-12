@@ -1,8 +1,6 @@
 package org.scalamas.genetic
 
-/**
- * Created by Daniel on 2014-09-25.
- */
+
 trait LocalSearch[G <: GeneticOps[G]] {
   def localSearch(s: G#Solution): (G#Solution, G#Evaluation)
 }

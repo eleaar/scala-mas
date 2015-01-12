@@ -3,7 +3,7 @@ package org.scalamas.genetic
 import org.scalamas.mas.random.RandomGenerator
 
 /**
- * Created by Daniel on 2014-09-23.
+ * An implementation of genetic operators for finding the maximu of the Labs function.
  */
 trait LabsProblem extends GeneticOps[LabsProblem] with LocalSearch[LabsProblem] with RandomGenerator  {
   type Feature = Boolean

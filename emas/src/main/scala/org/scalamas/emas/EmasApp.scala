@@ -37,8 +37,8 @@ import scala.concurrent.duration._
 trait RastriginConfig {
   def ops(c: Config) = new GeneticConfig(c.getConfig("rastrigin")) with RastriginProblem with ConcurrentRandomGenerator
 
-  def stats(system: ActorSystem) = Stats.concurrent((-10000.0, 0L))({
-    case ((oldFitness, oldReps), (newFitness, newReps)) => (math.max(oldFitness, newFitness), oldReps + newReps)
+  def stats(system: ActorSystem) = Stats.concurrent((10000.0, 0L))({
+    case ((oldFitness, oldReps), (newFitness, newReps)) => (math.min(oldFitness, newFitness), oldReps + newReps)
   })(system)
 
   def time = 50 minutes

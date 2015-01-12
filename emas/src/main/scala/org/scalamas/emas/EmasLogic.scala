@@ -79,7 +79,6 @@ class EmasLogic[G <: GeneticOps[G]](val ops: G, val stats: Stats[(G#Evaluation, 
       checked[G](agents).shuffled.grouped(cap).flatMap(doFight).toList
     case (Reproduction(cap), agents) =>
       val newAgents = checked[G](agents).shuffled.grouped(cap).flatMap(doReproduce).toList
-      newAgents.maxBy(_.fitness).fitness
       stats.update((newAgents.maxBy(_.fitness).fitness, agents.size))
       newAgents
     case (Migration(_), agents) => agents
