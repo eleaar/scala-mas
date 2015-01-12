@@ -1,10 +1,10 @@
-package org.paramas.emas
+package org.scalamas.emas
 
 import com.typesafe.config.ConfigFactory
-import org.paramas.emas.config.{AppConfig, GeneticConfig}
-import org.paramas.emas.random.DefaultRandomGenerator
-import org.paramas.mas.LogicTypes.{MeetingFunction, Agent, Migration}
-import org.paramas.stats.Stats
+import org.scalamas.emas.config.{AppConfig, GeneticConfig}
+import org.scalamas.mas.random.DefaultRandomGenerator
+import org.scalamas.mas.LogicTypes.{MeetingFunction, Agent, Migration}
+import org.scalamas.stats.Stats
 import org.scalamas.genetic.RastriginProblem
 
 import scala.collection.mutable.ArrayBuffer

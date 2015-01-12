@@ -17,10 +17,10 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.mas
+package org.scalamas.mas
 
 import akka.actor.{Actor, ActorContext, Props}
-import org.paramas.mas.LogicTypes._
+import org.scalamas.mas.LogicTypes._
 
 import scala.util.Random
 
@@ -68,7 +68,7 @@ object RootEnvironment {
 class RootEnvironment(islandProps: Props, islandsNumber: Int) extends Actor {
   require(islandsNumber > 0)
 
-  import org.paramas.mas.RootEnvironment._
+  import org.scalamas.mas.RootEnvironment._
 
   val islands = Array.tabulate(islandsNumber)(i => context.actorOf(islandProps, s"island-$i"))
 

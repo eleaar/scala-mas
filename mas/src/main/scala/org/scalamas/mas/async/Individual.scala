@@ -17,10 +17,10 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.mas.async
+package org.scalamas.mas.async
 
 import akka.actor.{Actor, Props, ActorRef}
-import org.paramas.mas.LogicTypes._
+import org.scalamas.mas.LogicTypes._
 
 object Individual {
 

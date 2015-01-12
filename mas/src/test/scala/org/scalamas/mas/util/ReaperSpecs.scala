@@ -17,13 +17,13 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.mas.util
+package org.scalamas.mas.util
 
 
 import akka.actor._
 import akka.testkit.{TestProbe, TestActorRef}
 import akka.testkit._
-import org.paramas.mas.{MockActor, ActorUnitSpecs}
+import org.scalamas.mas.{MockActor, ActorUnitSpecs}
 import org.scalatest.mock.MockitoSugar
 import scala.concurrent.duration._
 import org.mockito.Mockito._

@@ -17,12 +17,12 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.mas.async
+package org.scalamas.mas.async
 
 import akka.actor.{PoisonPill, ActorRef, Props, Actor}
 import scala.collection.mutable.ArrayBuffer
-import org.paramas.mas.LogicTypes._
-import org.paramas.mas.RootEnvironment
+import org.scalamas.mas.LogicTypes._
+import org.scalamas.mas.RootEnvironment
 
 object Arena {
 

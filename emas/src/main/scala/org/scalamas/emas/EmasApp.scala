@@ -17,18 +17,18 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.paramas.emas
+package org.scalamas.emas
 
 import akka.actor.{ActorSystem, Props}
 import akka.event.Logging
 import com.typesafe.config.Config
-import org.paramas.emas.config.{AppConfig, GeneticConfig}
-import org.paramas.emas.random.ConcurrentRandomGenerator
-import org.paramas.mas.async.AsyncEnvironment
-import org.paramas.mas.sync.SyncEnvironment
-import org.paramas.mas.util.{Logger, Reaper}
-import org.paramas.mas.{Logic, RootEnvironment}
-import org.paramas.stats.Stats
+import org.scalamas.emas.config.{AppConfig, GeneticConfig}
+import org.scalamas.mas.random.ConcurrentRandomGenerator
+import org.scalamas.mas.async.AsyncEnvironment
+import org.scalamas.mas.sync.SyncEnvironment
+import org.scalamas.mas.util.{Logger, Reaper}
+import org.scalamas.mas.{Logic, RootEnvironment}
+import org.scalamas.stats.Stats
 import org.scalamas.genetic.{RastriginProblem, SteepestDescend, LabsProblem, GeneticOps}
 
 import scala.concurrent.ExecutionContext.Implicits.global

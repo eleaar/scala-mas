@@ -17,10 +17,10 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.mas.sync
+package org.scalamas.mas.sync
 
 import akka.actor.ActorSystem
-import org.paramas.mas.ActorUnitSpecs
+import org.scalamas.mas.ActorUnitSpecs
 
 class SyncEnvironmentSpecs extends ActorUnitSpecs(ActorSystem("EnvironmentSpecs"))  {
 

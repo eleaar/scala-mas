@@ -17,12 +17,12 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.mas.async
+package org.scalamas.mas.async
 
 import akka.actor.{Actor, Props}
-import org.paramas.mas.{RootEnvironment, Logic}
-import org.paramas.mas.LogicTypes._
-import org.paramas.mas.RootEnvironment.Add
+import org.scalamas.mas.{RootEnvironment, Logic}
+import org.scalamas.mas.LogicTypes._
+import org.scalamas.mas.RootEnvironment.Add
 
 object AsyncEnvironment {
 

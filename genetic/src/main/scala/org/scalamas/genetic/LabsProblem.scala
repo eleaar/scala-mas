@@ -1,6 +1,6 @@
 package org.scalamas.genetic
 
-import org.paramas.emas.random.RandomGenerator
+import org.scalamas.mas.random.RandomGenerator
 
 /**
  * Created by Daniel on 2014-09-23.

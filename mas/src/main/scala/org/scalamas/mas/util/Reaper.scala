@@ -17,7 +17,7 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.mas.util
+package org.scalamas.mas.util
 
 import akka.actor._
 import scala.concurrent.{ExecutionContext, Promise}

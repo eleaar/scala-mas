@@ -17,17 +17,17 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.mas.async
+package org.scalamas.mas.async
 
-import org.paramas.mas.ActorUnitSpecs
+import org.scalamas.mas.ActorUnitSpecs
 import akka.actor.{PoisonPill, ActorSystem}
 import akka.testkit.{TestProbe, TestActorRef}
 import org.scalatest.mock.MockitoSugar
-import org.paramas.mas.LogicTypes._
-import org.paramas.mas.async.Arena.Join
+import org.scalamas.mas.LogicTypes._
+import org.scalamas.mas.async.Arena.Join
 import org.mockito.Mockito._
-import org.paramas.mas.async.Individual.UpdateState
-import org.paramas.mas.RootEnvironment.Add
+import org.scalamas.mas.async.Individual.UpdateState
+import org.scalamas.mas.RootEnvironment.Add
 import org.scalatest.prop.PropertyChecks
 import org.scalacheck.Gen
 import scala.concurrent.duration._

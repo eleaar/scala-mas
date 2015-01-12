@@ -17,11 +17,11 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.emas.config
+package org.scalamas.emas.config
 
 import com.typesafe.config.Config
-import org.paramas.mas.LogicTypes.{Migration, Behaviour}
-import org.paramas.emas.EmasLogic.{Death, Reproduction, Fight}
+import org.scalamas.mas.LogicTypes.{Migration, Behaviour}
+import org.scalamas.emas.EmasLogic.{Death, Reproduction, Fight}
 
 class EmasConfig(config: Config) {
   val islandsNumber = config.getInt("islandsNumber")

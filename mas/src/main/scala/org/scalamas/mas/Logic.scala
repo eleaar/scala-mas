@@ -17,7 +17,7 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.mas
+package org.scalamas.mas
 
 /**
  * The types in a MAS simulation
@@ -67,7 +67,7 @@ object LogicTypes {
  */
 trait Logic {
 
-  import org.paramas.mas.LogicTypes._
+  import org.scalamas.mas.LogicTypes._
 
   /**
    * A generator fo the initial agent population on an island

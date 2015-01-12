@@ -17,12 +17,12 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.mas
+package org.scalamas.mas
 
 import akka.actor.ActorSystem
 import akka.testkit.{TestActorRef, TestProbe}
-import org.paramas.mas.LogicTypes.Agent
-import org.paramas.mas.RootEnvironment.{Add, Migrate}
+import org.scalamas.mas.LogicTypes.Agent
+import org.scalamas.mas.RootEnvironment.{Add, Migrate}
 import org.scalacheck.Gen
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.prop.PropertyChecks

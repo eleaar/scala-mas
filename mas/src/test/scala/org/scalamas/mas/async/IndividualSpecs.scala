@@ -17,15 +17,15 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.mas.async
+package org.scalamas.mas.async
 
-import org.paramas.mas.ActorUnitSpecs
+import org.scalamas.mas.ActorUnitSpecs
 import akka.actor.ActorSystem
 import akka.testkit.{TestProbe, TestActorRef}
-import org.paramas.mas.LogicTypes.Agent
+import org.scalamas.mas.LogicTypes.Agent
 import scala.concurrent.duration._
-import org.paramas.mas.async.Arena.Join
-import org.paramas.mas.async.Individual.UpdateState
+import org.scalamas.mas.async.Arena.Join
+import org.scalamas.mas.async.Individual.UpdateState
 
 class IndividualSpecs extends ActorUnitSpecs(ActorSystem("IndividualSpecs")) {
   "An Individual actor" should {

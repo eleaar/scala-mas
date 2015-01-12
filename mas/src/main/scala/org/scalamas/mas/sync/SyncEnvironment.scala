@@ -17,10 +17,10 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.mas.sync
+package org.scalamas.mas.sync
 
 import akka.actor._
-import org.paramas.mas.{RootEnvironment, Logic}
+import org.scalamas.mas.{RootEnvironment, Logic}
 
 object SyncEnvironment {
 

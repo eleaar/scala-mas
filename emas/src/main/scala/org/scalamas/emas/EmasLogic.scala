@@ -17,16 +17,16 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.emas
+package org.scalamas.emas
 
 import org.scalamas.genetic.GeneticOps
 
 import scala.math._
-import org.paramas.mas.util.Util._
-import org.paramas.emas.config.AppConfig
-import org.paramas.mas.{LogicTypes, Logic}
-import org.paramas.mas.LogicTypes._
-import org.paramas.stats.Stats
+import org.scalamas.mas.util.Util._
+import org.scalamas.emas.config.AppConfig
+import org.scalamas.mas.{LogicTypes, Logic}
+import org.scalamas.mas.LogicTypes._
+import org.scalamas.stats.Stats
 
 object EmasLogic {
   case class Agent[G <: GeneticOps[G]](val solution: G#Solution, val fitness: G#Evaluation, var energy: Int) extends LogicTypes.Agent
@@ -40,7 +40,7 @@ object EmasLogic {
 class EmasLogic[G <: GeneticOps[G]](val ops: G, val stats: Stats[(G#Evaluation, Long)], implicit val config: AppConfig) extends Logic {
 
   import ops._
-  import org.paramas.emas.EmasLogic._
+  import EmasLogic._
 
   implicit val ordering = ops.ordering
 

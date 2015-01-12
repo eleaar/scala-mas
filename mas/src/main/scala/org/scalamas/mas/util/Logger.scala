@@ -17,7 +17,7 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.mas.util
+package org.scalamas.mas.util
 
 import scala.concurrent.duration._
 import akka.actor.ActorSystem

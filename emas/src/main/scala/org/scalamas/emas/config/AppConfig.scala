@@ -17,7 +17,7 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.emas.config
+package org.scalamas.emas.config
 
 import akka.actor.{Extension, ExtendedActorSystem, ExtensionIdProvider, ExtensionId}
 import com.typesafe.config.Config

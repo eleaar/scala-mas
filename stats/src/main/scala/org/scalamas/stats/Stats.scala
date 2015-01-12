@@ -17,7 +17,7 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.paramas.stats
+package org.scalamas.stats
 
 import akka.actor.ActorSystem
 import akka.agent.Agent
