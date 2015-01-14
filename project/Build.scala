@@ -32,4 +32,6 @@ object ScalaMasBuild extends Build {
   lazy val GeneticProject = subProject("genetic").dependsOn(MasProject)
 
   lazy val EmasProject = subProject("emas").dependsOn(MasProject, StatsProject, GeneticProject)
+
+  lazy val ExamplesProject = subProject("examples").dependsOn(EmasProject, MasProject, StatsProject, GeneticProject)
 }

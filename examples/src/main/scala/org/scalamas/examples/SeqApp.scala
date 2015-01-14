@@ -1,15 +1,4 @@
-package org.scalamas.emas
-
-import com.typesafe.config.ConfigFactory
-import org.scalamas.emas.config.{AppConfig, GeneticConfig}
-import org.scalamas.mas.random.DefaultRandomGenerator
-import org.scalamas.mas.LogicTypes.{MeetingFunction, Agent, Migration}
-import org.scalamas.stats.Stats
-import org.scalamas.genetic.RastriginProblem
-
-import scala.collection.mutable.ArrayBuffer
-import scala.concurrent.duration._
-import scala.util.Random
+package org.scalamas.examples
 
 object SeqApp
 
