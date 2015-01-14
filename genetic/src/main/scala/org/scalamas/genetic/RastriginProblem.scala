@@ -1,6 +1,6 @@
 package org.scalamas.genetic
 
-import org.scalamas.mas.AgentRuntimeComponent
+import org.scalamas.app.AgentRuntimeComponent
 import org.scalamas.mas.random.RandomGenerator
 
 import scala.math._

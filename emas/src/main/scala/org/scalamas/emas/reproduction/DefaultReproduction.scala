@@ -1,7 +1,7 @@
 package org.scalamas.emas.reproduction
 
+import org.scalamas.app.AgentRuntimeComponent
 import org.scalamas.genetic.GeneticProblem
-import org.scalamas.mas.AgentRuntimeComponent
 
 import scala.math._
 

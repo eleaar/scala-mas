@@ -1,9 +1,9 @@
 package org.scalamas.emas
 
+import org.scalamas.app.AgentRuntimeComponent
 import org.scalamas.emas.fight.DefaultFight
 import org.scalamas.emas.reproduction.DefaultReproduction
 import org.scalamas.genetic.GeneticProblem
-import org.scalamas.mas.AgentRuntimeComponent
 import org.scalamas.mas.logic.DelegatingLogicStrategy
 import org.scalamas.mas.random.RandomGenerator
 import org.scalamas.stats.StatsFactoryComponent

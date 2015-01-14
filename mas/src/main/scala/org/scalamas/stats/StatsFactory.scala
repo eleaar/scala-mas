@@ -1,6 +1,6 @@
 package org.scalamas.stats
 
-import org.scalamas.mas.AgentRuntimeComponent
+import org.scalamas.app.{ConcurrentAgentRuntimeComponent, AgentRuntimeComponent}
 
 /**
  * Created by Daniel on 2015-01-13.
@@ -24,7 +24,7 @@ trait SimpleStatsFactory extends StatsFactoryComponent {
 }
 
 trait ConcurrentStatsFactory extends StatsFactoryComponent {
-  this: AgentRuntimeComponent =>
+  this: ConcurrentAgentRuntimeComponent =>
 
   def statsFactory = ConcurrentStatsFactoryImpl
 

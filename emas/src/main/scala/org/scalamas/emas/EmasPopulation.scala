@@ -1,7 +1,7 @@
 package org.scalamas.emas
 
+import org.scalamas.app.AgentRuntimeComponent
 import org.scalamas.genetic.GeneticProblem
-import org.scalamas.mas.AgentRuntimeComponent
 import org.scalamas.mas.logic.PopulationStrategy
 import org.scalamas.mas.random.RandomGenerator
 

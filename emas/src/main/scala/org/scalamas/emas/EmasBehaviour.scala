@@ -1,6 +1,6 @@
 package org.scalamas.emas
 
-import org.scalamas.mas.AgentRuntimeComponent
+import org.scalamas.app.AgentRuntimeComponent
 import org.scalamas.mas.LogicTypes.Migration
 import org.scalamas.mas.logic.BehaviourStrategy
 import org.scalamas.mas.random.RandomGenerator
