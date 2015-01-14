@@ -1,14 +1,34 @@
 package org.scalamas.genetic
 
+import org.scalamas.mas.AgentRuntimeComponent
 import org.scalamas.mas.random.RandomGenerator
 
 /**
  * An implementation of genetic operators for finding the maximu of the Labs function.
  */
-trait LabsProblem extends GeneticOps[LabsProblem] with LocalSearch[LabsProblem] with RandomGenerator  {
+
+trait LabsProblem extends GeneticProblem {
+  this: AgentRuntimeComponent with RandomGenerator =>
+
+  type Genetic = LabsOps
+
+  def genetic = new LabsOps with SteepestDescend {
+    def config = agentRuntime.config.getConfig("genetic.labs")
+
+    val problemSize = config.getInt("problemSize")
+    val mutationChance = config.getDouble("mutationChance")
+    val mutationRate = config.getDouble("mutationRate")
+
+    def random = LabsProblem.this.random
+  }
+}
+
+trait LabsOps extends GeneticOps[LabsOps] with LocalSearch[LabsOps] {
   type Feature = Boolean
   type Solution = Array[Feature]
   type Evaluation = Double
+
+  def random: Double
 
   def problemSize: Int
 
@@ -21,6 +41,8 @@ trait LabsProblem extends GeneticOps[LabsProblem] with LocalSearch[LabsProblem] 
   def evaluate(s: Solution) = {
     localSearch(s)._2
   }
+
+  def minimal = 0.0
 
   def ordering = scala.math.Ordering.Double
 
@@ -53,3 +75,5 @@ trait LabsProblem extends GeneticOps[LabsProblem] with LocalSearch[LabsProblem] 
     }
   }
 }
+
+

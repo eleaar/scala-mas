@@ -19,92 +19,53 @@
 
 package org.scalamas.emas
 
-import akka.actor.{ActorSystem, Props}
+import akka.actor.ActorSystem
 import akka.event.Logging
-import com.typesafe.config.Config
-import org.scalamas.emas.config.{AppConfig, GeneticConfig}
+import com.typesafe.config.{ConfigFactory, Config}
+import org.scalamas.genetic.RastriginProblem
+import org.scalamas.mas.{LogicComponent, DefaultAgentRuntime, AgentRuntimeComponent, RootEnvironment}
 import org.scalamas.mas.random.ConcurrentRandomGenerator
-import org.scalamas.mas.async.AsyncEnvironment
 import org.scalamas.mas.sync.SyncEnvironment
-import org.scalamas.mas.util.{Logger, Reaper}
-import org.scalamas.mas.{Logic, RootEnvironment}
-import org.scalamas.stats.Stats
-import org.scalamas.genetic.{RastriginProblem, SteepestDescend, LabsProblem, GeneticOps}
+import org.scalamas.mas.util.{Reaper, Logger}
+import org.scalamas.stats.{StatsComponent, ConcurrentStatsFactory}
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 
-trait RastriginConfig {
-  def ops(c: Config) = new GeneticConfig(c.getConfig("rastrigin")) with RastriginProblem with ConcurrentRandomGenerator
-
-  def stats(system: ActorSystem) = Stats.concurrent((10000.0, 0L))({
-    case ((oldFitness, oldReps), (newFitness, newReps)) => (math.min(oldFitness, newFitness), oldReps + newReps)
-  })(system)
-
-  def time = 50 minutes
-}
-
-trait LabsConfig {
-  def ops(c: Config) = new GeneticConfig(c.getConfig("labs")) with LabsProblem with SteepestDescend with ConcurrentRandomGenerator
-
-  def stats(system: ActorSystem) = Stats.concurrent((0.0, 0L))({
-    case ((oldFitness, oldReps), (newFitness, newReps)) => (math.max(oldFitness, newFitness), oldReps + newReps)
-  })(system)
-
-  def time = 60 minutes
-}
-
-object RastriginAsync extends EmasApp with RastriginConfig {
+/**
+ * Created by Daniel on 2015-01-12.
+ */
+object EmasApp {
 
   def main(args: Array[String]) {
-    run[RastriginProblem]("RastriginAsync", ops, stats, AsyncEnvironment.props, time)
+
+    val app = new DefaultAgentRuntime("test")
+      with EmasLogicComponent with EmasReproductionComponent
+      with EmasStats
+      with RastriginProblem
+      with ConcurrentStatsFactory with ConcurrentRandomGenerator
+
+    val islands = 1
+    run(app, islands, 5 seconds)
   }
-}
 
-object RastriginSync extends EmasApp with RastriginConfig {
+  def run(app: AgentRuntimeComponent with LogicComponent with StatsComponent, islands: Int, duration: FiniteDuration): Unit = {
 
-  def main(args: Array[String]) {
-    run[RastriginProblem]("RastriginSync", ops, stats, SyncEnvironment.props, time)
-  }
-}
-
-object LabsAsync extends EmasApp with LabsConfig {
-
-  def main(args: Array[String]) {
-    run[LabsProblem]("LabsAsync", ops, stats, AsyncEnvironment.props, time)
-  }
-}
-
-object LabsSync extends EmasApp with LabsConfig {
-
-  def main(args: Array[String]) {
-    run[LabsProblem]("LabsSync", ops, stats, SyncEnvironment.props, time)
-  }
-}
-
-class EmasApp {
-
-  def run[G <: GeneticOps[G]](name: String, opsF: (Config) => G, statsF: (ActorSystem) => Stats[(G#Evaluation, Long)], islandsProps: (Logic) => Props, duration: FiniteDuration) {
-
-    implicit val system = ActorSystem(name)
-    val settings = AppConfig(system)
-    val stats = statsF(system)
-    val ops: G = opsF(system.settings.config.getConfig("genetic"))
-    val logic = new EmasLogic[G](ops, stats, settings)
+    implicit val system = app.agentRuntime.system
+    import system.dispatcher
 
     val log = Logging(system, getClass)
     Logger(frequency = 1 second) {
       time =>
-        val (fitness, reproductions) = stats.getNow
-        log info (s"fitness $time $fitness")
-        log info (s"reproductions $time $reproductions")
+        log info (s"$time ${app.formatter(app.stats.getNow)}")
     }
 
-    val root = system.actorOf(RootEnvironment.props(islandsProps(logic), settings.emas.islandsNumber), "root")
+    val root = system.actorOf(RootEnvironment.props(SyncEnvironment.props(app.logic), islands), "root")
     for (
       _ <- Reaper.terminateAfter(root, duration);
-      _ <- stats.get) {
+      _ <- app.stats.get) {
       system.shutdown()
     }
   }
+
 }
+

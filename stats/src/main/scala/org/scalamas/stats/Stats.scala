@@ -83,3 +83,5 @@ object Stats {
   def concurrent[T](initialValue: T)(updateFunction: (T, T) => T)(implicit system: ActorSystem) = new ConcurrentStats[T](initialValue, updateFunction, system)
 
 }
+
+

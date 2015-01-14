@@ -5,13 +5,13 @@ trait LocalSearch[G <: GeneticOps[G]] {
   def localSearch(s: G#Solution): (G#Solution, G#Evaluation)
 }
 
-trait SteepestDescend extends LocalSearch[LabsProblem] {
+trait SteepestDescend extends LocalSearch[LabsOps] {
 
   def maxIterations = 25
 
-  def localSearch(s: LabsProblem#Solution) = {
-    def localSearch0(stepsRemaining: Int, currentSolution: LabsProblem#Solution, flipper: OneBitFastFlipper):
-    (LabsProblem#Solution, LabsProblem#Evaluation) =
+  def localSearch(s: LabsOps#Solution) = {
+    def localSearch0(stepsRemaining: Int, currentSolution: LabsOps#Solution, flipper: OneBitFastFlipper):
+    (LabsOps#Solution, LabsOps#Evaluation) =
       stepsRemaining match {
         case 0 => (currentSolution, flipper.currentEnergy)
         case _ =>

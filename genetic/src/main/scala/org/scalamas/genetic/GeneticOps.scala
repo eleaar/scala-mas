@@ -77,6 +77,13 @@ trait GeneticEvaluator[G <: GeneticOps[G]] {
   def evaluate(solution: G#Solution): G#Evaluation
 
   /**
+   * Provides a lower bound for the possible evaluations, with respect to ordering.
+   *
+   * @return a lower evaluation bound
+   */
+  def minimal: G#Evaluation
+
+  /**
    * Provides an for evaluations to decide which is better.
    * @return the evaluations ordering
    */
