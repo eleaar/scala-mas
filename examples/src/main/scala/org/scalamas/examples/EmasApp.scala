@@ -19,15 +19,14 @@
 
 package org.scalamas.examples
 
-import org.scalamas.emas.{EmasLogicComponent, EmasReproductionComponent, EmasStats}
+import akka.event.Logging
+import org.scalamas.emas.EmasLogic
 import org.scalamas.genetic.RastriginProblem
 import org.scalamas.mas.random.ConcurrentRandomGenerator
 import org.scalamas.mas.sync.SyncEnvironment
 import org.scalamas.mas.util.{Logger, Reaper}
-import org.scalamas.mas.{AgentRuntimeComponent, DefaultAgentRuntime, LogicComponent, RootEnvironment}
+import org.scalamas.mas.{AgentRuntimeComponent, DefaultAgentRuntime, LogicStrategy, RootEnvironment}
 import org.scalamas.stats.{ConcurrentStatsFactory, StatsComponent}
-
-import akka.event.Logging
 
 import scala.concurrent.duration._
 
@@ -38,17 +37,15 @@ object EmasApp {
 
   def main(args: Array[String]) {
 
-    val app = new DefaultAgentRuntime("test")
-      with EmasLogicComponent with EmasReproductionComponent
-      with EmasStats
+    val app = new DefaultAgentRuntime("test") with ConcurrentStatsFactory with ConcurrentRandomGenerator
+      with EmasLogic
       with RastriginProblem
-      with ConcurrentStatsFactory with ConcurrentRandomGenerator
 
     val islands = 1
     run(app, islands, 5 seconds)
   }
 
-  def run(app: AgentRuntimeComponent with LogicComponent with StatsComponent, islands: Int, duration: FiniteDuration): Unit = {
+  def run(app: AgentRuntimeComponent with LogicStrategy with StatsComponent, islands: Int, duration: FiniteDuration): Unit = {
 
     implicit val system = app.agentRuntime.system
     import system.dispatcher
