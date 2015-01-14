@@ -15,7 +15,7 @@ trait ConcurrentRunner {
     with EnvironmentStrategy
     with StatsComponent =>
 
-  val islands = agentRuntime.config.getInt("mas.islandsNumber")
+  lazy val islands = agentRuntime.config.getInt("mas.islandsNumber")
 
   def run(duration: FiniteDuration): Unit = {
 

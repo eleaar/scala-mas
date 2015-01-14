@@ -29,16 +29,13 @@ import scala.concurrent.duration._
 /**
  * Created by Daniel on 2015-01-12.
  */
-object EmasApp {
+object EmasApp extends ConcurrentStack("emas")
+  with SynchronousEnvironment
+  with EmasLogic
+  with RastriginProblem {
 
   def main(args: Array[String]) {
-
-    val app = new ConcurrentStack("emas")
-      with SynchronousEnvironment
-      with EmasLogic
-      with RastriginProblem
-
-    app.run(5 seconds)
+    run(5 seconds)
   }
 
 }
