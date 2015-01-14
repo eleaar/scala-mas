@@ -1,4 +1,4 @@
-package org.scalamas.mas.random
+package org.scalamas.random
 
 import java.util.concurrent.ThreadLocalRandom
 

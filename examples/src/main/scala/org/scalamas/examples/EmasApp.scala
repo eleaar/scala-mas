@@ -23,7 +23,7 @@ import akka.event.Logging
 import org.scalamas.app.{ConcurrentAgentRuntimeComponent, ConcurrentStack, AgentRuntimeComponent}
 import org.scalamas.emas.EmasLogic
 import org.scalamas.genetic.RastriginProblem
-import org.scalamas.mas.random.ConcurrentRandomGenerator
+import org.scalamas.random.ConcurrentRandomGenerator
 import org.scalamas.mas.sync.SyncEnvironment
 import org.scalamas.mas.util.{Logger, Reaper}
 import org.scalamas.mas.{LogicStrategy, RootEnvironment}

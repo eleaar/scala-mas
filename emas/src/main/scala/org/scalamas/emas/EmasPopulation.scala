@@ -3,7 +3,7 @@ package org.scalamas.emas
 import org.scalamas.app.AgentRuntimeComponent
 import org.scalamas.genetic.GeneticProblem
 import org.scalamas.mas.logic.PopulationStrategy
-import org.scalamas.mas.random.RandomGenerator
+import org.scalamas.random.RandomGenerator
 
 /**
  * Created by Daniel on 2015-01-14.
