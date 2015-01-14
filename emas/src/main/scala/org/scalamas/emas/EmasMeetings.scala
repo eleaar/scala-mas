@@ -5,7 +5,7 @@ import org.scalamas.emas.reproduction.ReproductionStrategy
 import org.scalamas.genetic.GeneticProblem
 import org.scalamas.mas.LogicTypes.Migration
 import org.scalamas.mas.logic.MeetingsStrategy
-import org.scalamas.mas.util.Util._
+import org.scalamas.util.Util._
 
 /**
  * Created by Daniel on 2015-01-14.

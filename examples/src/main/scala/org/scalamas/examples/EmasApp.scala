@@ -25,7 +25,7 @@ import org.scalamas.emas.EmasLogic
 import org.scalamas.genetic.RastriginProblem
 import org.scalamas.random.ConcurrentRandomGenerator
 import org.scalamas.mas.sync.SyncEnvironment
-import org.scalamas.mas.util.{Logger, Reaper}
+import org.scalamas.util.{Logger, Reaper}
 import org.scalamas.mas.{LogicStrategy, RootEnvironment}
 import org.scalamas.stats.{ConcurrentStatsFactory, StatsComponent}
 

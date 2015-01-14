@@ -17,7 +17,7 @@
  * along with ParaphraseAGH/Scala.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package org.scalamas.mas.util
+package org.scalamas.util
 
 import scala.collection.generic.CanBuildFrom
 import scala.util.Random
