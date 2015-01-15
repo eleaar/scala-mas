@@ -3,7 +3,7 @@ import sbt._
 
 object BuildSettings {
 
-  val buildOrganization = "org.scalamas"
+  val buildOrganization = "pl.edu.agh.scalamas"
 
   val buildVersion = "0.1"
 
