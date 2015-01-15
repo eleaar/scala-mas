@@ -1,5 +1,8 @@
 import sbt.Keys._
 import sbt._
+import com.banno.license.Plugin.{licenseSettings => defaultLicenseSettings}
+import com.banno.license.Plugin.LicenseKeys._
+import com.banno.license.Licenses._
 
 object BuildSettings {
 
@@ -9,11 +12,16 @@ object BuildSettings {
 
   val buildScalaVersion = "2.11.4"
 
+  val licenseSettings: Seq[Setting[_]] = defaultLicenseSettings ++ Seq(
+    license := mit("Copyright 2013 - 2015, Daniel Krzywicki <daniel.krzywicki@agh.edu.pl>"),
+    removeExistingHeaderBlock := true
+  )
+
   val commonSettings: Seq[Setting[_]] = Seq(
     organization := buildOrganization,
     version := buildVersion,
     scalaVersion := buildScalaVersion
-  )
+  ) ++ licenseSettings
 }
 
 object ScalaMasBuild extends Build {
