@@ -43,6 +43,7 @@ trait RastriginProblem extends GeneticProblem {
     type Evaluation = Double
 
     def config = agentRuntime.config.getConfig("genetic.rastrigin")
+
     val problemSize = config.getInt("problemSize")
     val mutationChance = config.getDouble("mutationChance")
     val mutationRate = config.getDouble("mutationRate")
@@ -71,8 +72,9 @@ trait RastriginProblem extends GeneticProblem {
       else
         s
 
-    def mutateSolutions(s: (Solution, Solution)) =
-      (mutateSolution(s._1), mutateSolution(s._2))
+    def mutateSolutions(s: (Solution, Solution)) = s match {
+      case (solution1, solution2) => (mutateSolution(solution1), mutateSolution(solution2))
+    }
 
     def mutateFeature(f: Feature): Feature = {
       val range = random match {
@@ -88,10 +90,12 @@ trait RastriginProblem extends GeneticProblem {
       (s3.toArray, s4.toArray)
     }
 
-    def recombineFeatures(features: (Feature, Feature)): (Feature, Feature) = {
-      val a = min(features._1, features._2)
-      val b = max(features._1, features._2)
-      (a + (b - a) * random, a + (b - a) * random)
+    def recombineFeatures(features: (Feature, Feature)): (Feature, Feature) = features match {
+      case (feature1, feature2) =>
+        val a = min(feature1, feature2)
+        val b = max(feature1, feature2)
+        (a + (b - a) * random, a + (b - a) * random)
     }
   }
+
 }

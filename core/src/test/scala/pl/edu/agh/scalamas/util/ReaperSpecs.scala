@@ -104,7 +104,7 @@ class ReaperSpecs extends ActorUnitSpecs(ActorSystem("ReaperSpecs")) with Mockit
   "Method terminateAfter" should {
     "complete the future after the specified interval" in {
       //given
-      import system.dispatcher
+      implicit val context = system.dispatcher
       val soul = TestActorRef[MockActor]
       val duration = 100 millis
 

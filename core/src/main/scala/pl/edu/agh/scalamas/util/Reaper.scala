@@ -23,7 +23,6 @@ package org.scalamas.util
 
 import akka.actor._
 import scala.concurrent.{ExecutionContext, Promise}
-import akka.actor.Terminated
 import scala.util.Success
 import scala.concurrent.duration.FiniteDuration
 import scala.collection.mutable

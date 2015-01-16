@@ -3,6 +3,8 @@ import sbt._
 import com.banno.license.Plugin.{licenseSettings => defaultLicenseSettings}
 import com.banno.license.Plugin.LicenseKeys._
 import com.banno.license.Licenses._
+import BuildSettings._
+import Dependencies._
 
 object BuildSettings {
 
@@ -27,9 +29,6 @@ object BuildSettings {
 }
 
 object ScalaMasBuild extends Build {
-
-  import BuildSettings._
-  import Dependencies._
 
   def subProject(name: String) = Project(name, file(name))
     .settings(commonSettings: _*)

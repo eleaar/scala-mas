@@ -36,10 +36,8 @@ trait SteepestDescend extends LocalSearch[LabsOps] {
       stepsRemaining match {
         case 0 => (currentSolution, flipper.currentEnergy)
         case _ =>
-          val (bestFlippedBit, bestFlippedEvaluation) =
-            (0 until s.size)
-              .map(i => (i, flipper.energyWithFlipped(i)))
-              .maxBy(_._2)
+          val alternatives = (0 until s.size).map(i => (i, flipper.energyWithFlipped(i)))
+          val (bestFlippedBit, bestFlippedEvaluation) = alternatives.maxBy(_._2)
 
           if (bestFlippedEvaluation > flipper.currentEnergy) {
             // Side effect!
@@ -56,9 +54,9 @@ trait SteepestDescend extends LocalSearch[LabsOps] {
 }
 
   case class OneBitFastFlipper(s: Array[Boolean]) {
-    private val size = s.size
-    private val computedProducts = Array.ofDim[Double](size - 1, size - 1)
-    private val correlations = Array.ofDim[Double](size - 1)
+    private[this] val size = s.size
+    private[this] val computedProducts = Array.ofDim[Double](size - 1, size - 1)
+    private[this] val correlations = Array.ofDim[Double](size - 1)
 
     for (i <- 0 until size - 1;
          j <- 0 until size - 1 - i) {
@@ -69,15 +67,12 @@ trait SteepestDescend extends LocalSearch[LabsOps] {
     def currentEnergy = size * size / (2.0 * correlations.map(x => x * x).sum)
 
     def energyWithFlipped(flipBitIndex: Int): Double = {
-      var energy = 0.0
-
-      for (k <- 0 until size - 1) {
+      val energies = for (k <- 0 until size - 1) yield {
         var correlation = correlations(k)
         if (k < size - flipBitIndex - 1) correlation -= 2.0 * computedProducts(k)(flipBitIndex)
         if (k < flipBitIndex) correlation -= 2.0 * computedProducts(k)(flipBitIndex - k - 1)
-        energy += correlation * correlation
+        correlation * correlation
       }
-
-      size * size / (2.0 * energy)
+      size * size / (2.0 * energies.sum)
     }
 }

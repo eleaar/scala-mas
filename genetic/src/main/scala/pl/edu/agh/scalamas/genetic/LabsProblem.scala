@@ -60,7 +60,9 @@ trait LabsOps extends GeneticOps[LabsOps] with LocalSearch[LabsOps] {
   def generate = Array.fill(problemSize)(random < 0.5)
 
   def evaluate(s: Solution) = {
-    localSearch(s)._2
+    val result = localSearch(s)
+    val evaluation = result._2
+    evaluation
   }
 
   def minimal = 0.0
@@ -79,8 +81,9 @@ trait LabsOps extends GeneticOps[LabsOps] with LocalSearch[LabsOps] {
     else
       s
 
-  def mutateSolutions(s: (Solution, Solution)) =
-    (mutateSolution(s._1), mutateSolution(s._2))
+  def mutateSolutions(s: (Solution, Solution)) = s match {
+    case (solution1, solution2) => (mutateSolution(solution1), mutateSolution(solution2))
+  }
 
   def recombineSolutions(s1: Solution, s2: Solution): (Solution, Solution) = {
     val (s3, s4) = s1.zip(s2).map(recombineFeatures).unzip

@@ -29,7 +29,7 @@ import scala.concurrent.duration._
 /**
  * Will start ticking after the first call to 'time'.
  */
-private class LazyTicker {
+private[this] class LazyTicker {
   lazy val startTime = System.currentTimeMillis()
 
   def time = System.currentTimeMillis() - startTime

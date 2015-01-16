@@ -28,7 +28,7 @@ import org.scalamas.mas.LogicTypes._
  */
 object LogicTypes {
 
-  trait Agent {}
+  trait Agent
 
   /**
    * A collection of agents
