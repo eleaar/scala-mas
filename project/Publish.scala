@@ -8,8 +8,6 @@ object ResolverSettings {
 }
 
 object PublishSettings  {
-
-
   /**
    * We actually must publish when doing a publish-local in order to ensure the scala 2.11 build works, very strange
    * things happen if you set publishArtifact := false, since it still publishes an ivy file when you do a
@@ -17,11 +15,11 @@ object PublishSettings  {
    *
    * So, to disable publishing for the 2.11 build, we simply publish to a dummy repo instead of to the real thing.
    */
-  def dontPublishSettings = Seq(
+  def nowhere = Seq(
     publishTo := Some(Resolver.file("Unused transient repository", file("target/unusedrepo")))
   )
 
-  def publishSettings: Seq[Setting[_]] = Seq(
+  def sonatype: Seq[Setting[_]] = Seq(
     publishArtifact in (Compile, packageSrc) := true,
     publishArtifact in (Test, packageSrc) := false,
     publishTo := {
@@ -36,7 +34,7 @@ object PublishSettings  {
     pomExtra := pomExtraXml
   )
 
-  private val pomExtraXml =
+  private[this] val pomExtraXml =
     <scm>
       <url>git@github.com:ParaPhraseAGH/scala-mas.git</url>
       <connection>scm:git:git@github.com:ParaPhraseAGH/scala-mas.git</connection>
@@ -44,7 +42,7 @@ object PublishSettings  {
       ("Eleaar", "Daniel Krzywicki", "https://github.com/eleaar")
     )
 
-  private def makeDevelopersXml(developers: (String, String, String)*) =
+  private[this] def makeDevelopersXml(developers: (String, String, String)*) =
     <developers>
       {
       for ((id, name, url) <- developers) yield

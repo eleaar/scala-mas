@@ -33,7 +33,7 @@ object ScalaMasBuild extends Build {
 
   def subProject(name: String) = Project(name, file(name))
     .settings(commonSettings: _*)
-    .settings(PublishSettings.publishSettings: _*)
+    .settings(PublishSettings.sonatype: _*)
     .settings(libraryDependencies ++= runtimeDeps)
 
   lazy val CoreProject = subProject("core")
@@ -48,5 +48,5 @@ object ScalaMasBuild extends Build {
 
   lazy val Root = Project("Root", file("."))
     .settings(commonSettings: _*)
-    .settings(PublishSettings.dontPublishSettings: _*)
+    .settings(PublishSettings.nowhere: _*)
 }
