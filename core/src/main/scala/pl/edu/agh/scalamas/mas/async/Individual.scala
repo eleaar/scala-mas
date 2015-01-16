@@ -21,8 +21,10 @@
  */
 package org.scalamas.mas.async
 
-import akka.actor.{Actor, Props, ActorRef}
+import akka.actor.{Actor, ActorRef, Props}
 import org.scalamas.mas.LogicTypes._
+import org.scalamas.mas.async.Arena._
+import org.scalamas.mas.async.Individual._
 
 object Individual {
 
@@ -34,9 +36,6 @@ object Individual {
 
 
 class Individual(var state: Agent, val switchingBehaviour: (Agent) => ActorRef) extends Actor {
-
-  import Individual._
-  import Arena._
 
   override def preStart = joinArena
 

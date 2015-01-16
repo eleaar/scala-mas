@@ -26,6 +26,7 @@ import scala.concurrent.{ExecutionContext, Promise}
 import akka.actor.Terminated
 import scala.util.Success
 import scala.concurrent.duration.FiniteDuration
+import scala.collection.mutable
 
 object Reaper {
   def actorsTerminate(actors: Seq[ActorRef])(implicit system: ActorSystem) = {
@@ -42,7 +43,7 @@ object Reaper {
 }
 
 class Reaper(souls: Seq[ActorRef], callback: () => Unit) extends Actor with ActorLogging {
-  var activeSouls = souls.toSet
+  val activeSouls = mutable.Set[ActorRef](souls: _*)
   activeSouls foreach (context watch _)
   checkSouls
 

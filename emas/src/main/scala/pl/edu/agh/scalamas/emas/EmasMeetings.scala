@@ -21,6 +21,7 @@
  */
 package org.scalamas.emas
 
+import org.scalamas.emas.EmasTypes._
 import org.scalamas.emas.fight.FightStrategy
 import org.scalamas.emas.reproduction.ReproductionStrategy
 import org.scalamas.genetic.GeneticProblem
@@ -40,9 +41,6 @@ trait EmasMeetings extends MeetingsStrategy {
   def meetingsStrategy = DefaultEmasMeeting
 
   object DefaultEmasMeeting extends MeetingsProvider {
-
-    import org.scalamas.emas.EmasTypes._
-
     implicit val ordering = genetic.ordering
 
     // TODO fix shuffle bottleneck

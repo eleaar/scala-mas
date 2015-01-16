@@ -21,10 +21,13 @@
  */
 package org.scalamas.mas.async
 
-import akka.actor.{PoisonPill, ActorRef, Props, Actor}
-import scala.collection.mutable.ArrayBuffer
+import akka.actor.{Actor, ActorRef, PoisonPill, Props}
 import org.scalamas.mas.LogicTypes._
-import org.scalamas.mas.RootEnvironment
+import org.scalamas.mas.RootEnvironment._
+import org.scalamas.mas.async.Arena._
+import org.scalamas.mas.async.Individual._
+
+import scala.collection.mutable.ArrayBuffer
 
 object Arena {
 
@@ -34,10 +37,6 @@ object Arena {
 }
 
 class Arena(val capacity: Int, val meeting: (Population) => Population) extends Actor {
-
-  import RootEnvironment._
-  import Arena._
-  import Individual._
 
   val actors = ArrayBuffer.empty[ActorRef]
   val agents = ArrayBuffer.empty[Agent]

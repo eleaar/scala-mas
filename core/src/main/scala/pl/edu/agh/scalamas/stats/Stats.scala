@@ -48,7 +48,7 @@ trait Stats[T] {
 }
 
 private[stats] class SimpleStats[T](initialValue: T, updateFunction: (T, T) => T) extends Stats[T] {
-  private var oldValue = initialValue
+  private[this] var oldValue = initialValue
 
   def update(newValue: T) = {
     oldValue = updateFunction(oldValue, newValue)
@@ -61,8 +61,9 @@ private[stats] class SimpleStats[T](initialValue: T, updateFunction: (T, T) => T
 
 private[stats] class ConcurrentStats[T](initialValue: T, updateFunction: (T, T) => T, system: ActorSystem) extends Stats[T] {
 
-  import system.dispatcher
+  implicit val context = system.dispatcher
 
+  // TODO: change system dep to exec context
   val stats = Agent(initialValue)
 
   def update(newValue: T) = stats send ((oldValue: T) => updateFunction(oldValue, newValue))

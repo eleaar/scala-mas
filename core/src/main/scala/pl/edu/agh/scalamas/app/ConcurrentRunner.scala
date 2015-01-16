@@ -41,7 +41,7 @@ trait ConcurrentRunner {
   def run(duration: FiniteDuration): Unit = {
 
     implicit val system = agentRuntime.system
-    import system.dispatcher
+    implicit val context = system.dispatcher
 
     val log = Logging(system, getClass)
     Logger(frequency = 1 second) {

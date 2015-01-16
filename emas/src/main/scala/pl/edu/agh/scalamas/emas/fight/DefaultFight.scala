@@ -22,6 +22,7 @@
 package org.scalamas.emas.fight
 
 import org.scalamas.app.AgentRuntimeComponent
+import org.scalamas.emas.EmasTypes._
 import org.scalamas.genetic.GeneticProblem
 
 import scala.math._
@@ -35,8 +36,6 @@ trait DefaultFight extends FightStrategy {
   def fightStrategy = DefaultFightImpl
 
   object DefaultFightImpl extends Fight {
-
-    import org.scalamas.emas.EmasTypes._
 
     val config = agentRuntime.config.getConfig("emas")
     val fightTransfer = config.getInt("fightTransfer")

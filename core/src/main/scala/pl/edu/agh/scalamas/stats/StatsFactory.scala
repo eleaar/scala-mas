@@ -21,7 +21,7 @@
  */
 package org.scalamas.stats
 
-import org.scalamas.app.{ConcurrentAgentRuntimeComponent, AgentRuntimeComponent}
+import org.scalamas.app.ConcurrentAgentRuntimeComponent
 
 /**
  * Created by Daniel on 2015-01-13.

@@ -22,6 +22,7 @@
 package org.scalamas.emas
 
 import org.scalamas.app.AgentRuntimeComponent
+import org.scalamas.emas.EmasTypes._
 import org.scalamas.mas.LogicTypes.Migration
 import org.scalamas.mas.logic.BehaviourStrategy
 import org.scalamas.random.RandomGenerator
@@ -35,9 +36,6 @@ trait EmasBehaviour extends BehaviourStrategy {
   def behaviourStrategy = DefaultEmasBehaviour
 
   object DefaultEmasBehaviour extends BehaviourProvider {
-
-    import org.scalamas.emas.EmasTypes._
-
     val config = agentRuntime.config.getConfig("emas")
     val fightCapacity = config.getInt("fightCapacity")
     val reproductionCapacity = config.getInt("reproductionCapacity")

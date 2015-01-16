@@ -21,13 +21,14 @@
  */
 package org.scalamas.mas.async
 
-import org.scalamas.mas.ActorUnitSpecs
 import akka.actor.ActorSystem
-import akka.testkit.{TestProbe, TestActorRef}
+import akka.testkit.{TestActorRef, TestProbe}
+import org.scalamas.mas.ActorUnitSpecs
 import org.scalamas.mas.LogicTypes.Agent
-import scala.concurrent.duration._
 import org.scalamas.mas.async.Arena.Join
 import org.scalamas.mas.async.Individual.UpdateState
+
+import scala.concurrent.duration._
 
 class IndividualSpecs extends ActorUnitSpecs(ActorSystem("IndividualSpecs")) {
   "An Individual actor" should {

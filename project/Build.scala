@@ -49,4 +49,5 @@ object ScalaMasBuild extends Build {
   lazy val Root = Project("Root", file("."))
     .settings(commonSettings: _*)
     .settings(PublishSettings.nowhere: _*)
+    .aggregate(publishedProjects: _*)
 }

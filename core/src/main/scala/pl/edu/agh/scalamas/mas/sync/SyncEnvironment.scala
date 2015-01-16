@@ -22,7 +22,9 @@
 package org.scalamas.mas.sync
 
 import akka.actor._
-import org.scalamas.mas.{RootEnvironment, Logic}
+import org.scalamas.mas.Logic
+import org.scalamas.mas.RootEnvironment._
+import org.scalamas.mas.sync.SyncEnvironment._
 
 object SyncEnvironment {
 
@@ -39,16 +41,13 @@ object SyncEnvironment {
  * @param logic the callbacks for the simulation
  */
 class SyncEnvironment(logic: Logic) extends Actor {
-  import RootEnvironment._
-  import SyncEnvironment._
-  import logic._
 
-  var population = initialPopulation
+  var population = logic.initialPopulation
   self ! Loop
 
   override def receive = {
     case Loop =>
-      population = population.groupBy(behaviourFunction).flatMap(migration orElse meetingsFunction).toList
+      population = population.groupBy(logic.behaviourFunction).flatMap(migration orElse logic.meetingsFunction).toList
       self ! Loop
     case Add(agent) => population :+= agent
   }

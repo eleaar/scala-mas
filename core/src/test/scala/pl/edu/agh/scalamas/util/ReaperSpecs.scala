@@ -23,14 +23,14 @@ package org.scalamas.util
 
 
 import akka.actor._
-import akka.testkit.{TestProbe, TestActorRef}
-import akka.testkit._
-import org.scalamas.mas.{MockActor, ActorUnitSpecs}
-import org.scalatest.mock.MockitoSugar
-import scala.concurrent.duration._
+import akka.testkit.{TestActorRef, TestProbe, _}
 import org.mockito.Mockito._
-import org.scalatest.prop.PropertyChecks
 import org.scalacheck.Gen
+import org.scalamas.mas.{ActorUnitSpecs, MockActor}
+import org.scalatest.mock.MockitoSugar
+import org.scalatest.prop.PropertyChecks
+
+import scala.concurrent.duration._
 
 class ReaperSpecs extends ActorUnitSpecs(ActorSystem("ReaperSpecs")) with MockitoSugar with PropertyChecks {
 

@@ -23,9 +23,9 @@ package org.scalamas.mas
 
 import akka.actor.ActorSystem
 import akka.testkit.{TestActorRef, TestProbe}
+import org.scalacheck.Gen
 import org.scalamas.mas.LogicTypes.Agent
 import org.scalamas.mas.RootEnvironment.{Add, Migrate}
-import org.scalacheck.Gen
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.prop.PropertyChecks
 

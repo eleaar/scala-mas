@@ -22,9 +22,9 @@
 package org.scalamas.mas.async
 
 import akka.actor.{Actor, Props}
-import org.scalamas.mas.{RootEnvironment, Logic}
 import org.scalamas.mas.LogicTypes._
-import org.scalamas.mas.RootEnvironment.Add
+import org.scalamas.mas.RootEnvironment.{Add, _}
+import org.scalamas.mas.{Logic, RootEnvironment}
 
 object AsyncEnvironment {
 
@@ -40,13 +40,11 @@ object AsyncEnvironment {
  * @param logic the callbacks of the simulation
  */
 class AsyncEnvironment(logic: Logic) extends Actor {
-  import RootEnvironment._
-  import logic._
 
-  val arenas = arenasForBehaviours(behaviours, migration orElse meetingsFunction)
-  val switchingBehaviour = (agent: Agent) => arenas(behaviourFunction(agent))
+  val arenas = arenasForBehaviours(logic.behaviours, migration orElse logic.meetingsFunction)
+  val switchingBehaviour = (agent: Agent) => arenas(logic.behaviourFunction(agent))
 
-  initialPopulation.foreach(addAgent)
+  logic.initialPopulation.foreach(addAgent)
 
   def receive = {
     case Add(a) => addAgent(a)

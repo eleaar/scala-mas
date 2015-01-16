@@ -21,17 +21,16 @@
  */
 package org.scalamas.mas.async
 
-import org.scalamas.mas.ActorUnitSpecs
-import akka.actor.{PoisonPill, ActorSystem}
-import akka.testkit.{TestProbe, TestActorRef}
-import org.scalatest.mock.MockitoSugar
-import org.scalamas.mas.LogicTypes._
-import org.scalamas.mas.async.Arena.Join
+import akka.actor.{ActorSystem, PoisonPill}
+import akka.testkit.{TestActorRef, TestProbe}
 import org.mockito.Mockito._
-import org.scalamas.mas.async.Individual.UpdateState
-import org.scalamas.mas.RootEnvironment.Add
-import org.scalatest.prop.PropertyChecks
 import org.scalacheck.Gen
+import org.scalamas.mas.ActorUnitSpecs
+import org.scalamas.mas.LogicTypes._
+import org.scalamas.mas.RootEnvironment.Add
+import org.scalamas.mas.async.Arena.Join
+import org.scalamas.mas.async.Individual.UpdateState
+
 import scala.concurrent.duration._
 
 class ArenaSpecs extends ActorUnitSpecs(ActorSystem("ArenaSpecs")) {

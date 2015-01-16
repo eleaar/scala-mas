@@ -21,9 +21,10 @@
  */
 package org.scalamas.util
 
-import scala.concurrent.duration._
 import akka.actor.ActorSystem
+
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration._
 
 /**
  * Will start ticking after the first call to 'time'.

@@ -44,5 +44,5 @@ trait EmasStats extends StatsComponent {
   /**
    * Hack because of scala bug SI-9087
    */
-  private def fixedMax[T](x: T, y: T)(implicit ordering: Ordering[T]) = if (ordering.gt(x, y)) x else y
+  private[this] def fixedMax[T](x: T, y: T)(implicit ordering: Ordering[T]) = if (ordering.gt(x, y)) x else y
 }

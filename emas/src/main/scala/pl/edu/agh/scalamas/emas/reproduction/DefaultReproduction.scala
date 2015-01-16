@@ -22,6 +22,7 @@
 package org.scalamas.emas.reproduction
 
 import org.scalamas.app.AgentRuntimeComponent
+import org.scalamas.emas.EmasTypes.Agent
 import org.scalamas.genetic.GeneticProblem
 
 import scala.math._
@@ -35,9 +36,6 @@ trait DefaultReproduction extends ReproductionStrategy {
   def reproductionStrategy = DefaultReproductionImpl
 
   object DefaultReproductionImpl extends Reproduction {
-
-    import org.scalamas.emas.EmasTypes.Agent
-
     val config = agentRuntime.config.getConfig("emas")
     val reproductionTransfer = config.getInt("reproductionTransfer")
 

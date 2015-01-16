@@ -21,6 +21,8 @@
  */
 package org.scalamas.mas
 
+import org.scalamas.mas.LogicTypes._
+
 /**
  * The types in a MAS simulation
  */
@@ -68,8 +70,6 @@ object LogicTypes {
  * Actual logic of the simulation, in the form of several callback functions.
  */
 trait Logic {
-
-  import org.scalamas.mas.LogicTypes._
 
   /**
    * A generator fo the initial agent population on an island

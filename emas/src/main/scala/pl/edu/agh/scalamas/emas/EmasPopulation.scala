@@ -22,6 +22,7 @@
 package org.scalamas.emas
 
 import org.scalamas.app.AgentRuntimeComponent
+import org.scalamas.emas.EmasTypes._
 import org.scalamas.genetic.GeneticProblem
 import org.scalamas.mas.logic.PopulationStrategy
 import org.scalamas.random.RandomGenerator
@@ -38,9 +39,6 @@ trait EmasPopulation extends PopulationStrategy {
   def populationStrategy = EmasPopulationProvider
 
   object EmasPopulationProvider extends PopulationProvider {
-
-    import org.scalamas.emas.EmasTypes._
-
     def config = agentRuntime.config.getConfig("emas")
 
     val populationSize = config.getInt("populationSize")
