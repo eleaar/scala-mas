@@ -6,4 +6,4 @@ before_install:
   -in secure.tar.enc -out secure.tar -d
 - tar xvf secure.tar
 after_success:
-- "{ sbt publishSigned; }"
+- sbt publishSigned
