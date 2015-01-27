@@ -19,15 +19,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.emas
+package pl.edu.agh.scalamas.emas
 
-import org.scalamas.app.AgentRuntimeComponent
-import org.scalamas.emas.fight.DefaultFight
-import org.scalamas.emas.reproduction.DefaultReproduction
-import org.scalamas.genetic.GeneticProblem
-import org.scalamas.mas.logic.DelegatingLogicStrategy
-import org.scalamas.random.RandomGenerator
-import org.scalamas.stats.StatsFactoryComponent
+import pl.edu.agh.scalamas.app.AgentRuntimeComponent
+import pl.edu.agh.scalamas.emas.fight.DefaultFight
+import pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction
+import pl.edu.agh.scalamas.genetic.GeneticProblem
+import pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy
+import pl.edu.agh.scalamas.random.RandomGenerator
+import pl.edu.agh.scalamas.stats.StatsFactoryComponent
 
 /**
  * Created by Daniel on 2015-01-14.

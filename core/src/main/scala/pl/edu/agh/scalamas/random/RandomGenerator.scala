@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.random
+package pl.edu.agh.scalamas.random
 
 import java.util.concurrent.ThreadLocalRandom
 

@@ -19,17 +19,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.mas.async
+package pl.edu.agh.scalamas.mas.async
 
 import akka.actor.{ActorSystem, PoisonPill}
 import akka.testkit.{TestActorRef, TestProbe}
 import org.mockito.Mockito._
 import org.scalacheck.Gen
-import org.scalamas.mas.ActorUnitSpecs
-import org.scalamas.mas.LogicTypes._
-import org.scalamas.mas.RootEnvironment.Add
-import org.scalamas.mas.async.Arena.Join
-import org.scalamas.mas.async.Individual.UpdateState
+import pl.edu.agh.scalamas.mas.LogicTypes._
+import pl.edu.agh.scalamas.mas.ActorUnitSpecs
+import pl.edu.agh.scalamas.mas.RootEnvironment.Add
+import pl.edu.agh.scalamas.mas.async.Arena.Join
+import pl.edu.agh.scalamas.mas.async.Individual.UpdateState
 
 import scala.concurrent.duration._
 

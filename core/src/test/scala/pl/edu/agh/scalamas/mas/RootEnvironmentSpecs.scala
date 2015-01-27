@@ -19,13 +19,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.mas
+package pl.edu.agh.scalamas.mas
 
 import akka.actor.ActorSystem
 import akka.testkit.{TestActorRef, TestProbe}
 import org.scalacheck.Gen
-import org.scalamas.mas.LogicTypes.Agent
-import org.scalamas.mas.RootEnvironment.{Add, Migrate}
+import pl.edu.agh.scalamas.mas.LogicTypes.Agent
+import pl.edu.agh.scalamas.mas.RootEnvironment.{Add, Migrate}
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.prop.PropertyChecks
 

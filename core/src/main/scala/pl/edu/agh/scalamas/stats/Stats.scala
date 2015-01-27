@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.stats
+package pl.edu.agh.scalamas.stats
 
 import akka.actor.ActorSystem
 import akka.agent.Agent

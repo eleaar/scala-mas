@@ -19,21 +19,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package pl.edu.agh.scalamas.util
+package pl.edu.agh.scalamas.app
 
-import scala.collection.generic.CanBuildFrom
-import scala.util.Random
+import akka.actor.Props
+import pl.edu.agh.scalamas.mas.LogicStrategy
+import pl.edu.agh.scalamas.mas.async.AsyncEnvironment
+import pl.edu.agh.scalamas.mas.sync.SyncEnvironment
 
-object Util {
+/**
+ * Created by Daniel on 2015-01-14.
+ */
+trait EnvironmentStrategy {
 
-  /**
-   * Implicit wrapper for Random.shuffle
-   */
-  implicit class Shuffled[T, CC[X] <: TraversableOnce[X]](xs: CC[T]) {
-    /**
-     * Implicit call to Random.shuffle
-     */
-    def shuffled(implicit bf: CanBuildFrom[CC[T], T, CC[T]]) = Random.shuffle(xs)
-  }
+  def environmentProps: Props
+}
 
+trait SynchronousEnvironment extends EnvironmentStrategy {
+  this: LogicStrategy =>
+
+  def environmentProps = SyncEnvironment.props(logic)
+}
+
+trait AsynchronousEnvironment extends EnvironmentStrategy {
+  this: LogicStrategy =>
+
+  def environmentProps = AsyncEnvironment.props(logic)
 }

@@ -19,13 +19,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.mas.async
+package pl.edu.agh.scalamas.mas.async
 
 import akka.actor.{Actor, ActorRef, PoisonPill, Props}
-import org.scalamas.mas.LogicTypes._
-import org.scalamas.mas.RootEnvironment._
-import org.scalamas.mas.async.Arena._
-import org.scalamas.mas.async.Individual._
+import pl.edu.agh.scalamas.mas.LogicTypes.{Agent, Population}
+import pl.edu.agh.scalamas.mas.RootEnvironment.Add
+import pl.edu.agh.scalamas.mas.async.Arena.Join
+import pl.edu.agh.scalamas.mas.async.Individual.UpdateState
 
 import scala.collection.mutable.ArrayBuffer
 

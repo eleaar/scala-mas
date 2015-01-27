@@ -19,8 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.genetic
-
+package pl.edu.agh.scalamas.genetic
 
 trait LocalSearch[G <: GeneticOps[G]] {
   def localSearch(s: G#Solution): (G#Solution, G#Evaluation)

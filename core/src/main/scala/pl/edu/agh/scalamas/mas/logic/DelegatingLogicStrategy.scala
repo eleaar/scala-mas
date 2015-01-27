@@ -19,9 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.mas.logic
+package pl.edu.agh.scalamas.mas.logic
 
-import org.scalamas.mas.{Logic, LogicStrategy}
+import pl.edu.agh.scalamas.mas.{Logic, LogicStrategy}
 
 /**
  * Created by Daniel on 2015-01-14.

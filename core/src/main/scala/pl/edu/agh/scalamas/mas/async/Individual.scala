@@ -19,12 +19,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.mas.async
+package pl.edu.agh.scalamas.mas.async
 
 import akka.actor.{Actor, ActorRef, Props}
-import org.scalamas.mas.LogicTypes._
-import org.scalamas.mas.async.Arena._
-import org.scalamas.mas.async.Individual._
+import pl.edu.agh.scalamas.mas.LogicTypes._
+import pl.edu.agh.scalamas.mas.async.Arena.Join
+import pl.edu.agh.scalamas.mas.async.Individual.UpdateState
 
 object Individual {
 

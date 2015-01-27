@@ -20,11 +20,11 @@
  * THE SOFTWARE.
  */
 
-package org.scalamas.emas
+package pl.edu.agh.scalamas.emas
 
-import org.scalamas.genetic.GeneticOps
-import org.scalamas.mas.LogicTypes
-import org.scalamas.mas.LogicTypes._
+import pl.edu.agh.scalamas.genetic.GeneticOps
+import pl.edu.agh.scalamas.mas.LogicTypes
+import pl.edu.agh.scalamas.mas.LogicTypes.{Population, Behaviour}
 
 object EmasTypes {
 

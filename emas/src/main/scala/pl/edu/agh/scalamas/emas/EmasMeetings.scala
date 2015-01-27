@@ -19,15 +19,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.emas
+package pl.edu.agh.scalamas.emas
 
-import org.scalamas.emas.EmasTypes._
-import org.scalamas.emas.fight.FightStrategy
-import org.scalamas.emas.reproduction.ReproductionStrategy
-import org.scalamas.genetic.GeneticProblem
-import org.scalamas.mas.LogicTypes.Migration
-import org.scalamas.mas.logic.MeetingsStrategy
-import org.scalamas.util.Util._
+import pl.edu.agh.scalamas.emas.EmasTypes.{Death, _}
+import pl.edu.agh.scalamas.emas.fight.FightStrategy
+import pl.edu.agh.scalamas.emas.reproduction.ReproductionStrategy
+import pl.edu.agh.scalamas.genetic.GeneticProblem
+import pl.edu.agh.scalamas.mas.LogicTypes.Migration
+import pl.edu.agh.scalamas.mas.logic.MeetingsStrategy
+import pl.edu.agh.scalamas.util.Util._
 
 /**
  * Created by Daniel on 2015-01-14.

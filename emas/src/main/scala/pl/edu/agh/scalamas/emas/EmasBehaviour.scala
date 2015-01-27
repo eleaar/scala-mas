@@ -19,13 +19,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.emas
+package pl.edu.agh.scalamas.emas
 
-import org.scalamas.app.AgentRuntimeComponent
-import org.scalamas.emas.EmasTypes._
-import org.scalamas.mas.LogicTypes.Migration
-import org.scalamas.mas.logic.BehaviourStrategy
-import org.scalamas.random.RandomGenerator
+import pl.edu.agh.scalamas.app.AgentRuntimeComponent
+import pl.edu.agh.scalamas.emas.EmasTypes.{Agent, Reproduction, Fight, Death}
+import pl.edu.agh.scalamas.mas.LogicTypes.Migration
+import pl.edu.agh.scalamas.mas.logic.BehaviourStrategy
+import pl.edu.agh.scalamas.random.RandomGenerator
 
 /**
  * Created by Daniel on 2015-01-14.

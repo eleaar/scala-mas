@@ -19,12 +19,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.mas.sync
+package pl.edu.agh.scalamas.mas.sync
 
 import akka.actor._
-import org.scalamas.mas.Logic
-import org.scalamas.mas.RootEnvironment._
-import org.scalamas.mas.sync.SyncEnvironment._
+import pl.edu.agh.scalamas.mas.Logic
+import pl.edu.agh.scalamas.mas.RootEnvironment.{Add, migration}
+import pl.edu.agh.scalamas.mas.sync.SyncEnvironment.Loop
 
 object SyncEnvironment {
 

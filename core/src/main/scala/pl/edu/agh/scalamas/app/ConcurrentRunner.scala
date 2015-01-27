@@ -19,12 +19,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.app
+package pl.edu.agh.scalamas.app
 
 import akka.event.Logging
-import org.scalamas.mas.{EnvironmentStrategy, RootEnvironment}
-import org.scalamas.stats.StatsComponent
-import org.scalamas.util.{Logger, Reaper}
+import pl.edu.agh.scalamas.mas.RootEnvironment
+import pl.edu.agh.scalamas.stats.StatsComponent
+import pl.edu.agh.scalamas.util.{Reaper, Logger}
 
 import scala.concurrent.duration._
 
@@ -49,7 +49,7 @@ trait ConcurrentRunner {
         log info (s"$time ${formatter(stats.getNow)}")
     }
 
-    val root = system.actorOf(RootEnvironment.props(environmentProps, islands), "root")
+    val root = system.actorOf(RootEnvironment.props(environmentProps, islands))
     for (
       _ <- Reaper.terminateAfter(root, duration);
       _ <- stats.get) {

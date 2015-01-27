@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.genetic
+package pl.edu.agh.scalamas.genetic
 
 /**
  * Polymorphic family of genetic operators suited for a particular solution representation.

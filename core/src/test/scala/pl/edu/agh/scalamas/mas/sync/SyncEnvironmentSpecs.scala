@@ -19,10 +19,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.mas.sync
+package pl.edu.agh.scalamas.mas.sync
 
 import akka.actor.ActorSystem
-import org.scalamas.mas.ActorUnitSpecs
+import pl.edu.agh.scalamas.mas.ActorUnitSpecs
 
 class SyncEnvironmentSpecs extends ActorUnitSpecs(ActorSystem("EnvironmentSpecs"))  {
 

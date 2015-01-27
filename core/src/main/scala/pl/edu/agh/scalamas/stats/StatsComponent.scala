@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.stats
+package pl.edu.agh.scalamas.stats
 
 /**
  * Created by Daniel on 2015-01-13.

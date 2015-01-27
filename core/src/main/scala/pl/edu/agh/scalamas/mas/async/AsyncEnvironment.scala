@@ -19,12 +19,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.mas.async
+package pl.edu.agh.scalamas.mas.async
 
 import akka.actor.{Actor, Props}
-import org.scalamas.mas.LogicTypes._
-import org.scalamas.mas.RootEnvironment.{Add, _}
-import org.scalamas.mas.{Logic, RootEnvironment}
+import pl.edu.agh.scalamas.mas.Logic
+import pl.edu.agh.scalamas.mas.LogicTypes._
+import pl.edu.agh.scalamas.mas.RootEnvironment.{Add, migration}
 
 object AsyncEnvironment {
 

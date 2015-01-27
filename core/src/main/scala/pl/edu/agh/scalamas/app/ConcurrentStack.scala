@@ -19,13 +19,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.app
+package pl.edu.agh.scalamas.app
 
 import akka.actor.ActorSystem
 import com.typesafe.config.{Config, ConfigFactory}
-import org.scalamas.mas.EnvironmentStrategy
-import org.scalamas.random.ConcurrentRandomGenerator
-import org.scalamas.stats.{ConcurrentStatsFactory, StatsComponent}
+import pl.edu.agh.scalamas.random.ConcurrentRandomGenerator
+import pl.edu.agh.scalamas.stats.{StatsComponent, ConcurrentStatsFactory}
 
 /**
  * Created by Daniel on 2015-01-14.

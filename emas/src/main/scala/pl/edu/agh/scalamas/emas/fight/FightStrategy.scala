@@ -19,10 +19,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.emas.fight
+package pl.edu.agh.scalamas.emas.fight
 
-import org.scalamas.emas.EmasTypes.Agent
-import org.scalamas.genetic.GeneticProblem
+import pl.edu.agh.scalamas.emas.EmasTypes.Agent
+import pl.edu.agh.scalamas.genetic.GeneticProblem
 
 /**
  * Created by Daniel on 2015-01-14.

@@ -19,11 +19,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.mas
+package pl.edu.agh.scalamas.mas
 
 import akka.actor.{Actor, ActorContext, Props}
-import org.scalamas.mas.LogicTypes._
-import org.scalamas.mas.RootEnvironment._
+import pl.edu.agh.scalamas.mas.LogicTypes.{Migration, MeetingFunction, Agent}
+import pl.edu.agh.scalamas.mas.RootEnvironment.{Add, Migrate}
 
 import scala.util.Random
 
@@ -80,5 +80,6 @@ class RootEnvironment(islandProps: Props, islandsNumber: Int) extends Actor {
       }
   }
 
+  // TODO do not use Random
   def randomIsland = islands(Random.nextInt(islands.size))
 }

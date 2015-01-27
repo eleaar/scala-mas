@@ -19,14 +19,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.mas.async
+package pl.edu.agh.scalamas.mas.async
 
 import akka.actor.ActorSystem
 import akka.testkit.{TestActorRef, TestProbe}
-import org.scalamas.mas.ActorUnitSpecs
-import org.scalamas.mas.LogicTypes.Agent
-import org.scalamas.mas.async.Arena.Join
-import org.scalamas.mas.async.Individual.UpdateState
+import pl.edu.agh.scalamas.mas.LogicTypes.Agent
+import pl.edu.agh.scalamas.mas.ActorUnitSpecs
+import pl.edu.agh.scalamas.mas.async.Arena.Join
+import pl.edu.agh.scalamas.mas.async.Individual.UpdateState
 
 import scala.concurrent.duration._
 

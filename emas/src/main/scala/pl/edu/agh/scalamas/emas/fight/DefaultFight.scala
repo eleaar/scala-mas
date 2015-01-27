@@ -19,11 +19,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.emas.fight
+package pl.edu.agh.scalamas.emas.fight
 
-import org.scalamas.app.AgentRuntimeComponent
-import org.scalamas.emas.EmasTypes._
-import org.scalamas.genetic.GeneticProblem
+import pl.edu.agh.scalamas.app.AgentRuntimeComponent
+import pl.edu.agh.scalamas.emas.EmasTypes._
+import pl.edu.agh.scalamas.genetic.GeneticProblem
 
 import scala.math._
 

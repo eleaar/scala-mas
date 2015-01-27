@@ -20,12 +20,11 @@
  * THE SOFTWARE.
  */
 
-package org.scalamas.examples
+package pl.edu.agh.scalamas.examples
 
-import org.scalamas.app.ConcurrentStack
-import org.scalamas.emas.EmasLogic
-import org.scalamas.genetic.RastriginProblem
-import org.scalamas.mas._
+import pl.edu.agh.scalamas.app.{ConcurrentStack, SynchronousEnvironment}
+import pl.edu.agh.scalamas.emas.EmasLogic
+import pl.edu.agh.scalamas.genetic.RastriginProblem
 
 import scala.concurrent.duration._
 

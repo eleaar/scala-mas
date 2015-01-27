@@ -19,16 +19,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.util
-
+package pl.edu.agh.scalamas.util
 
 import akka.actor._
 import akka.testkit.{TestActorRef, TestProbe, _}
 import org.mockito.Mockito._
 import org.scalacheck.Gen
-import org.scalamas.mas.{ActorUnitSpecs, MockActor}
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.prop.PropertyChecks
+import pl.edu.agh.scalamas.mas.{ActorUnitSpecs, MockActor}
 
 import scala.concurrent.duration._
 

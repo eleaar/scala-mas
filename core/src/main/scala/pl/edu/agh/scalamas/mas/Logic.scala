@@ -19,9 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.mas
+package pl.edu.agh.scalamas.mas
 
-import org.scalamas.mas.LogicTypes._
+import pl.edu.agh.scalamas.mas.LogicTypes.{MeetingFunction, BehaviourFunction, Behaviour, Population}
 
 /**
  * The types in a MAS simulation

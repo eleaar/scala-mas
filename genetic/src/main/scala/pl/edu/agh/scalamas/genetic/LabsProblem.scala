@@ -19,10 +19,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.genetic
+package pl.edu.agh.scalamas.genetic
 
-import org.scalamas.app.AgentRuntimeComponent
-import org.scalamas.random.RandomGenerator
+import pl.edu.agh.scalamas.app.AgentRuntimeComponent
+import pl.edu.agh.scalamas.random.RandomGenerator
 
 /**
  * An implementation of genetic operators for finding the maximu of the Labs function.

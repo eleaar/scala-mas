@@ -19,11 +19,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.scalamas.app
+package pl.edu.agh.scalamas.app
 
 import com.typesafe.config.{Config, ConfigFactory}
-import org.scalamas.random.DefaultRandomGenerator
-import org.scalamas.stats.SimpleStatsFactory
+import pl.edu.agh.scalamas.random.DefaultRandomGenerator
+import pl.edu.agh.scalamas.stats.SimpleStatsFactory
 
 /**
  * Created by Daniel on 2015-01-14.
