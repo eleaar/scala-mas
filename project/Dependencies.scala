@@ -14,6 +14,11 @@ object Dependencies {
 
   val logging = Seq("ch.qos.logback" % "logback-classic" % "1.1.2")
 
+  val misc = Seq(
+    "org.apache.commons" % "commons-math3" % "3.4.1",
+    "net.ceedubs" %% "ficus" % "1.1.2"
+  )
+
   val test = Seq(
     "org.scalatest" %% "scalatest" % "2.2.3",
     "org.mockito" % "mockito-core" % "1.10.19",
@@ -21,5 +26,5 @@ object Dependencies {
     "org.scalacheck" %% "scalacheck" % "1.12.1"
   ).map(_ % "test")
 
-  val runtimeDeps = akka ++ config ++ logging ++ test
+  val runtimeDeps = akka ++ config ++ logging ++ misc ++ test
 }

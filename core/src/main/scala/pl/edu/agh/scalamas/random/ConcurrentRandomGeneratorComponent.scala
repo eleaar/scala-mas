@@ -19,29 +19,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package pl.edu.agh.scalamas.app
+package pl.edu.agh.scalamas.random
 
-import akka.actor.ActorSystem
-import com.typesafe.config.{Config, ConfigFactory}
-import pl.edu.agh.scalamas.random.ConcurrentRandomGeneratorComponent
-import pl.edu.agh.scalamas.stats.{StatsComponent, ConcurrentStatsFactory}
+import org.apache.commons.math3.random.RandomDataGenerator
+import pl.edu.agh.scalamas.app.AgentRuntimeComponent
+
+import scala.util.Random
 
 /**
- * Created by Daniel on 2015-01-14.
+ * Created by Daniel on 2015-01-27.
  */
-class ConcurrentStack(name: String)
-  extends ConcurrentAgentRuntimeComponent
-  with ConcurrentStatsFactory
-  with ConcurrentRandomGeneratorComponent
-  with ConcurrentRunner {
+trait ConcurrentRandomGeneratorComponent extends RandomGeneratorComponent {
+  this: AgentRuntimeComponent =>
 
-  this: EnvironmentStrategy with StatsComponent =>
+  def randomData = ConcurrentRandomGeneratorComponent.current
 
-  val agentRuntime = new ConcurrentAgentRuntime {
+  object ConcurrentRandomGeneratorComponent {
+    private[this] val seedSource = new Random(globalSeed)
 
-    val config: Config = ConfigFactory.load()
+    private[this] val localRandom = new ThreadLocal[RandomDataGenerator] {
+      override protected def initialValue() = new RandomDataGenerator(randomGeneratorFactory(seedSource.nextLong()))
+    }
 
-    val system: ActorSystem = ActorSystem(name)
+    def current = localRandom.get
   }
-
 }

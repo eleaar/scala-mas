@@ -25,13 +25,13 @@ import pl.edu.agh.scalamas.app.AgentRuntimeComponent
 import pl.edu.agh.scalamas.emas.EmasTypes.{Agent, Reproduction, Fight, Death}
 import pl.edu.agh.scalamas.mas.LogicTypes.Migration
 import pl.edu.agh.scalamas.mas.logic.BehaviourStrategy
-import pl.edu.agh.scalamas.random.RandomGenerator
+import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 
 /**
  * Created by Daniel on 2015-01-14.
  */
 trait EmasBehaviour extends BehaviourStrategy {
-  this: AgentRuntimeComponent with RandomGenerator =>
+  this: AgentRuntimeComponent with RandomGeneratorComponent =>
 
   def behaviourStrategy = DefaultEmasBehaviour
 
@@ -54,7 +54,7 @@ trait EmasBehaviour extends BehaviourStrategy {
     def behaviourFunction = {
       case Agent(_, _, energy) => energy match {
         case 0 => death
-        case _ if random < migrationProbability => migrate
+        case _ if random.nextDouble() < migrationProbability => migrate
         case energy if energy >= reproductionThreshold => reproduce
         case _ => fight
       }

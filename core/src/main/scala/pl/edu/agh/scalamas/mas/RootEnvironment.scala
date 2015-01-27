@@ -22,10 +22,9 @@
 package pl.edu.agh.scalamas.mas
 
 import akka.actor.{Actor, ActorContext, Props}
-import pl.edu.agh.scalamas.mas.LogicTypes.{Migration, MeetingFunction, Agent}
+import org.apache.commons.math3.random.RandomGenerator
+import pl.edu.agh.scalamas.mas.LogicTypes.{Agent, MeetingFunction, Migration}
 import pl.edu.agh.scalamas.mas.RootEnvironment.{Add, Migrate}
-
-import scala.util.Random
 
 object RootEnvironment {
 
@@ -47,7 +46,7 @@ object RootEnvironment {
    * @param islandsNumber the number of children to spawn
    * @return the props for a RootEnvironment
    */
-  def props(islandProps: Props, islandsNumber: Int) = Props(classOf[RootEnvironment], islandProps, islandsNumber)
+  def props(islandProps: Props, islandsNumber: Int, rand: RandomGenerator) = Props(classOf[RootEnvironment], islandProps, islandsNumber, rand)
 
   /**
    * Generic migration behaviour, which delegates the migration to the parent of the current context.
@@ -68,7 +67,7 @@ object RootEnvironment {
  * @param islandProps the props of the island children
  * @param islandsNumber the number of children to spawn
  */
-class RootEnvironment(islandProps: Props, islandsNumber: Int) extends Actor {
+class RootEnvironment(islandProps: Props, islandsNumber: Int, rand: RandomGenerator) extends Actor {
   require(islandsNumber > 0)
 
   val islands = Array.tabulate(islandsNumber)(i => context.actorOf(islandProps, s"island-$i"))
@@ -80,6 +79,5 @@ class RootEnvironment(islandProps: Props, islandsNumber: Int) extends Actor {
       }
   }
 
-  // TODO do not use Random
-  def randomIsland = islands(Random.nextInt(islands.size))
+  def randomIsland = islands(rand.nextInt(islands.size))
 }

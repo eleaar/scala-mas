@@ -23,6 +23,7 @@ package pl.edu.agh.scalamas.mas
 
 import akka.actor.ActorSystem
 import akka.testkit.{TestActorRef, TestProbe}
+import org.apache.commons.math3.random.JDKRandomGenerator
 import org.scalacheck.Gen
 import pl.edu.agh.scalamas.mas.LogicTypes.Agent
 import pl.edu.agh.scalamas.mas.RootEnvironment.{Add, Migrate}
@@ -41,7 +42,8 @@ class RootEnvironmentSpecs extends ActorUnitSpecs(ActorSystem("RootEnvironmentSp
         case ((islandsN, agentsN)) => whenever(islandsN > 0 && agentsN > 0) {
           // given
           val probe = TestProbe()
-          val rootEnv = TestActorRef(RootEnvironment.props(TestActorProps.forwardingActor(probe.ref), islandsN))
+          val rand = new JDKRandomGenerator()
+          val rootEnv = TestActorRef(RootEnvironment.props(TestActorProps.forwardingActor(probe.ref), islandsN, rand))
           val agents = List.fill(agentsN)(mock[Agent])
 
           // when

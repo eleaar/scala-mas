@@ -26,7 +26,7 @@ import pl.edu.agh.scalamas.emas.fight.DefaultFight
 import pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction
 import pl.edu.agh.scalamas.genetic.GeneticProblem
 import pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy
-import pl.edu.agh.scalamas.random.RandomGenerator
+import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 import pl.edu.agh.scalamas.stats.StatsFactoryComponent
 
 /**
@@ -42,5 +42,5 @@ with EmasStats {
   this: AgentRuntimeComponent
     with GeneticProblem
     with StatsFactoryComponent
-    with RandomGenerator =>
+    with RandomGeneratorComponent =>
 }

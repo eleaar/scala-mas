@@ -25,7 +25,7 @@ import pl.edu.agh.scalamas.app.AgentRuntimeComponent
 import pl.edu.agh.scalamas.emas.EmasTypes._
 import pl.edu.agh.scalamas.genetic.GeneticProblem
 import pl.edu.agh.scalamas.mas.logic.PopulationStrategy
-import pl.edu.agh.scalamas.random.RandomGenerator
+import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 
 /**
  * Created by Daniel on 2015-01-14.
@@ -34,7 +34,7 @@ trait EmasPopulation extends PopulationStrategy {
   this: AgentRuntimeComponent
     with GeneticProblem
     with EmasStats
-    with RandomGenerator =>
+    with RandomGeneratorComponent =>
 
   def populationStrategy = EmasPopulationProvider
 

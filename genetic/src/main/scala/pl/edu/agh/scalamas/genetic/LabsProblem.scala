@@ -22,14 +22,14 @@
 package pl.edu.agh.scalamas.genetic
 
 import pl.edu.agh.scalamas.app.AgentRuntimeComponent
-import pl.edu.agh.scalamas.random.RandomGenerator
+import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 
 /**
  * An implementation of genetic operators for finding the maximu of the Labs function.
  */
 
 trait LabsProblem extends GeneticProblem {
-  this: AgentRuntimeComponent with RandomGenerator =>
+  this: AgentRuntimeComponent with RandomGeneratorComponent =>
 
   type Genetic = LabsOps
 
@@ -40,7 +40,7 @@ trait LabsProblem extends GeneticProblem {
     val mutationChance = config.getDouble("mutationChance")
     val mutationRate = config.getDouble("mutationRate")
 
-    def random = LabsProblem.this.random
+    def random = LabsProblem.this.random.nextDouble()
   }
 }
 

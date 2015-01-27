@@ -23,6 +23,7 @@ package pl.edu.agh.scalamas.app
 
 import akka.event.Logging
 import pl.edu.agh.scalamas.mas.RootEnvironment
+import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 import pl.edu.agh.scalamas.stats.StatsComponent
 import pl.edu.agh.scalamas.util.{Reaper, Logger}
 
@@ -34,7 +35,8 @@ import scala.concurrent.duration._
 trait ConcurrentRunner {
   this: ConcurrentAgentRuntimeComponent
     with EnvironmentStrategy
-    with StatsComponent =>
+    with StatsComponent
+    with RandomGeneratorComponent =>
 
   lazy val islands = agentRuntime.config.getInt("mas.islandsNumber")
 
@@ -49,7 +51,7 @@ trait ConcurrentRunner {
         log info (s"$time ${formatter(stats.getNow)}")
     }
 
-    val root = system.actorOf(RootEnvironment.props(environmentProps, islands))
+    val root = system.actorOf(RootEnvironment.props(environmentProps, islands, random))
     for (
       _ <- Reaper.terminateAfter(root, duration);
       _ <- stats.get) {

@@ -22,7 +22,7 @@
 package pl.edu.agh.scalamas.app
 
 import com.typesafe.config.{Config, ConfigFactory}
-import pl.edu.agh.scalamas.random.DefaultRandomGenerator
+import pl.edu.agh.scalamas.random.SynchronousRandomGeneratorComponent
 import pl.edu.agh.scalamas.stats.SimpleStatsFactory
 
 /**
@@ -31,7 +31,7 @@ import pl.edu.agh.scalamas.stats.SimpleStatsFactory
 class SequentialStack
   extends AgentRuntimeComponent
   with SimpleStatsFactory
-  with DefaultRandomGenerator {
+  with SynchronousRandomGeneratorComponent {
 
   val agentRuntime = new AgentRuntime {
 

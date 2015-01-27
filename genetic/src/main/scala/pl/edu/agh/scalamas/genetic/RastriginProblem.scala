@@ -22,15 +22,13 @@
 package pl.edu.agh.scalamas.genetic
 
 import pl.edu.agh.scalamas.app.AgentRuntimeComponent
-import pl.edu.agh.scalamas.random.RandomGenerator
-
-import scala.math._
+import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 
 /**
  * An implementation of genetic operators for finding the minimum of the Rastrigin function.
  */
 trait RastriginProblem extends GeneticProblem {
-  this: AgentRuntimeComponent with RandomGenerator =>
+  this: AgentRuntimeComponent with RandomGeneratorComponent =>
 
   type Genetic = RastriginOps
 
@@ -48,11 +46,11 @@ trait RastriginProblem extends GeneticProblem {
     val mutationChance = config.getDouble("mutationChance")
     val mutationRate = config.getDouble("mutationRate")
 
-    def generate = Array.fill(problemSize)(-50 + random * 100)
+    def generate = Array.fill(problemSize)(randomData.nextUniform(-50.0, 50.0))
 
     def evaluate(solution: Solution) = {
       solution.foldLeft(0.0)(
-        (sum, x) => sum + 10 + x * x - 10 * cos(2 * Pi * x))
+        (sum, x) => sum + 10 + x * x - 10 * math.cos(2 * x * math.Pi))
     }
 
     // TODO take problemSize into account
@@ -67,8 +65,8 @@ trait RastriginProblem extends GeneticProblem {
       mutateSolutions(recombineSolutions(solution1, solution2))
 
     def mutateSolution(s: Solution) =
-      if (random < mutationChance)
-        s.map(f => if (random < mutationRate) mutateFeature(f) else f)
+      if (random.nextDouble < mutationChance)
+        s.map(f => if (random.nextDouble < mutationRate) mutateFeature(f) else f)
       else
         s
 
@@ -77,12 +75,12 @@ trait RastriginProblem extends GeneticProblem {
     }
 
     def mutateFeature(f: Feature): Feature = {
-      val range = random match {
+      val range = random.nextDouble match {
         case x if x < 0.2 => 5.0
         case x if x < 0.4 => 0.2
         case _ => 1.0
       }
-      f + range * tan(Pi * (random - 0.5))
+      f + range * randomData.nextCauchy(0.0, 1.0)
     }
 
     def recombineSolutions(s1: Solution, s2: Solution): (Solution, Solution) = {
@@ -91,10 +89,11 @@ trait RastriginProblem extends GeneticProblem {
     }
 
     def recombineFeatures(features: (Feature, Feature)): (Feature, Feature) = features match {
+      case f @ (feature1, feature2) if feature1 == feature2 => f
       case (feature1, feature2) =>
-        val a = min(feature1, feature2)
-        val b = max(feature1, feature2)
-        (a + (b - a) * random, a + (b - a) * random)
+        val a = math.min(feature1, feature2)
+        val b = math.max(feature1, feature2)
+        (randomData.nextUniform(a, b), randomData.nextUniform(a, b))
     }
   }
 

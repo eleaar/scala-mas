@@ -21,19 +21,39 @@
  */
 package pl.edu.agh.scalamas.util
 
+import org.apache.commons.math3.random.RandomDataGenerator
+
 import scala.collection.generic.CanBuildFrom
-import scala.util.Random
+import scala.collection.mutable.ArrayBuffer
 
 object Util {
 
-  /**
-   * Implicit wrapper for Random.shuffle
-   */
   implicit class Shuffled[T, CC[X] <: TraversableOnce[X]](xs: CC[T]) {
-    /**
-     * Implicit call to Random.shuffle
-     */
-    def shuffled(implicit bf: CanBuildFrom[CC[T], T, CC[T]]) = Random.shuffle(xs)
+
+    def shuffled(implicit rand: RandomDataGenerator, bf: CanBuildFrom[CC[T], T, CC[T]]): CC[T] = {
+      val buf = new ArrayBuffer[T] ++= xs
+      val size = buf.size
+      val perm = rand.nextPermutation(size, size)
+      permutate(buf, perm)
+      (bf(xs) ++= buf).result()
+    }
+
+    private[util] def permutate(data: ArrayBuffer[T], perm: Array[Int]) = {
+      for (i <- 0 until data.size) {
+        val x = data(i)
+        var current = i
+        var next = perm(i)
+        perm(i) = i
+
+        while (next != i) {
+          data(current) = data(next)
+          current = next
+          next = perm(current)
+          perm(current) = current
+        }
+        data(current) = x
+      }
+    }
   }
 
 }

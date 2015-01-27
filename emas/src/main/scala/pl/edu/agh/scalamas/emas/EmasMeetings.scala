@@ -27,6 +27,7 @@ import pl.edu.agh.scalamas.emas.reproduction.ReproductionStrategy
 import pl.edu.agh.scalamas.genetic.GeneticProblem
 import pl.edu.agh.scalamas.mas.LogicTypes.Migration
 import pl.edu.agh.scalamas.mas.logic.MeetingsStrategy
+import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 import pl.edu.agh.scalamas.util.Util._
 
 /**
@@ -36,14 +37,15 @@ trait EmasMeetings extends MeetingsStrategy {
   this: GeneticProblem
     with EmasStats
     with FightStrategy
-    with ReproductionStrategy =>
+    with ReproductionStrategy
+    with RandomGeneratorComponent =>
 
   def meetingsStrategy = DefaultEmasMeeting
 
   object DefaultEmasMeeting extends MeetingsProvider {
     implicit val ordering = genetic.ordering
+    implicit val rand = randomData
 
-    // TODO fix shuffle bottleneck
     def meetingsFunction = {
       case (Death(_), _) => List.empty[Agent[Genetic]]
       case (Fight(cap), agents) =>
