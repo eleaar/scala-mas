@@ -30,11 +30,8 @@ import pl.edu.agh.scalamas.genetic.GeneticProblem
 trait ReproductionStrategy {
   this: GeneticProblem =>
 
-  def reproductionStrategy: Reproduction
+  type Reproduction = (List[Agent[Genetic]]) => List[Agent[Genetic]]
 
-  // TODO function instead of class
-  trait Reproduction {
-    def apply(agents: List[Agent[Genetic]]): List[Agent[Genetic]]
-  }
+  def reproductionStrategy: Reproduction
 
 }
