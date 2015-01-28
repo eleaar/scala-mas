@@ -21,10 +21,9 @@
  */
 package pl.edu.agh.scalamas.stats
 
-import akka.actor.ActorSystem
 import akka.agent.Agent
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 /**
  * Interface for the gathering of statistics during computations. The statistics value is the result of folding in time all the provided updates.
@@ -59,11 +58,8 @@ private[stats] class SimpleStats[T](initialValue: T, updateFunction: (T, T) => T
   def getNow = oldValue
 }
 
-private[stats] class ConcurrentStats[T](initialValue: T, updateFunction: (T, T) => T, system: ActorSystem) extends Stats[T] {
+private[stats] class ConcurrentStats[T](initialValue: T, updateFunction: (T, T) => T)(implicit context: ExecutionContext) extends Stats[T] {
 
-  implicit val context = system.dispatcher
-
-  // TODO: change system dep to exec context
   val stats = Agent(initialValue)
 
   def update(newValue: T) = stats send ((oldValue: T) => updateFunction(oldValue, newValue))
@@ -83,6 +79,6 @@ object Stats {
   /**
    * Factory method for asynchronous, thread-safe statistics.
    */
-  def concurrent[T](initialValue: T)(updateFunction: (T, T) => T)(implicit system: ActorSystem) = new ConcurrentStats[T](initialValue, updateFunction, system)
+  def concurrent[T](initialValue: T)(updateFunction: (T, T) => T)(implicit context: ExecutionContext) = new ConcurrentStats[T](initialValue, updateFunction)
 
 }

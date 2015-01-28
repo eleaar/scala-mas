@@ -50,6 +50,6 @@ trait ConcurrentStatsFactory extends StatsFactoryComponent {
   def statsFactory = ConcurrentStatsFactoryImpl
 
   object ConcurrentStatsFactoryImpl extends StatsFactory {
-    def apply[T](initialValue: T)(updateFunction: (T, T) => T) = Stats.concurrent(initialValue)(updateFunction)(agentRuntime.system)
+    def apply[T](initialValue: T)(updateFunction: (T, T) => T) = Stats.concurrent(initialValue)(updateFunction)(agentRuntime.system.dispatcher)
   }
 }
