@@ -36,56 +36,165 @@
 
 <p><a href="https://travis-ci.org/ParaPhraseAGH/scala-mas"><img src="https://travis-ci.org/ParaPhraseAGH/scala-mas.svg" alt="Build Status"></a></p>
 
-<p>A Lightweight parallel Multi-Agent System library in Scala.</p>
+<p>A Lightweight parallel Multi-Agent System library in Scala.
+The goal of this project is to help creating highly-concurrent multi-agent systems targeted at massively multicore hardware.</p>
+
+<p>This project allows to design a computationally-intensive multi-agent system decoupled from the runtime environment.
+Then, different runtime components can be chosen to run the simulation in the most efficient settings for a given hardware.</p>
+
+<h3>
+<a id="motivation" class="anchor" href="#motivation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Motivation</h3>
+
+<p>Writing a concurrent application is hard for most programmers. Writing a concurrent agent simulation is even harder.
+Moreover, most of the existing software tighly couples the agent programming model to the underlying execution model and parallelism type.</p>
+
+<p>We want programmers to be able to design a multi-agent system at a high level which abstracts of the actual execution model.
+Then, such high level multi-agent patterns could be mapped to match a specific hardware by using the most adequate execution model for that hardware.</p>
+
+<p>As a result, multi-agent simulations and computations could be easily designed and tested and the same design could then be scaled out along with
+additional resources to solve harder problems or run bigger simulations.</p>
 
 <h2>
 <a id="instalation" class="anchor" href="#instalation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instalation</h2>
 
-<p>Scala-mas will be available on Maven Central soon.</p>
+<p>You can find published releases on Maven Central.</p>
 
-<p>For now, you need to checkout the repository and build the code with Sbt.</p>
-
-<h2>
-<a id="structure" class="anchor" href="#structure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Structure</h2>
+<h4>
+<a id="project-structure" class="anchor" href="#project-structure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project structure</h4>
 
 <p>The project is structures into the following modules:</p>
 
 <ul>
 <li>
-<strong>mas</strong>- APIs for designing a MAS, as well as two execution backends: a synchronous and asynchronous one.</li>
+<strong>core</strong>- APIs for designing a MAS, as well as two execution backends: a synchronous and asynchronous one.</li>
 <li>
 <strong>emas</strong> - A example MAS application for evolutionary optimization.</li>
 <li>
 <strong>genetic</strong> - Genetic operators' APIs for evolutionary optimization.</li>
 <li>
-<strong>stats</strong> - utilities for gathering statistics from your MAS application</li>
+<strong>examples</strong> - An example of how to compose and run an EMAS application.</li>
 </ul>
+
+<p>In order to grab all the modules, add the following lines to your build configuration:</p>
+
+<h4>
+<a id="sbt" class="anchor" href="#sbt" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sbt</h4>
+
+<pre><code>resolvers += Resolver.sonatypeRepo("snapshots")
+
+libraryDependencies += "pl.edu.agh.scalamas" % "emas" % "0.1-SNAPSHOT"
+</code></pre>
+
+<h4>
+<a id="maven" class="anchor" href="#maven" aria-hidden="true"><span class="octicon octicon-link"></span></a>Maven</h4>
+
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;pl.edu.agh.scalamas&lt;/groupId&gt;
+    &lt;artifactId&gt;emas&lt;/artifactId&gt;
+    &lt;version&gt;0.1-SNAPSHOT&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<p>You can also choose to import only the modules you really need.</p>
 
 <h2>
 <a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting started</h2>
 
-<p>Scala-mas main use case is to create efficient Evolutionary Multi-Agent Systems, a meta-heuristic algorithm used for optimization.</p>
+<p>Create an object EmasApp, mix-in a stack, emas logic and some genetic operators. Start the application by calling the run
+ method. Or copy paste the following code:</p>
+
+<pre><code>import pl.edu.agh.scalamas.app.{ConcurrentStack, SynchronousEnvironment}
+import pl.edu.agh.scalamas.emas.EmasLogic
+import pl.edu.agh.scalamas.genetic.RastriginProblem
+
+import scala.concurrent.duration._
+
+object EmasApp extends ConcurrentStack("emas") with SynchronousEnvironment
+  with EmasLogic
+  with RastriginProblem {
+
+  def main(args: Array[String]) {
+    run(5 seconds)
+  }
+
+}
+</code></pre>
+
+<p>Next, see how to <a href="#choosing-an-application-stack">choose an application stack</a>, write your <a href="#writing-custom-genetic-operators">own genetic operators</a>
+or <a href="#custom-multi-agent-systems">customize the multi-agent system</a>.</p>
 
 <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Scala-mas uses the Cake Pattern to statically compose a runtime application. You will need two main components: an application stack
+and some agent logic. See <a href="#choosing-an-application-stack">here</a> for choosing the application stack best suited for your runtime environment.
+The stacks also have a run method to start the simulation, with a duration parameter to tell when it should stop.</p>
+
+<p>Scala-mas provides one agent logic implementation as example and primary use-case: Evolutionary Multi-agent Systems (EMAS).
+EMAS is an asynchronous evolutionary algorithm used for optimisation. The default implementation will require you to provide yet
+another component representing the genetic operators to use in optimisation. To write your own operators, see <a href="#writing-custom-genetic-operators">here</a>.
+To customize the EMAS logic, see <a href="#customizing-the-emas-logic">here</a>.</p>
+
+<p>If you want to implement your own multi-agent simulation, see <a href="#custom-multi-agent-systems">here</a>.</p>
+
+<h3>
+<a id="choosing-an-application-stack" class="anchor" href="#choosing-an-application-stack" aria-hidden="true"><span class="octicon octicon-link"></span></a>Choosing an application stack</h3>
+
+<p>In order to compose your application, you first need to choose an application stack.
+THe stack will provide the other components of your apps with:</p>
+
+<ul>
+<li>runtime configuration</li>
+<li>random number generation</li>
+<li>statistics gathering</li>
+</ul>
+
+<p>Be sure to use the random number generator provided by the application stack. Otherwise, your application may run into trouble,
+for example math.random is actually synchronised and may quickly become a bottleneck in a concurrent runtime scenario.</p>
+
+<p>The following application stack are available:</p>
+
+<ul>
+<li>SequentialStack - A sequential, synchronized stack for useful for development and debugging</li>
+<li>ConcurrentStack with SynchronousEnvironment - A concurrent stack with coarse-grained agent concurrency, suited for small numbers of agents or small numbers of cores.</li>
+<li>ConcurrentStack with AsynchronousEnvironment  - A concurrent stack with fine-grained agent concurrency, suited for large numbers of agents
+running on large numbers of cores</li>
+</ul>
 
 <h3>
 <a id="evolutionary-multi-agent-systems" class="anchor" href="#evolutionary-multi-agent-systems" aria-hidden="true"><span class="octicon octicon-link"></span></a>Evolutionary Multi-Agent Systems</h3>
 
 <h4>
-<a id="running-a-simulation" class="anchor" href="#running-a-simulation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running a simulation</h4>
+<a id="writing-custom-genetic-operators" class="anchor" href="#writing-custom-genetic-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Writing custom genetic operators</h4>
+
+<p>In order to use the EMAS app, you need to mix-in some logic responsible for carrying the genetic operations of the underlying evolutionary algorithm.
+In particular, you need to define:</p>
+
+<ul>
+<li>The type of solutions to be optimised</li>
+<li>A function to generate initial solutions</li>
+<li>A function to evaluate existing solutions and an ordering for these evaluations (to tell which evaluation is better)</li>
+<li>An unary and binary function to generate new solutions out of existing ones.</li>
+</ul>
+
+<p>This functionality is encapsulated in the GeneticOps, GeneticEvaluator and GeneticTransformer traits.
+These traits all take a recursive type parameter to achieve family polimorphism, i.e. to define a set of implementations which can be used together.
+You can implement all these traits in a single class, or compose partial implementations using the Cake Pattern.</p>
+
+<p>This EMAS implementation <strong>maximises</strong> the objective function defined by the genetic operators. If you want to minimize instead, just reverse the evaluatiions' ordering.</p>
 
 <h4>
-<a id="writing-custom-genetic-operators" class="anchor" href="#writing-custom-genetic-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Writing custom genetic operators</h4>
+<a id="customizing-the-emas-logic" class="anchor" href="#customizing-the-emas-logic" aria-hidden="true"><span class="octicon octicon-link"></span></a>Customizing the EMAS logic</h4>
+
+<p>The default EMAS implementation repeatedly group together agents with similar levels of energy. Low energy agents fight, high energy agents reproduce.
+By default, low-energy agents fight by comparing the evaluation of their solutions, winner taking energy from losers.
+High-energy agents reproduce using the genetic operators and share some energy with their children.
+You can customize these strategies by mixing in custom traits instead of the default ones.</p>
+
+<p>You can also fully change the EMAS logic and implement your own multi-agent algorithm by changing the agents behaviours and meetings as described <a href="#custom-multi-agent-systems">here</a>.</p>
 
 <h3>
 <a id="custom-multi-agent-systems" class="anchor" href="#custom-multi-agent-systems" aria-hidden="true"><span class="octicon octicon-link"></span></a>Custom Multi-Agent Systems</h3>
-
-<h4>
-<a id="agent-api" class="anchor" href="#agent-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>Agent API</h4>
-
-<h4>
-<a id="backends" class="anchor" href="#backends" aria-hidden="true"><span class="octicon octicon-link"></span></a>Backends</h4>
 
 <h2>
 <a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
@@ -94,6 +203,8 @@
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>This project is distributed under the MIT License.</p>
       </section>
     </div>
 
