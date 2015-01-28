@@ -35,6 +35,8 @@ The project is structures into the following modules:
 In order to grab all the modules, add the following lines to your build configuration:
 
 #### Sbt
+    resolvers += Resolver.sonatypeRepo("snapshots")
+
     libraryDependencies += "pl.edu.agh.scalamas" % "emas" % "0.1-SNAPSHOT"
 
 #### Maven
