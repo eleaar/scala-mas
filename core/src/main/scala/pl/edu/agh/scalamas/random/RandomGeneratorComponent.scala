@@ -34,7 +34,7 @@ trait RandomGeneratorComponent {
   def globalSeed = agentRuntime.config.as[Option[Long]]("mas.seed").getOrElse(System.currentTimeMillis())
 
   def randomGeneratorFactory(seed: Long): RandomGenerator = new Well19937c(seed)
- 
+
   def random: RandomGenerator = randomData.getRandomGenerator
 
   def randomData: RandomDataGenerator
