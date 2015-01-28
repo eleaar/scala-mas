@@ -80,6 +80,7 @@ trait RastriginProblem extends GeneticProblem {
         case x if x < 0.4 => 0.2
         case _ => 1.0
       }
+      // TODO configurable range
       f + range * randomData.nextCauchy(0.0, 1.0)
     }
 
