@@ -1,0 +1,210 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>async - pl.edu.agh.scalamas.mas.async</title>
+          <meta name="description" content="async - pl.edu.agh.scalamas.mas.async" />
+          <meta name="keywords" content="async pl.edu.agh.scalamas.mas.async" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../../../index.html';
+            var hash = 'pl.edu.agh.scalamas.mas.async.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../../../package.html" class="extype" name="pl">pl</a>.<a href="../../../../package.html" class="extype" name="pl.edu">edu</a>.<a href="../../../package.html" class="extype" name="pl.edu.agh">agh</a>.<a href="../../package.html" class="extype" name="pl.edu.agh.scalamas">scalamas</a>.<a href="../package.html" class="extype" name="pl.edu.agh.scalamas.mas">mas</a></p>
+        <h1>async</h1> <span class="permalink">
+      <a href="../../../../../../index.html#pl.edu.agh.scalamas.mas.async.package" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">async</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="pl.edu.agh.scalamas.mas.async.Arena" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ArenaextendsActor"></a>
+      <a id="Arena:Arena"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Arena.html"><span class="name">Arena</span></a><span class="result"> extends <span class="extype" name="akka.actor.Actor">Actor</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#pl.edu.agh.scalamas.mas.async.package@ArenaextendsActor" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="pl.edu.agh.scalamas.mas.async.AsyncEnvironment" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="AsyncEnvironmentextendsActor"></a>
+      <a id="AsyncEnvironment:AsyncEnvironment"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="AsyncEnvironment.html"><span class="name">AsyncEnvironment</span></a><span class="result"> extends <span class="extype" name="akka.actor.Actor">Actor</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#pl.edu.agh.scalamas.mas.async.package@AsyncEnvironmentextendsActor" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">An asynchronous island implementation.</p><div class="fullcomment"><div class="comment cmt"><p>An asynchronous island implementation. This island spawns separate actors for all agents (individuals actors).
+It also spawns a separate actor for every supported behaviour (arena actors). The individuals choose an arena based
+on the behaviour function and the state of the agent and send the agent to the arena. Arenas gather incoming agents
+and perform the meeting according to the meetings function and the capacity of the behaviour.
+</p></div></div>
+    </li><li name="pl.edu.agh.scalamas.mas.async.Individual" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="IndividualextendsActor"></a>
+      <a id="Individual:Individual"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Individual.html"><span class="name">Individual</span></a><span class="result"> extends <span class="extype" name="akka.actor.Actor">Actor</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#pl.edu.agh.scalamas.mas.async.package@IndividualextendsActor" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="pl.edu.agh.scalamas.mas.async.Arena" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Arena"></a>
+      <a id="Arena:Arena"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Arena$.html"><span class="name">Arena</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#pl.edu.agh.scalamas.mas.async.package@Arena" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="pl.edu.agh.scalamas.mas.async.AsyncEnvironment" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="AsyncEnvironment"></a>
+      <a id="AsyncEnvironment:AsyncEnvironment"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="AsyncEnvironment$.html"><span class="name">AsyncEnvironment</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#pl.edu.agh.scalamas.mas.async.package@AsyncEnvironment" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="pl.edu.agh.scalamas.mas.async.Individual" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Individual"></a>
+      <a id="Individual:Individual"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Individual$.html"><span class="name">Individual</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#pl.edu.agh.scalamas.mas.async.package@Individual" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

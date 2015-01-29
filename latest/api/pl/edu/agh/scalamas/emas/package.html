@@ -1,0 +1,250 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>emas - pl.edu.agh.scalamas.emas</title>
+          <meta name="description" content="emas - pl.edu.agh.scalamas.emas" />
+          <meta name="keywords" content="emas pl.edu.agh.scalamas.emas" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../../index.html';
+            var hash = 'pl.edu.agh.scalamas.emas.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../../package.html" class="extype" name="pl">pl</a>.<a href="../../../package.html" class="extype" name="pl.edu">edu</a>.<a href="../../package.html" class="extype" name="pl.edu.agh">agh</a>.<a href="../package.html" class="extype" name="pl.edu.agh.scalamas">scalamas</a></p>
+        <h1>emas</h1> <span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.package" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">emas</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="pl.edu.agh.scalamas.emas.EmasBehaviour" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="EmasBehaviourextendsBehaviourStrategy"></a>
+      <a id="EmasBehaviour:EmasBehaviour"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="EmasBehaviour.html"><span class="name">EmasBehaviour</span></a><span class="result"> extends <a href="../mas/logic/BehaviourStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.BehaviourStrategy">BehaviourStrategy</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.package@EmasBehaviourextendsBehaviourStrategy" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Default EMAS behaviour component.</p><div class="fullcomment"><div class="comment cmt"><p>Default EMAS behaviour component. Agents choose a behaviour based on their available energy.</p><p>If the energy is 0, agents die. If it is below some threshold they fight, otherwise they reproduce.
+Agents also have some probability to migrate to another island.</p><p>Parameters:</p><ul><li>emas.reproductionThreshold - The amount of energy to start reproducing</li><li>emas.migrationProbability - The probability for an agent to migrate to another island</li><li>emas.deathCapacity - The size of death meetings</li><li>emas.fightCapacity - The size of fight meetings</li><li>emas.reproductionCapacity - The size of reproduction meetings</li><li>emas.migrationCapacity - The size of migration meetings
+</li></ul></div></div>
+    </li><li name="pl.edu.agh.scalamas.emas.EmasLogic" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="EmasLogicextendsDelegatingLogicStrategywithEmasPopulationwithEmasBehaviourwithEmasMeetingswithDefaultFightwithDefaultReproductionwithEmasStats"></a>
+      <a id="EmasLogic:EmasLogic"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="EmasLogic.html"><span class="name">EmasLogic</span></a><span class="result"> extends <a href="../mas/logic/DelegatingLogicStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy">DelegatingLogicStrategy</a> with <a href="EmasPopulation.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasPopulation">EmasPopulation</a> with <a href="EmasBehaviour.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasBehaviour">EmasBehaviour</a> with <a href="EmasMeetings.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasMeetings">EmasMeetings</a> with <a href="fight/DefaultFight.html" class="extype" name="pl.edu.agh.scalamas.emas.fight.DefaultFight">DefaultFight</a> with <a href="reproduction/DefaultReproduction.html" class="extype" name="pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction">DefaultReproduction</a> with <a href="EmasStats.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasStats">EmasStats</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.package@EmasLogicextendsDelegatingLogicStrategywithEmasPopulationwithEmasBehaviourwithEmasMeetingswithDefaultFightwithDefaultReproductionwithEmasStats" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Default EMAS logic.</p><div class="fullcomment"><div class="comment cmt"><p>Default EMAS logic. Combines the default strategies for generating the initial population, agent behaviour and meetings,
+as well as default EMAS statistics.
+</p></div></div>
+    </li><li name="pl.edu.agh.scalamas.emas.EmasMeetings" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="EmasMeetingsextendsMeetingsStrategy"></a>
+      <a id="EmasMeetings:EmasMeetings"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="EmasMeetings.html"><span class="name">EmasMeetings</span></a><span class="result"> extends <a href="../mas/logic/MeetingsStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.MeetingsStrategy">MeetingsStrategy</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.package@EmasMeetingsextendsMeetingsStrategy" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Default EMAS meetings component.</p><div class="fullcomment"><div class="comment cmt"><p>Default EMAS meetings component.</p><p>Death meetings yield no agent.
+Reproduction and fight meetings group agents according to the capacity of the meeting and delegate to strategy functions.
+Migration is a no-op by default and is left the the agent environment to override if possible.</p><p>After reproduction, stats are update with the number of fitness evaluation which happened and the best fitness among the new agents.
+</p></div></div>
+    </li><li name="pl.edu.agh.scalamas.emas.EmasPopulation" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="EmasPopulationextendsPopulationStrategy"></a>
+      <a id="EmasPopulation:EmasPopulation"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="EmasPopulation.html"><span class="name">EmasPopulation</span></a><span class="result"> extends <a href="../mas/logic/PopulationStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.PopulationStrategy">PopulationStrategy</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.package@EmasPopulationextendsPopulationStrategy" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Default EMAS population strategy.</p><div class="fullcomment"><div class="comment cmt"><p>Default EMAS population strategy. It initializes a population of agents with some initial energy and initial solutions
+generator from the genetic operators.</p><p>It also updates the stats with the best fitness found in this initial population.</p><p>Parameters:</p><ul><li>emas.populationSize - The size of the initial population</li><li>emas.initialEnergy - The initial energy of initial agents
+</li></ul></div></div>
+    </li><li name="pl.edu.agh.scalamas.emas.EmasStats" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="EmasStatsextendsStatsComponent"></a>
+      <a id="EmasStats:EmasStats"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="EmasStats.html"><span class="name">EmasStats</span></a><span class="result"> extends <a href="../stats/StatsComponent.html" class="extype" name="pl.edu.agh.scalamas.stats.StatsComponent">StatsComponent</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.package@EmasStatsextendsStatsComponent" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Default EMAS statistics.</p><div class="fullcomment"><div class="comment cmt"><p>Default EMAS statistics. Records the number of fitness evaluations performed so far and the best evaluation found so far.
+</p></div></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="pl.edu.agh.scalamas.emas.EmasTypes" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EmasTypes"></a>
+      <a id="EmasTypes:EmasTypes"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EmasTypes$.html"><span class="name">EmasTypes</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.package@EmasTypes" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Holder for the types of agents and behaviours used in EMAS.</p>
+    </li><li name="pl.edu.agh.scalamas.emas.fight" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="fight"></a>
+      <a id="fight:fight"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="fight/package.html"><span class="name">fight</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.package@fight" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="pl.edu.agh.scalamas.emas.reproduction" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="reproduction"></a>
+      <a id="reproduction:reproduction"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="reproduction/package.html"><span class="name">reproduction</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.package@reproduction" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

@@ -1,0 +1,865 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>EmasLogic - pl.edu.agh.scalamas.emas.EmasLogic</title>
+          <meta name="description" content="EmasLogic - pl.edu.agh.scalamas.emas.EmasLogic" />
+          <meta name="keywords" content="EmasLogic pl.edu.agh.scalamas.emas.EmasLogic" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../../index.html';
+            var hash = 'pl.edu.agh.scalamas.emas.EmasLogic';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="type">
+      <div id="definition">
+        <img src="../../../../../lib/trait_big.png" />
+        <p id="owner"><a href="../../../../package.html" class="extype" name="pl">pl</a>.<a href="../../../package.html" class="extype" name="pl.edu">edu</a>.<a href="../../package.html" class="extype" name="pl.edu.agh">agh</a>.<a href="../package.html" class="extype" name="pl.edu.agh.scalamas">scalamas</a>.<a href="package.html" class="extype" name="pl.edu.agh.scalamas.emas">emas</a></p>
+        <h1>EmasLogic</h1> <span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <span class="name">EmasLogic</span><span class="result"> extends <a href="../mas/logic/DelegatingLogicStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy">DelegatingLogicStrategy</a> with <a href="EmasPopulation.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasPopulation">EmasPopulation</a> with <a href="EmasBehaviour.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasBehaviour">EmasBehaviour</a> with <a href="EmasMeetings.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasMeetings">EmasMeetings</a> with <a href="fight/DefaultFight.html" class="extype" name="pl.edu.agh.scalamas.emas.fight.DefaultFight">DefaultFight</a> with <a href="reproduction/DefaultReproduction.html" class="extype" name="pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction">DefaultReproduction</a> with <a href="EmasStats.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasStats">EmasStats</a></span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Default EMAS logic. Combines the default strategies for generating the initial population, agent behaviour and meetings,
+as well as default EMAS statistics.
+</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="pl.edu.agh.scalamas.emas.EmasLogic">EmasLogic</a> with <a href="../app/AgentRuntimeComponent.html" class="extype" name="pl.edu.agh.scalamas.app.AgentRuntimeComponent">AgentRuntimeComponent</a> with <a href="../genetic/GeneticProblem.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticProblem">GeneticProblem</a> with <a href="../stats/StatsFactoryComponent.html" class="extype" name="pl.edu.agh.scalamas.stats.StatsFactoryComponent">StatsFactoryComponent</a> with <a href="../random/RandomGeneratorComponent.html" class="extype" name="pl.edu.agh.scalamas.random.RandomGeneratorComponent">RandomGeneratorComponent</a></dd></dl><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><a href="EmasStats.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasStats">EmasStats</a>, <a href="../stats/StatsComponent.html" class="extype" name="pl.edu.agh.scalamas.stats.StatsComponent">StatsComponent</a>, <a href="reproduction/DefaultReproduction.html" class="extype" name="pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction">DefaultReproduction</a>, <a href="reproduction/ReproductionStrategy.html" class="extype" name="pl.edu.agh.scalamas.emas.reproduction.ReproductionStrategy">ReproductionStrategy</a>, <a href="fight/DefaultFight.html" class="extype" name="pl.edu.agh.scalamas.emas.fight.DefaultFight">DefaultFight</a>, <a href="fight/FightStrategy.html" class="extype" name="pl.edu.agh.scalamas.emas.fight.FightStrategy">FightStrategy</a>, <a href="EmasMeetings.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasMeetings">EmasMeetings</a>, <a href="../mas/logic/MeetingsStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.MeetingsStrategy">MeetingsStrategy</a>, <a href="EmasBehaviour.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasBehaviour">EmasBehaviour</a>, <a href="../mas/logic/BehaviourStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.BehaviourStrategy">BehaviourStrategy</a>, <a href="EmasPopulation.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasPopulation">EmasPopulation</a>, <a href="../mas/logic/PopulationStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.PopulationStrategy">PopulationStrategy</a>, <a href="../mas/logic/DelegatingLogicStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy">DelegatingLogicStrategy</a>, <a href="../mas/LogicStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.LogicStrategy">LogicStrategy</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div><div class="toggleContainer block">
+            <span class="toggle">Known Subclasses</span>
+            <div class="subClasses hiddenContent"><a href="../examples/EmasApp$.html" class="extype" name="pl.edu.agh.scalamas.examples.EmasApp">EmasApp</a></div>
+          </div></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="pl.edu.agh.scalamas.emas.EmasLogic"><span>EmasLogic</span></li><li class="in" name="pl.edu.agh.scalamas.emas.EmasStats"><span>EmasStats</span></li><li class="in" name="pl.edu.agh.scalamas.stats.StatsComponent"><span>StatsComponent</span></li><li class="in" name="pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction"><span>DefaultReproduction</span></li><li class="in" name="pl.edu.agh.scalamas.emas.reproduction.ReproductionStrategy"><span>ReproductionStrategy</span></li><li class="in" name="pl.edu.agh.scalamas.emas.fight.DefaultFight"><span>DefaultFight</span></li><li class="in" name="pl.edu.agh.scalamas.emas.fight.FightStrategy"><span>FightStrategy</span></li><li class="in" name="pl.edu.agh.scalamas.emas.EmasMeetings"><span>EmasMeetings</span></li><li class="in" name="pl.edu.agh.scalamas.mas.logic.MeetingsStrategy"><span>MeetingsStrategy</span></li><li class="in" name="pl.edu.agh.scalamas.emas.EmasBehaviour"><span>EmasBehaviour</span></li><li class="in" name="pl.edu.agh.scalamas.mas.logic.BehaviourStrategy"><span>BehaviourStrategy</span></li><li class="in" name="pl.edu.agh.scalamas.emas.EmasPopulation"><span>EmasPopulation</span></li><li class="in" name="pl.edu.agh.scalamas.mas.logic.PopulationStrategy"><span>PopulationStrategy</span></li><li class="in" name="pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy"><span>DelegatingLogicStrategy</span></li><li class="in" name="pl.edu.agh.scalamas.mas.LogicStrategy"><span>LogicStrategy</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show all</span></li>
+            </ol>
+            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
+          </div>
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="pl.edu.agh.scalamas.mas.logic.BehaviourStrategy.BehaviourProvider" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="BehaviourProviderextendsAnyRef"></a>
+      <a id="BehaviourProvider:BehaviourProvider"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="../mas/logic/BehaviourStrategy$BehaviourProvider.html"><span class="name">BehaviourProvider</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#pl.edu.agh.scalamas.mas.logic.BehaviourStrategy@BehaviourProviderextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../mas/logic/BehaviourStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.BehaviourStrategy">BehaviourStrategy</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.emas.fight.FightStrategy.Fight" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Fight=List[pl.edu.agh.scalamas.emas.EmasTypes.Agent[FightStrategy.this.Genetic]]=&gt;List[pl.edu.agh.scalamas.emas.EmasTypes.Agent[FightStrategy.this.Genetic]]"></a>
+      <a id="Fight:(EmasLogic.this)#Fight"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Fight</span><span class="result"> = (<span class="extype" name="scala.List">List</span>[<a href="EmasTypes$$Agent.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasTypes.Agent">Agent</a>[(<a href="" class="extype" name="pl.edu.agh.scalamas.emas.EmasLogic">EmasLogic</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.genetic.GeneticProblem.Genetic">Genetic</span>]]) ⇒ <span class="extype" name="scala.List">List</span>[<a href="EmasTypes$$Agent.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasTypes.Agent">Agent</a>[(<a href="" class="extype" name="pl.edu.agh.scalamas.emas.EmasLogic">EmasLogic</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.genetic.GeneticProblem.Genetic">Genetic</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@Fight=List[pl.edu.agh.scalamas.emas.EmasTypes.Agent[FightStrategy.this.Genetic]]=&gt;List[pl.edu.agh.scalamas.emas.EmasTypes.Agent[FightStrategy.this.Genetic]]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A fight strategy transforms a list of agents into a new one.</p><div class="fullcomment"><div class="comment cmt"><p>A fight strategy transforms a list of agents into a new one.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="fight/FightStrategy.html" class="extype" name="pl.edu.agh.scalamas.emas.fight.FightStrategy">FightStrategy</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.mas.logic.MeetingsStrategy.MeetingsProvider" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="MeetingsProviderextendsAnyRef"></a>
+      <a id="MeetingsProvider:MeetingsProvider"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="../mas/logic/MeetingsStrategy$MeetingsProvider.html"><span class="name">MeetingsProvider</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#pl.edu.agh.scalamas.mas.logic.MeetingsStrategy@MeetingsProviderextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../mas/logic/MeetingsStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.MeetingsStrategy">MeetingsStrategy</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.mas.logic.PopulationStrategy.PopulationProvider" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="PopulationProviderextendsAnyRef"></a>
+      <a id="PopulationProvider:PopulationProvider"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="../mas/logic/PopulationStrategy$PopulationProvider.html"><span class="name">PopulationProvider</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#pl.edu.agh.scalamas.mas.logic.PopulationStrategy@PopulationProviderextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../mas/logic/PopulationStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.PopulationStrategy">PopulationStrategy</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.emas.reproduction.ReproductionStrategy.Reproduction" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Reproduction=List[pl.edu.agh.scalamas.emas.EmasTypes.Agent[ReproductionStrategy.this.Genetic]]=&gt;List[pl.edu.agh.scalamas.emas.EmasTypes.Agent[ReproductionStrategy.this.Genetic]]"></a>
+      <a id="Reproduction:(EmasLogic.this)#Reproduction"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Reproduction</span><span class="result"> = (<span class="extype" name="scala.List">List</span>[<a href="EmasTypes$$Agent.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasTypes.Agent">Agent</a>[(<a href="" class="extype" name="pl.edu.agh.scalamas.emas.EmasLogic">EmasLogic</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.genetic.GeneticProblem.Genetic">Genetic</span>]]) ⇒ <span class="extype" name="scala.List">List</span>[<a href="EmasTypes$$Agent.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasTypes.Agent">Agent</a>[(<a href="" class="extype" name="pl.edu.agh.scalamas.emas.EmasLogic">EmasLogic</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.genetic.GeneticProblem.Genetic">Genetic</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@Reproduction=List[pl.edu.agh.scalamas.emas.EmasTypes.Agent[ReproductionStrategy.this.Genetic]]=&gt;List[pl.edu.agh.scalamas.emas.EmasTypes.Agent[ReproductionStrategy.this.Genetic]]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A reproduction strategy transforms a list of agents into a new one.</p><div class="fullcomment"><div class="comment cmt"><p>A reproduction strategy transforms a list of agents into a new one.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="reproduction/ReproductionStrategy.html" class="extype" name="pl.edu.agh.scalamas.emas.reproduction.ReproductionStrategy">ReproductionStrategy</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.emas.EmasStats.StatsType" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="StatsType=(EmasStats.this.Genetic#Evaluation,Long)"></a>
+      <a id="StatsType:(EmasLogic.this)#StatsType"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">StatsType</span><span class="result"> = (<span class="extype" name="pl.edu.agh.scalamas.genetic.GeneticEvaluator.Evaluation">genetic.GeneticProblem.Genetic.Evaluation</span>, <span class="extype" name="scala.Long">Long</span>)</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@StatsType=(EmasStats.this.Genetic#Evaluation,Long)" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">The type of the application statistics
+</p><div class="fullcomment"><div class="comment cmt"><p>The type of the application statistics
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="EmasStats.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasStats">EmasStats</a> → <a href="../stats/StatsComponent.html" class="extype" name="pl.edu.agh.scalamas.stats.StatsComponent">StatsComponent</a></dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="!=(x$1:Any):Boolean"></a>
+      <a id="!=(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef###" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="##():Int"></a>
+      <a id="##():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@##():Int" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#==" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="==(x$1:Any):Boolean"></a>
+      <a id="==(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@==(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.emas.EmasBehaviour.DefaultEmasBehaviour" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="DefaultEmasBehaviour"></a>
+      <a id="DefaultEmasBehaviour:DefaultEmasBehaviour"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EmasBehaviour$DefaultEmasBehaviour$.html"><span class="name">DefaultEmasBehaviour</span></a><span class="result"> extends (<a href="EmasBehaviour.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasBehaviour">EmasBehaviour</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.mas.logic.BehaviourStrategy.BehaviourProvider">BehaviourProvider</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasBehaviour@DefaultEmasBehaviour" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="EmasBehaviour.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasBehaviour">EmasBehaviour</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.emas.EmasMeetings.DefaultEmasMeeting" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="DefaultEmasMeeting"></a>
+      <a id="DefaultEmasMeeting:DefaultEmasMeeting"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EmasMeetings$DefaultEmasMeeting$.html"><span class="name">DefaultEmasMeeting</span></a><span class="result"> extends (<a href="EmasMeetings.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasMeetings">EmasMeetings</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.mas.logic.MeetingsStrategy.MeetingsProvider">MeetingsProvider</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasMeetings@DefaultEmasMeeting" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="EmasMeetings.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasMeetings">EmasMeetings</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.emas.fight.DefaultFight.DefaultFightImpl" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="DefaultFightImpl"></a>
+      <a id="DefaultFightImpl:DefaultFightImpl"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="fight/DefaultFight$DefaultFightImpl$.html"><span class="name">DefaultFightImpl</span></a><span class="result"> extends (<a href="fight/DefaultFight.html" class="extype" name="pl.edu.agh.scalamas.emas.fight.DefaultFight">DefaultFight</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.emas.fight.FightStrategy.Fight">Fight</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#pl.edu.agh.scalamas.emas.fight.DefaultFight@DefaultFightImpl" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="fight/DefaultFight.html" class="extype" name="pl.edu.agh.scalamas.emas.fight.DefaultFight">DefaultFight</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction.DefaultReproductionImpl" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="DefaultReproductionImpl"></a>
+      <a id="DefaultReproductionImpl:DefaultReproductionImpl"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="reproduction/DefaultReproduction$DefaultReproductionImpl$.html"><span class="name">DefaultReproductionImpl</span></a><span class="result"> extends (<a href="reproduction/DefaultReproduction.html" class="extype" name="pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction">DefaultReproduction</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.emas.reproduction.ReproductionStrategy.Reproduction">Reproduction</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction@DefaultReproductionImpl" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="reproduction/DefaultReproduction.html" class="extype" name="pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction">DefaultReproduction</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy.DelegatingLogic" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="DelegatingLogic"></a>
+      <a id="DelegatingLogic:DelegatingLogic"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="../mas/logic/DelegatingLogicStrategy$DelegatingLogic$.html"><span class="name">DelegatingLogic</span></a><span class="result"> extends <a href="../mas/Logic.html" class="extype" name="pl.edu.agh.scalamas.mas.Logic">Logic</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy@DelegatingLogic" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../mas/logic/DelegatingLogicStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy">DelegatingLogicStrategy</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.emas.EmasPopulation.EmasPopulationProvider" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="EmasPopulationProvider"></a>
+      <a id="EmasPopulationProvider:EmasPopulationProvider"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EmasPopulation$EmasPopulationProvider$.html"><span class="name">EmasPopulationProvider</span></a><span class="result"> extends (<a href="EmasPopulation.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasPopulation">EmasPopulation</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.mas.logic.PopulationStrategy.PopulationProvider">PopulationProvider</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasPopulation@EmasPopulationProvider" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="EmasPopulation.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasPopulation">EmasPopulation</a></dd></dl></div>
+    </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asInstanceOf[T0]:T0"></a>
+      <a id="asInstanceOf[T0]:T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.emas.EmasBehaviour#behaviourStrategy" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="behaviourStrategy:EmasBehaviour.this.DefaultEmasBehaviour.type"></a>
+      <a id="behaviourStrategy:(EmasLogic.this)#DefaultEmasBehaviour.type"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">behaviourStrategy</span><span class="result">: (<a href="" class="extype" name="pl.edu.agh.scalamas.emas.EmasLogic">EmasLogic</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.emas.EmasBehaviour.DefaultEmasBehaviour">DefaultEmasBehaviour</span>.type</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@behaviourStrategy:EmasBehaviour.this.DefaultEmasBehaviour.type" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="EmasBehaviour.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasBehaviour">EmasBehaviour</a> → <a href="../mas/logic/BehaviourStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.BehaviourStrategy">BehaviourStrategy</a></dd></dl></div>
+    </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="clone():Object"></a>
+      <a id="clone():AnyRef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@clone():Object" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eq(x$1:AnyRef):Boolean"></a>
+      <a id="eq(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a>
+      <a id="equals(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.emas.fight.DefaultFight#fightStrategy" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="fightStrategy:DefaultFight.this.DefaultFightImpl.type"></a>
+      <a id="fightStrategy:(EmasLogic.this)#DefaultFightImpl.type"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fightStrategy</span><span class="result">: (<a href="" class="extype" name="pl.edu.agh.scalamas.emas.EmasLogic">EmasLogic</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.emas.fight.DefaultFight.DefaultFightImpl">DefaultFightImpl</span>.type</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@fightStrategy:DefaultFight.this.DefaultFightImpl.type" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">The fight strategy.</p><div class="fullcomment"><div class="comment cmt"><p>The fight strategy.</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>the fight strategy.
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="fight/DefaultFight.html" class="extype" name="pl.edu.agh.scalamas.emas.fight.DefaultFight">DefaultFight</a> → <a href="fight/FightStrategy.html" class="extype" name="pl.edu.agh.scalamas.emas.fight.FightStrategy">FightStrategy</a></dd></dl></div>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <a id="finalize():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@finalize():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.emas.EmasStats#formatter" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="formatter:EmasStats.this.StatsType=&gt;String"></a>
+      <a id="formatter:((EmasLogic.this)#StatsType)⇒String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">formatter</span><span class="result">: ((<a href="" class="extype" name="pl.edu.agh.scalamas.emas.EmasLogic">EmasLogic</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.emas.EmasStats.StatsType">StatsType</span>) ⇒ <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@formatter:EmasStats.this.StatsType=&gt;String" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A formatter for the application statistics.</p><div class="fullcomment"><div class="comment cmt"><p>A formatter for the application statistics.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="EmasStats.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasStats">EmasStats</a> → <a href="../stats/StatsComponent.html" class="extype" name="pl.edu.agh.scalamas.stats.StatsComponent">StatsComponent</a></dd></dl></div>
+    </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getClass():Class[_]"></a>
+      <a id="getClass():Class[_]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@getClass():Class[_]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <a id="hashCode():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@hashCode():Int" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy#logic" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="logic:DelegatingLogicStrategy.this.DelegatingLogic.type"></a>
+      <a id="logic:(EmasLogic.this)#DelegatingLogic.type"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">logic</span><span class="result">: (<a href="" class="extype" name="pl.edu.agh.scalamas.emas.EmasLogic">EmasLogic</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy.DelegatingLogic">DelegatingLogic</span>.type</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@logic:DelegatingLogicStrategy.this.DelegatingLogic.type" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../mas/logic/DelegatingLogicStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy">DelegatingLogicStrategy</a> → <a href="../mas/LogicStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.LogicStrategy">LogicStrategy</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.emas.EmasMeetings#meetingsStrategy" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="meetingsStrategy:EmasMeetings.this.DefaultEmasMeeting.type"></a>
+      <a id="meetingsStrategy:(EmasLogic.this)#DefaultEmasMeeting.type"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">meetingsStrategy</span><span class="result">: (<a href="" class="extype" name="pl.edu.agh.scalamas.emas.EmasLogic">EmasLogic</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.emas.EmasMeetings.DefaultEmasMeeting">DefaultEmasMeeting</span>.type</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@meetingsStrategy:EmasMeetings.this.DefaultEmasMeeting.type" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="EmasMeetings.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasMeetings">EmasMeetings</a> → <a href="../mas/logic/MeetingsStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.MeetingsStrategy">MeetingsStrategy</a></dd></dl></div>
+    </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ne(x$1:AnyRef):Boolean"></a>
+      <a id="ne(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notify" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notify():Unit"></a>
+      <a id="notify():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@notify():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notifyAll" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notifyAll():Unit"></a>
+      <a id="notifyAll():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@notifyAll():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.emas.EmasPopulation#populationStrategy" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="populationStrategy:EmasPopulation.this.EmasPopulationProvider.type"></a>
+      <a id="populationStrategy:(EmasLogic.this)#EmasPopulationProvider.type"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">populationStrategy</span><span class="result">: (<a href="" class="extype" name="pl.edu.agh.scalamas.emas.EmasLogic">EmasLogic</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.emas.EmasPopulation.EmasPopulationProvider">EmasPopulationProvider</span>.type</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@populationStrategy:EmasPopulation.this.EmasPopulationProvider.type" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="EmasPopulation.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasPopulation">EmasPopulation</a> → <a href="../mas/logic/PopulationStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.PopulationStrategy">PopulationStrategy</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction#reproductionStrategy" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="reproductionStrategy:DefaultReproduction.this.DefaultReproductionImpl.type"></a>
+      <a id="reproductionStrategy:(EmasLogic.this)#DefaultReproductionImpl.type"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">reproductionStrategy</span><span class="result">: (<a href="" class="extype" name="pl.edu.agh.scalamas.emas.EmasLogic">EmasLogic</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction.DefaultReproductionImpl">DefaultReproductionImpl</span>.type</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@reproductionStrategy:DefaultReproduction.this.DefaultReproductionImpl.type" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">The reproduction strategy.</p><div class="fullcomment"><div class="comment cmt"><p>The reproduction strategy.</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>the reproduction strategy.
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="reproduction/DefaultReproduction.html" class="extype" name="pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction">DefaultReproduction</a> → <a href="reproduction/ReproductionStrategy.html" class="extype" name="pl.edu.agh.scalamas.emas.reproduction.ReproductionStrategy">ReproductionStrategy</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.emas.EmasStats#stats" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="stats:pl.edu.agh.scalamas.stats.Stats[EmasStats.this.StatsType]"></a>
+      <a id="stats:Stats[(EmasLogic.this)#StatsType]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">lazy val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">stats</span><span class="result">: <a href="../stats/Stats.html" class="extype" name="pl.edu.agh.scalamas.stats.Stats">Stats</a>[(<a href="" class="extype" name="pl.edu.agh.scalamas.emas.EmasLogic">EmasLogic</a>.this)#<span class="extype" name="pl.edu.agh.scalamas.emas.EmasStats.StatsType">StatsType</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@stats:pl.edu.agh.scalamas.stats.Stats[EmasStats.this.StatsType]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A handle to the application statistics.</p><div class="fullcomment"><div class="comment cmt"><p>A handle to the application statistics.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="EmasStats.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasStats">EmasStats</a> → <a href="../stats/StatsComponent.html" class="extype" name="pl.edu.agh.scalamas.stats.StatsComponent">StatsComponent</a></dd></dl></div>
+    </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
+      <a id="synchronized[T0](⇒T0):T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <a id="toString():String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@toString():String" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <a id="wait():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@wait():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long,x$2:Int):Unit"></a>
+      <a id="wait(Long,Int):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long):Unit"></a>
+      <a id="wait(Long):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.emas.EmasLogic@wait(x$1:Long):Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="pl.edu.agh.scalamas.emas.EmasStats">
+              <h3>Inherited from <a href="EmasStats.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasStats">EmasStats</a></h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.stats.StatsComponent">
+              <h3>Inherited from <a href="../stats/StatsComponent.html" class="extype" name="pl.edu.agh.scalamas.stats.StatsComponent">StatsComponent</a></h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction">
+              <h3>Inherited from <a href="reproduction/DefaultReproduction.html" class="extype" name="pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction">DefaultReproduction</a></h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.emas.reproduction.ReproductionStrategy">
+              <h3>Inherited from <a href="reproduction/ReproductionStrategy.html" class="extype" name="pl.edu.agh.scalamas.emas.reproduction.ReproductionStrategy">ReproductionStrategy</a></h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.emas.fight.DefaultFight">
+              <h3>Inherited from <a href="fight/DefaultFight.html" class="extype" name="pl.edu.agh.scalamas.emas.fight.DefaultFight">DefaultFight</a></h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.emas.fight.FightStrategy">
+              <h3>Inherited from <a href="fight/FightStrategy.html" class="extype" name="pl.edu.agh.scalamas.emas.fight.FightStrategy">FightStrategy</a></h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.emas.EmasMeetings">
+              <h3>Inherited from <a href="EmasMeetings.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasMeetings">EmasMeetings</a></h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.mas.logic.MeetingsStrategy">
+              <h3>Inherited from <a href="../mas/logic/MeetingsStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.MeetingsStrategy">MeetingsStrategy</a></h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.emas.EmasBehaviour">
+              <h3>Inherited from <a href="EmasBehaviour.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasBehaviour">EmasBehaviour</a></h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.mas.logic.BehaviourStrategy">
+              <h3>Inherited from <a href="../mas/logic/BehaviourStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.BehaviourStrategy">BehaviourStrategy</a></h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.emas.EmasPopulation">
+              <h3>Inherited from <a href="EmasPopulation.html" class="extype" name="pl.edu.agh.scalamas.emas.EmasPopulation">EmasPopulation</a></h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.mas.logic.PopulationStrategy">
+              <h3>Inherited from <a href="../mas/logic/PopulationStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.PopulationStrategy">PopulationStrategy</a></h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy">
+              <h3>Inherited from <a href="../mas/logic/DelegatingLogicStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy">DelegatingLogicStrategy</a></h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.mas.LogicStrategy">
+              <h3>Inherited from <a href="../mas/LogicStrategy.html" class="extype" name="pl.edu.agh.scalamas.mas.LogicStrategy">LogicStrategy</a></h3>
+            </div><div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

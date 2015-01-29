@@ -1,0 +1,811 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>LabsOps - pl.edu.agh.scalamas.genetic.LabsOps</title>
+          <meta name="description" content="LabsOps - pl.edu.agh.scalamas.genetic.LabsOps" />
+          <meta name="keywords" content="LabsOps pl.edu.agh.scalamas.genetic.LabsOps" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../../index.html';
+            var hash = 'pl.edu.agh.scalamas.genetic.LabsOps';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="type">
+      <div id="definition">
+        <img src="../../../../../lib/trait_big.png" />
+        <p id="owner"><a href="../../../../package.html" class="extype" name="pl">pl</a>.<a href="../../../package.html" class="extype" name="pl.edu">edu</a>.<a href="../../package.html" class="extype" name="pl.edu.agh">agh</a>.<a href="../package.html" class="extype" name="pl.edu.agh.scalamas">scalamas</a>.<a href="package.html" class="extype" name="pl.edu.agh.scalamas.genetic">genetic</a></p>
+        <h1>LabsOps</h1> <span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <span class="name">LabsOps</span><span class="result"> extends <a href="GeneticOps.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticOps">GeneticOps</a>[<a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a>] with <a href="LocalSearch.html" class="extype" name="pl.edu.agh.scalamas.genetic.LocalSearch">LocalSearch</a>[<a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a>]</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><a href="LocalSearch.html" class="extype" name="pl.edu.agh.scalamas.genetic.LocalSearch">LocalSearch</a>[<a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a>], <a href="GeneticOps.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticOps">GeneticOps</a>[<a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a>], <a href="GeneticTransformer.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticTransformer">GeneticTransformer</a>[<a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a>], <a href="GeneticEvaluator.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticEvaluator">GeneticEvaluator</a>[<a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="pl.edu.agh.scalamas.genetic.LabsOps"><span>LabsOps</span></li><li class="in" name="pl.edu.agh.scalamas.genetic.LocalSearch"><span>LocalSearch</span></li><li class="in" name="pl.edu.agh.scalamas.genetic.GeneticOps"><span>GeneticOps</span></li><li class="in" name="pl.edu.agh.scalamas.genetic.GeneticTransformer"><span>GeneticTransformer</span></li><li class="in" name="pl.edu.agh.scalamas.genetic.GeneticEvaluator"><span>GeneticEvaluator</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show all</span></li>
+            </ol>
+            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
+          </div>
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="pl.edu.agh.scalamas.genetic.LabsOps.Evaluation" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Evaluation=Double"></a>
+      <a id="Evaluation:Evaluation"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Evaluation</span><span class="result"> = <span class="extype" name="scala.Double">Double</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@Evaluation=Double" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a> → <a href="GeneticEvaluator.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticEvaluator">GeneticEvaluator</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps.Feature" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Feature=Boolean"></a>
+      <a id="Feature:Feature"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Feature</span><span class="result"> = <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@Feature=Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps.Solution" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Solution=Array[LabsOps.this.Feature]"></a>
+      <a id="Solution:Solution"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Solution</span><span class="result"> = <span class="extype" name="scala.Array">Array</span>[<a href="#Feature=Boolean" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Feature">Feature</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@Solution=Array[LabsOps.this.Feature]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a> → <a href="GeneticOps.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticOps">GeneticOps</a></dd></dl></div>
+    </li></ol>
+            </div>
+
+        <div id="values" class="values members">
+              <h3>Abstract Value Members</h3>
+              <ol><li name="pl.edu.agh.scalamas.genetic.LocalSearch#localSearch" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="localSearch(s:G#Solution):(G#Solution,G#Evaluation)"></a>
+      <a id="localSearch(Solution):(Solution,Evaluation)"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">localSearch</span><span class="params">(<span name="s">s: <a href="#Solution=Array[LabsOps.this.Feature]" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Solution">Solution</a></span>)</span><span class="result">: (<a href="#Solution=Array[LabsOps.this.Feature]" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Solution">Solution</a>, <a href="#Evaluation=Double" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Evaluation">Evaluation</a>)</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@localSearch(s:G#Solution):(G#Solution,G#Evaluation)" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LocalSearch.html" class="extype" name="pl.edu.agh.scalamas.genetic.LocalSearch">LocalSearch</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps#mutationChance" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="mutationChance:Double"></a>
+      <a id="mutationChance:Double"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">mutationChance</span><span class="result">: <span class="extype" name="scala.Double">Double</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@mutationChance:Double" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps#mutationRate" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="mutationRate:Double"></a>
+      <a id="mutationRate:Double"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">mutationRate</span><span class="result">: <span class="extype" name="scala.Double">Double</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@mutationRate:Double" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps#problemSize" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="problemSize:Int"></a>
+      <a id="problemSize:Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">problemSize</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@problemSize:Int" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps#random" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="random:Double"></a>
+      <a id="random:Double"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">random</span><span class="result">: <span class="extype" name="scala.Double">Double</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@random:Double" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        <div id="values" class="values members">
+              <h3>Concrete Value Members</h3>
+              <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="!=(x$1:Any):Boolean"></a>
+      <a id="!=(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef###" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="##():Int"></a>
+      <a id="##():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@##():Int" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#==" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="==(x$1:Any):Boolean"></a>
+      <a id="==(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@==(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asInstanceOf[T0]:T0"></a>
+      <a id="asInstanceOf[T0]:T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="clone():Object"></a>
+      <a id="clone():AnyRef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@clone():Object" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eq(x$1:AnyRef):Boolean"></a>
+      <a id="eq(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a>
+      <a id="equals(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps#evaluate" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="evaluate(s:LabsOps.this.Solution):pl.edu.agh.scalamas.genetic.LabsOps#Evaluation"></a>
+      <a id="evaluate(Solution):Evaluation"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">evaluate</span><span class="params">(<span name="s">s: <a href="#Solution=Array[LabsOps.this.Feature]" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Solution">Solution</a></span>)</span><span class="result">: <a href="#Evaluation=Double" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Evaluation">Evaluation</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@evaluate(s:LabsOps.this.Solution):pl.edu.agh.scalamas.genetic.LabsOps#Evaluation" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Evaluates given solutions.</p><div class="fullcomment"><div class="comment cmt"><p>Evaluates given solutions.
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>the solution's evaluation
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a> → <a href="GeneticEvaluator.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticEvaluator">GeneticEvaluator</a></dd></dl></div>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <a id="finalize():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@finalize():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps#generate" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="generate:Array[Boolean]"></a>
+      <a id="generate:Array[Boolean]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">generate</span><span class="result">: <span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@generate:Array[Boolean]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Generates an initial solution for further optimization.</p><div class="fullcomment"><div class="comment cmt"><p>Generates an initial solution for further optimization.</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>an initial solution
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a> → <a href="GeneticEvaluator.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticEvaluator">GeneticEvaluator</a></dd></dl></div>
+    </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getClass():Class[_]"></a>
+      <a id="getClass():Class[_]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@getClass():Class[_]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <a id="hashCode():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@hashCode():Int" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps#minimal" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="minimal:Double"></a>
+      <a id="minimal:Double"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">minimal</span><span class="result">: <span class="extype" name="scala.Double">Double</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@minimal:Double" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Provides a lower bound for the possible evaluations, with respect to ordering.</p><div class="fullcomment"><div class="comment cmt"><p>Provides a lower bound for the possible evaluations, with respect to ordering.
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>a lower evaluation bound
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a> → <a href="GeneticEvaluator.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticEvaluator">GeneticEvaluator</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps#mutateSolution" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="mutateSolution(s:LabsOps.this.Solution):Array[Boolean]"></a>
+      <a id="mutateSolution(Solution):Array[Boolean]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">mutateSolution</span><span class="params">(<span name="s">s: <a href="#Solution=Array[LabsOps.this.Feature]" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Solution">Solution</a></span>)</span><span class="result">: <span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@mutateSolution(s:LabsOps.this.Solution):Array[Boolean]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps#mutateSolutions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="mutateSolutions(s:(LabsOps.this.Solution,LabsOps.this.Solution)):(Array[Boolean],Array[Boolean])"></a>
+      <a id="mutateSolutions((Solution,Solution)):(Array[Boolean],Array[Boolean])"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">mutateSolutions</span><span class="params">(<span name="s">s: (<a href="#Solution=Array[LabsOps.this.Feature]" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Solution">Solution</a>, <a href="#Solution=Array[LabsOps.this.Feature]" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Solution">Solution</a>)</span>)</span><span class="result">: (<span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Boolean">Boolean</span>], <span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Boolean">Boolean</span>])</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@mutateSolutions(s:(LabsOps.this.Solution,LabsOps.this.Solution)):(Array[Boolean],Array[Boolean])" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ne(x$1:AnyRef):Boolean"></a>
+      <a id="ne(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notify" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notify():Unit"></a>
+      <a id="notify():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@notify():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notifyAll" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notifyAll():Unit"></a>
+      <a id="notifyAll():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@notifyAll():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps#ordering" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ordering:math.Ordering.Double.type"></a>
+      <a id="ordering:Double.type"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ordering</span><span class="result">: <span class="extype" name="scala.math.Ordering.Double">Double</span>.type</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@ordering:math.Ordering.Double.type" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Provides an for evaluations to decide which is better.</p><div class="fullcomment"><div class="comment cmt"><p>Provides an for evaluations to decide which is better.</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>the evaluations ordering
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a> → <a href="GeneticEvaluator.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticEvaluator">GeneticEvaluator</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps#recombineFeatures" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="recombineFeatures(features:(LabsOps.this.Feature,LabsOps.this.Feature)):(LabsOps.this.Feature,LabsOps.this.Feature)"></a>
+      <a id="recombineFeatures((Feature,Feature)):(Feature,Feature)"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">recombineFeatures</span><span class="params">(<span name="features">features: (<a href="#Feature=Boolean" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Feature">Feature</a>, <a href="#Feature=Boolean" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Feature">Feature</a>)</span>)</span><span class="result">: (<a href="#Feature=Boolean" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Feature">Feature</a>, <a href="#Feature=Boolean" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Feature">Feature</a>)</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@recombineFeatures(features:(LabsOps.this.Feature,LabsOps.this.Feature)):(LabsOps.this.Feature,LabsOps.this.Feature)" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps#recombineSolutions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="recombineSolutions(s1:LabsOps.this.Solution,s2:LabsOps.this.Solution):(LabsOps.this.Solution,LabsOps.this.Solution)"></a>
+      <a id="recombineSolutions(Solution,Solution):(Solution,Solution)"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">recombineSolutions</span><span class="params">(<span name="s1">s1: <a href="#Solution=Array[LabsOps.this.Feature]" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Solution">Solution</a></span>, <span name="s2">s2: <a href="#Solution=Array[LabsOps.this.Feature]" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Solution">Solution</a></span>)</span><span class="result">: (<a href="#Solution=Array[LabsOps.this.Feature]" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Solution">Solution</a>, <a href="#Solution=Array[LabsOps.this.Feature]" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Solution">Solution</a>)</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@recombineSolutions(s1:LabsOps.this.Solution,s2:LabsOps.this.Solution):(LabsOps.this.Solution,LabsOps.this.Solution)" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
+      <a id="synchronized[T0](⇒T0):T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <a id="toString():String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@toString():String" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps#transform" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="transform(solution1:LabsOps.this.Solution,solution2:LabsOps.this.Solution):(Array[Boolean],Array[Boolean])"></a>
+      <a id="transform(Solution,Solution):(Array[Boolean],Array[Boolean])"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">transform</span><span class="params">(<span name="solution1">solution1: <a href="#Solution=Array[LabsOps.this.Feature]" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Solution">Solution</a></span>, <span name="solution2">solution2: <a href="#Solution=Array[LabsOps.this.Feature]" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Solution">Solution</a></span>)</span><span class="result">: (<span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Boolean">Boolean</span>], <span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Boolean">Boolean</span>])</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@transform(solution1:LabsOps.this.Solution,solution2:LabsOps.this.Solution):(Array[Boolean],Array[Boolean])" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">An binary transformation operator.</p><div class="fullcomment"><div class="comment cmt"><p>An binary transformation operator. Created a new solution out of two existing ones (e.g. using crossover).
+</p></div><dl class="paramcmts block"><dt class="param">solution1</dt><dd class="cmt"><p>the first solution to be transformed</p></dd><dt class="param">solution2</dt><dd class="cmt"><p>the second solution to be transformed</p></dd><dt>returns</dt><dd class="cmt"><p>a pair of new, transformed solutions
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a> → <a href="GeneticTransformer.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticTransformer">GeneticTransformer</a></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps#transform" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="transform(solution:LabsOps.this.Solution):Array[Boolean]"></a>
+      <a id="transform(Solution):Array[Boolean]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">transform</span><span class="params">(<span name="solution">solution: <a href="#Solution=Array[LabsOps.this.Feature]" class="extmbr" name="pl.edu.agh.scalamas.genetic.LabsOps.Solution">Solution</a></span>)</span><span class="result">: <span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@transform(solution:LabsOps.this.Solution):Array[Boolean]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">An unary transformation operator.</p><div class="fullcomment"><div class="comment cmt"><p>An unary transformation operator. Created a new solution out of an existing one (e.g. using mutation or local search).
+</p></div><dl class="paramcmts block"><dt class="param">solution</dt><dd class="cmt"><p>the solution to be transformed</p></dd><dt>returns</dt><dd class="cmt"><p>a new, transformed solution
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a> → <a href="GeneticTransformer.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticTransformer">GeneticTransformer</a></dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <a id="wait():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@wait():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long,x$2:Int):Unit"></a>
+      <a id="wait(Long,Int):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long):Unit"></a>
+      <a id="wait(Long):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.LabsOps@wait(x$1:Long):Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="pl.edu.agh.scalamas.genetic.LocalSearch">
+              <h3>Inherited from <a href="LocalSearch.html" class="extype" name="pl.edu.agh.scalamas.genetic.LocalSearch">LocalSearch</a>[<a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a>]</h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.genetic.GeneticOps">
+              <h3>Inherited from <a href="GeneticOps.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticOps">GeneticOps</a>[<a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a>]</h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.genetic.GeneticTransformer">
+              <h3>Inherited from <a href="GeneticTransformer.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticTransformer">GeneticTransformer</a>[<a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a>]</h3>
+            </div><div class="parent" name="pl.edu.agh.scalamas.genetic.GeneticEvaluator">
+              <h3>Inherited from <a href="GeneticEvaluator.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticEvaluator">GeneticEvaluator</a>[<a href="" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a>]</h3>
+            </div><div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

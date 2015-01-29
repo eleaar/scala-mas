@@ -1,0 +1,307 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>genetic - pl.edu.agh.scalamas.genetic</title>
+          <meta name="description" content="genetic - pl.edu.agh.scalamas.genetic" />
+          <meta name="keywords" content="genetic pl.edu.agh.scalamas.genetic" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../../index.html';
+            var hash = 'pl.edu.agh.scalamas.genetic.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../../package.html" class="extype" name="pl">pl</a>.<a href="../../../package.html" class="extype" name="pl.edu">edu</a>.<a href="../../package.html" class="extype" name="pl.edu.agh">agh</a>.<a href="../package.html" class="extype" name="pl.edu.agh.scalamas">scalamas</a></p>
+        <h1>genetic</h1> <span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.package" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">genetic</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="pl.edu.agh.scalamas.genetic.GeneticEvaluator" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="GeneticEvaluator[G&lt;:pl.edu.agh.scalamas.genetic.GeneticOps[G]]extendsAnyRef"></a>
+      <a id="GeneticEvaluator[G&lt;:GeneticOps[G]]:GeneticEvaluator[G]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="GeneticEvaluator.html"><span class="name">GeneticEvaluator</span></a><span class="tparams">[<span name="G">G &lt;: <a href="GeneticOps.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticOps">GeneticOps</a>[<span class="extype" name="pl.edu.agh.scalamas.genetic.GeneticEvaluator.G">G</span>]</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.package@GeneticEvaluator[G&lt;:pl.edu.agh.scalamas.genetic.GeneticOps[G]]extendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Evaluates solutions and generates initial ones for futher optimization.</p><div class="fullcomment"><div class="comment cmt"><p>Evaluates solutions and generates initial ones for futher optimization.
+This operator is usually-problem specific.
+</p></div><dl class="paramcmts block"><dt class="tparam">G</dt><dd class="cmt"><p>recursive parameter type representing the polymorphic family of operators
+</p></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.genetic.GeneticOps" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="GeneticOps[G&lt;:pl.edu.agh.scalamas.genetic.GeneticOps[G]]extendsGeneticEvaluator[G]withGeneticTransformer[G]"></a>
+      <a id="GeneticOps[G&lt;:GeneticOps[G]]:GeneticOps[G]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="GeneticOps.html"><span class="name">GeneticOps</span></a><span class="tparams">[<span name="G">G &lt;: <a href="GeneticOps.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticOps">GeneticOps</a>[<span class="extype" name="pl.edu.agh.scalamas.genetic.GeneticOps.G">G</span>]</span>]</span><span class="result"> extends <a href="GeneticEvaluator.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticEvaluator">GeneticEvaluator</a>[<span class="extype" name="pl.edu.agh.scalamas.genetic.GeneticOps.G">G</span>] with <a href="GeneticTransformer.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticTransformer">GeneticTransformer</a>[<span class="extype" name="pl.edu.agh.scalamas.genetic.GeneticOps.G">G</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.package@GeneticOps[G&lt;:pl.edu.agh.scalamas.genetic.GeneticOps[G]]extendsGeneticEvaluator[G]withGeneticTransformer[G]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Polymorphic family of genetic operators suited for a particular solution representation.</p><div class="fullcomment"><div class="comment cmt"><p>Polymorphic family of genetic operators suited for a particular solution representation.</p><p>Implementations should specify the type of the solution and provide corresponding GeneticEvaluator
+and GeneticTransformer operators.</p><h5> Basic example </h5><pre><span class="kw">trait</span> MyGeneticOps <span class="kw">extends</span> GeneticOps[MyGeneticOps] {
+ <span class="kw">type</span> Solution = MySolutionType
+ <span class="kw">type</span> Evaluation = MyEvaluationType
+
+ <span class="kw">def</span> generate: MySolutionType = ...
+ <span class="kw">def</span> evaluate(solution: MySolutionType): MyEvaluationType = ...
+ <span class="kw">def</span> ordering: Ordering[MyEvaluationType] = ...
+
+ <span class="kw">def</span> transform(solution: MySolutionType) = ...
+ <span class="kw">def</span> transform(solution1: MySolutionType, solution2: MySolutionType) = ...
+}</pre><h5> Reusing operator components </h5><p>You can use the cake pattern to compose different operators for a given representation, as in:</p><pre><span class="kw">trait</span> MyRepresentation <span class="kw">extends</span> GeneticOps[MyRepresentation] {
+ <span class="kw">type</span> Solution = MySolutionType
+}
+
+<span class="kw">trait</span> MyEvaluator <span class="kw">extends</span> GeneticEvaluator[MyRepresentation] {
+ ...
+}
+
+<span class="kw">trait</span> MyTransformer1 <span class="kw">extends</span> GeneticTransformer[MyRepresentation] {
+ ...
+}
+
+<span class="kw">trait</span> MyTransformer2 <span class="kw">extends</span> GeneticTransformer[MyRepresentation] {
+ ...
+}
+
+<span class="kw">trait</span> MyConcreteOps1 <span class="kw">extends</span> MyRepresentation <span class="kw">with</span> MyEvaluator <span class="kw">with</span> MyTransformer1
+
+<span class="kw">trait</span> MyConcreteOps2 <span class="kw">extends</span> MyRepresentation <span class="kw">with</span> MyEvaluator <span class="kw">with</span> MyTransformer2</pre></div><dl class="paramcmts block"><dt class="tparam">G</dt><dd class="cmt"><p>recursive parameter type representing the polymorphic family of operators
+</p></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.genetic.GeneticProblem" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="GeneticProblemextendsAnyRef"></a>
+      <a id="GeneticProblem:GeneticProblem"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="GeneticProblem.html"><span class="name">GeneticProblem</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.package@GeneticProblemextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Component interface for mixing-in genetic operators
+</p>
+    </li><li name="pl.edu.agh.scalamas.genetic.GeneticTransformer" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="GeneticTransformer[G&lt;:pl.edu.agh.scalamas.genetic.GeneticOps[G]]extendsAnyRef"></a>
+      <a id="GeneticTransformer[G&lt;:GeneticOps[G]]:GeneticTransformer[G]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="GeneticTransformer.html"><span class="name">GeneticTransformer</span></a><span class="tparams">[<span name="G">G &lt;: <a href="GeneticOps.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticOps">GeneticOps</a>[<span class="extype" name="pl.edu.agh.scalamas.genetic.GeneticTransformer.G">G</span>]</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.package@GeneticTransformer[G&lt;:pl.edu.agh.scalamas.genetic.GeneticOps[G]]extendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Binary and unary operators to transform existing solutions into new ones, using e.g.</p><div class="fullcomment"><div class="comment cmt"><p>Binary and unary operators to transform existing solutions into new ones, using e.g. mutation, recombination.
+</p></div><dl class="paramcmts block"><dt class="tparam">G</dt><dd class="cmt"><p>recursive parameter type representing the polymorphic family of operators
+</p></dd></dl></div>
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsOps" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="LabsOpsextendsGeneticOps[pl.edu.agh.scalamas.genetic.LabsOps]withLocalSearch[pl.edu.agh.scalamas.genetic.LabsOps]"></a>
+      <a id="LabsOps:LabsOps"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="LabsOps.html"><span class="name">LabsOps</span></a><span class="result"> extends <a href="GeneticOps.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticOps">GeneticOps</a>[<a href="LabsOps.html" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a>] with <a href="LocalSearch.html" class="extype" name="pl.edu.agh.scalamas.genetic.LocalSearch">LocalSearch</a>[<a href="LabsOps.html" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.package@LabsOpsextendsGeneticOps[pl.edu.agh.scalamas.genetic.LabsOps]withLocalSearch[pl.edu.agh.scalamas.genetic.LabsOps]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="pl.edu.agh.scalamas.genetic.LabsProblem" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="LabsProblemextendsGeneticProblem"></a>
+      <a id="LabsProblem:LabsProblem"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="LabsProblem.html"><span class="name">LabsProblem</span></a><span class="result"> extends <a href="GeneticProblem.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticProblem">GeneticProblem</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.package@LabsProblemextendsGeneticProblem" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">An implementation of genetic operators for finding the maximu of the Labs function.</p>
+    </li><li name="pl.edu.agh.scalamas.genetic.LocalSearch" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="LocalSearch[G&lt;:pl.edu.agh.scalamas.genetic.GeneticOps[G]]extendsAnyRef"></a>
+      <a id="LocalSearch[G&lt;:GeneticOps[G]]:LocalSearch[G]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="LocalSearch.html"><span class="name">LocalSearch</span></a><span class="tparams">[<span name="G">G &lt;: <a href="GeneticOps.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticOps">GeneticOps</a>[<span class="extype" name="pl.edu.agh.scalamas.genetic.LocalSearch.G">G</span>]</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.package@LocalSearch[G&lt;:pl.edu.agh.scalamas.genetic.GeneticOps[G]]extendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="pl.edu.agh.scalamas.genetic.OneBitFastFlipper" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="OneBitFastFlipperextendsProductwithSerializable"></a>
+      <a id="OneBitFastFlipper:OneBitFastFlipper"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="OneBitFastFlipper.html"><span class="name">OneBitFastFlipper</span></a><span class="params">(<span name="s">s: <span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.package@OneBitFastFlipperextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="pl.edu.agh.scalamas.genetic.RastriginProblem" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="RastriginProblemextendsGeneticProblem"></a>
+      <a id="RastriginProblem:RastriginProblem"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="RastriginProblem.html"><span class="name">RastriginProblem</span></a><span class="result"> extends <a href="GeneticProblem.html" class="extype" name="pl.edu.agh.scalamas.genetic.GeneticProblem">GeneticProblem</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.package@RastriginProblemextendsGeneticProblem" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">An implementation of genetic operators for finding the minimum of the Rastrigin function.</p>
+    </li><li name="pl.edu.agh.scalamas.genetic.SteepestDescend" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="SteepestDescendextendsLocalSearch[pl.edu.agh.scalamas.genetic.LabsOps]"></a>
+      <a id="SteepestDescend:SteepestDescend"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="SteepestDescend.html"><span class="name">SteepestDescend</span></a><span class="result"> extends <a href="LocalSearch.html" class="extype" name="pl.edu.agh.scalamas.genetic.LocalSearch">LocalSearch</a>[<a href="LabsOps.html" class="extype" name="pl.edu.agh.scalamas.genetic.LabsOps">LabsOps</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#pl.edu.agh.scalamas.genetic.package@SteepestDescendextendsLocalSearch[pl.edu.agh.scalamas.genetic.LabsOps]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>
