@@ -72,13 +72,6 @@ Create an object EmasApp, mix-in a stack, emas logic and some genetic operators.
 Next, see how to [choose an application stack](#choosing-an-application-stack), write your [own genetic operators](#writing-custom-genetic-operators)
 or [customize the multi-agent system](#custom-multi-agent-systems).
 
-## Configuration
-
-Scala-mas uses the typesafe config library for configuration. If you want to add some custom configuration or override scala-mas default,
-simply add a **application.conf** file with your settings to the classpath.
-
-The default configuration is documented [here](CONFIG.md)
-
 ## Usage
 
 Scala-mas uses the Cake Pattern to statically compose a runtime application. You will need two main components: an application stack
@@ -140,6 +133,90 @@ You can also fully change the EMAS logic and implement your own multi-agent algo
 
 ### Custom Multi-Agent Systems
 
+## Configuration
+
+Scala-mas uses the typesafe config library for configuration. If you want to add some custom configuration or override scala-mas default,
+simply add a **application.conf** file with your settings to the classpath.
+
+### Default configuration
+
+These are scala-mas configuration defaults.
+
+
+    mas {
+      # The number of separate agent environments to run
+      islandsNumber = 12
+
+      # The global seed for random number generation. Will default to System.currentTimeMillis() if unspecified.
+      # Note that the same global seed will not guarantee repeatable results, as actor scheduling can be non-deterministic.
+      # seed = 123456789
+    }
+
+    emas {
+      # The initial number of agents in every island
+      populationSize = 100
+
+      # The initial energy of agents in the initial population
+      initialEnergy = 10
+
+      # The amount of energy to start reproducing
+      reproductionThreshold = 11
+
+      # The amount of energy transmitted from parent to children during reproduction
+      reproductionTransfer = 5
+
+      # The amount of energy transmitted from loser to winner during fight
+      fightTransfer = 10
+
+      # The probability for an agent to migrate to another island
+      migrationProbability = 0.0001
+
+      # The size of fight meetings
+      fightCapacity = 2
+
+      # The size of reproduction meetings
+      reproductionCapacity = 2
+
+      # The size of migration meetings
+      migrationCapacity = 1
+
+      # The size of death meetings
+      deathCapacity = 1
+    }
+
+    genetic {
+      rastrigin {
+        # The dimention of the optimization problem
+        problemSize = 100
+
+        # The probability of mutating a solution
+        mutationChance = 0.75
+
+        # The probability of mutating a solution's feature
+        mutationRate = 0.1
+
+        # mutationRange = 0.05
+
+        # The probability of recombining solutions
+        recombinationChance = 0.3
+      }
+
+      labs {
+        # The dimention of the optimization problem
+        problemSize = 201
+
+        # The probability of mutating a solution
+        mutationChance = 0.75
+
+        # The probability of mutating a solution's feature
+        mutationRate = 0.1
+
+        mutationRange = 0.05 # unused
+
+        # The probability of recombining solutions
+        recombinationChance = 1.0
+      }
+    }
 
 ## Contributing
 
