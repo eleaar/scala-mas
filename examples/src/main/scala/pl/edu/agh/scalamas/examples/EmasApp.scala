@@ -29,7 +29,7 @@ import pl.edu.agh.scalamas.genetic.RastriginProblem
 import scala.concurrent.duration._
 
 /**
- * Created by Daniel on 2015-01-12.
+ * Example app.
  */
 object EmasApp extends ConcurrentStack("emas")
   with SynchronousEnvironment
