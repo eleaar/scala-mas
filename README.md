@@ -72,6 +72,13 @@ Create an object EmasApp, mix-in a stack, emas logic and some genetic operators.
 Next, see how to [choose an application stack](#choosing-an-application-stack), write your [own genetic operators](#writing-custom-genetic-operators)
 or [customize the multi-agent system](#custom-multi-agent-systems).
 
+## Configuration
+
+Scala-mas uses the typesafe config library for configuration. If you want to add some custom configuration or override scala-mas default,
+simply add a **application.conf** file with your settings to the classpath.
+
+The default configuration is documented [here](CONFIG.md)
+
 ## Usage
 
 Scala-mas uses the Cake Pattern to statically compose a runtime application. You will need two main components: an application stack
