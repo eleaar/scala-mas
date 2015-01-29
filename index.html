@@ -197,6 +197,98 @@ You can customize these strategies by mixing in custom traits instead of the def
 <a id="custom-multi-agent-systems" class="anchor" href="#custom-multi-agent-systems" aria-hidden="true"><span class="octicon octicon-link"></span></a>Custom Multi-Agent Systems</h3>
 
 <h2>
+<a id="api-docs" class="anchor" href="#api-docs" aria-hidden="true"><span class="octicon octicon-link"></span></a>API docs</h2>
+
+<p>API docs are found <a href="/latest/api">here</a></p>
+
+<h2>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h2>
+
+<p>Scala-mas uses the typesafe config library for configuration. If you want to add some custom configuration or override scala-mas default,
+simply add a <strong>application.conf</strong> file with your settings to the classpath.</p>
+
+<h3>
+<a id="default-configuration" class="anchor" href="#default-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Default configuration</h3>
+
+<p>These are scala-mas configuration defaults.</p>
+
+<pre><code>mas {
+  # The number of separate agent environments to run
+  islandsNumber = 12
+
+  # The global seed for random number generation. Will default to System.currentTimeMillis() if unspecified.
+  # Note that the same global seed will not guarantee repeatable results, as actor scheduling can be non-deterministic.
+  # seed = 123456789
+}
+
+emas {
+  # The initial number of agents in every island
+  populationSize = 100
+
+  # The initial energy of agents in the initial population
+  initialEnergy = 10
+
+  # The amount of energy to start reproducing
+  reproductionThreshold = 11
+
+  # The amount of energy transmitted from parent to children during reproduction
+  reproductionTransfer = 5
+
+  # The amount of energy transmitted from loser to winner during fight
+  fightTransfer = 10
+
+  # The probability for an agent to migrate to another island
+  migrationProbability = 0.0001
+
+  # The size of fight meetings
+  fightCapacity = 2
+
+  # The size of reproduction meetings
+  reproductionCapacity = 2
+
+  # The size of migration meetings
+  migrationCapacity = 1
+
+  # The size of death meetings
+  deathCapacity = 1
+}
+
+genetic {
+  rastrigin {
+    # The dimention of the optimization problem
+    problemSize = 100
+
+    # The probability of mutating a solution
+    mutationChance = 0.75
+
+    # The probability of mutating a solution's feature
+    mutationRate = 0.1
+
+    # mutationRange = 0.05
+
+    # The probability of recombining solutions
+    recombinationChance = 0.3
+  }
+
+  labs {
+    # The dimention of the optimization problem
+    problemSize = 201
+
+    # The probability of mutating a solution
+    mutationChance = 0.75
+
+    # The probability of mutating a solution's feature
+    mutationRate = 0.1
+
+    mutationRange = 0.05 # unused
+
+    # The probability of recombining solutions
+    recombinationChance = 1.0
+  }
+}
+</code></pre>
+
+<h2>
 <a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
 
 <p>If you have any suggestions or want to contribute, feel free to open a new ticket or create a pull request.</p>
