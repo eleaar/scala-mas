@@ -28,7 +28,14 @@ import pl.edu.agh.scalamas.mas.logic.PopulationStrategy
 import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 
 /**
- * Created by Daniel on 2015-01-14.
+ * Default EMAS population strategy. It initializes a population of agents with some initial energy and initial solutions
+ * generator from the genetic operators.
+ *
+ * It also updates the stats with the best fitness found in this initial population.
+ *
+ * Parameters:
+ *  - emas.populationSize - The size of the initial population
+ *  - emas.initialEnergy - The initial energy of initial agents
  */
 trait EmasPopulation extends PopulationStrategy {
   this: AgentRuntimeComponent

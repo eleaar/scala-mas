@@ -27,19 +27,25 @@ import pl.edu.agh.scalamas.mas.async.AsyncEnvironment
 import pl.edu.agh.scalamas.mas.sync.SyncEnvironment
 
 /**
- * Created by Daniel on 2015-01-14.
+ * Strategy component for the granularity of agent concurrency.
  */
 trait EnvironmentStrategy {
 
   def environmentProps: Props
 }
 
+/**
+ * Strategy for coarse-grained agent concurrency.
+ */
 trait SynchronousEnvironment extends EnvironmentStrategy {
   this: LogicStrategy =>
 
   def environmentProps = SyncEnvironment.props(logic)
 }
 
+/**
+ * Strategy for fine-grained agent concurrency.
+ */
 trait AsynchronousEnvironment extends EnvironmentStrategy {
   this: LogicStrategy =>
 

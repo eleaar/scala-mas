@@ -22,13 +22,24 @@
 package pl.edu.agh.scalamas.stats
 
 /**
- * Created by Daniel on 2015-01-13.
+ * Mixin component for application-specific statistics.
+ *
+ * Implementations will usually require a StatsFactory to create the initial statistics, then supply this instance to the application.
  */
 trait StatsComponent {
 
+  /**
+   * The type of the application statistics
+   */
   type StatsType
 
+  /**
+   * A handle to the application statistics.
+   */
   def stats: Stats[StatsType]
 
+  /**
+   * A formatter for the application statistics.
+   */
   def formatter: (StatsType) => String
 }

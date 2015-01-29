@@ -27,7 +27,11 @@ import pl.edu.agh.scalamas.app.AgentRuntimeComponent
 import scala.util.Random
 
 /**
- * Created by Daniel on 2015-01-27.
+ * Random Generator Component that can be used in concurrent applications.
+ * Separate RNG are kept in thread locals for every accessing thread.
+ *
+ * They are seeded from a separate, shared RNG at first access. Therefore, the results of the application
+ * can be repeatable if the thread access pattern to the RNGs are repeatable.
  */
 trait ConcurrentRandomGeneratorComponent extends RandomGeneratorComponent {
   this: AgentRuntimeComponent =>
@@ -43,4 +47,5 @@ trait ConcurrentRandomGeneratorComponent extends RandomGeneratorComponent {
 
     def current = localRandom.get
   }
+
 }

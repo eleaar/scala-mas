@@ -28,7 +28,18 @@ import pl.edu.agh.scalamas.mas.logic.BehaviourStrategy
 import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 
 /**
- * Created by Daniel on 2015-01-14.
+ * Default EMAS behaviour component. Agents choose a behaviour based on their available energy.
+ *
+ * If the energy is 0, agents die. If it is below some threshold they fight, otherwise they reproduce.
+ * Agents also have some probability to migrate to another island.
+ *
+ * Parameters:
+ *  - emas.reproductionThreshold - The amount of energy to start reproducing
+ *  - emas.migrationProbability - The probability for an agent to migrate to another island
+ *  - emas.deathCapacity - The size of death meetings
+ *  - emas.fightCapacity - The size of fight meetings
+ *  - emas.reproductionCapacity - The size of reproduction meetings
+ *  - emas.migrationCapacity - The size of migration meetings
  */
 trait EmasBehaviour extends BehaviourStrategy {
   this: AgentRuntimeComponent with RandomGeneratorComponent =>

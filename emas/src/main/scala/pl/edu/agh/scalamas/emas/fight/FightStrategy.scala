@@ -25,12 +25,19 @@ import pl.edu.agh.scalamas.emas.EmasTypes.Agent
 import pl.edu.agh.scalamas.genetic.GeneticProblem
 
 /**
- * Created by Daniel on 2015-01-14.
+ * Mix-in component for agent meetings fight strategy
  */
 trait FightStrategy {
   this: GeneticProblem =>
 
+  /**
+   * A fight strategy transforms a list of agents into a new one.
+   */
   type Fight = (List[Agent[Genetic]]) => List[Agent[Genetic]]
 
+  /**
+   * The fight strategy.
+   * @return the fight strategy.
+   */
   def fightStrategy: Fight
 }

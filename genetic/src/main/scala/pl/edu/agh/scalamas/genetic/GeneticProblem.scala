@@ -22,11 +22,18 @@
 package pl.edu.agh.scalamas.genetic
 
 /**
- * Created by Daniel on 2015-01-12.
+ * Component interface for mixing-in genetic operators
  */
 trait GeneticProblem {
 
+  /**
+   * The type of the genetic operators.
+   */
   type Genetic <: GeneticOps[Genetic]
 
+  /**
+   * Returns the genetic operator mixed-in in this application.
+   * @return the genetic operator
+   */
   def genetic: Genetic
 }

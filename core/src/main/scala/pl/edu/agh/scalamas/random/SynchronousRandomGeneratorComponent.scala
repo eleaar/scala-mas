@@ -25,7 +25,8 @@ import org.apache.commons.math3.random.RandomDataGenerator
 import pl.edu.agh.scalamas.app.AgentRuntimeComponent
 
 /**
- * Created by Daniel on 2015-01-27.
+ * Random Generator Component only to be used in single-threaded applications. Uses a single RNG which WILL be a bottleneck
+ * in concurrent applications.
  */
 trait SynchronousRandomGeneratorComponent extends RandomGeneratorComponent {
   this: AgentRuntimeComponent =>

@@ -26,17 +26,30 @@ import pl.edu.agh.scalamas.app.AgentRuntimeComponent
 import net.ceedubs.ficus.Ficus._
 
 /**
- * Created by Daniel on 2014-09-22.
+ * Mixin component for random number generation. The random generators are based on apache commons math library.
  */
 trait RandomGeneratorComponent {
   this: AgentRuntimeComponent =>
 
+  /**
+   * The global seed used in the application.
+   * A common value may not guarantee repeatable results in the case of concurrent applications.
+   * A distinct value guarantees distinct results.
+   */
   def globalSeed = agentRuntime.config.as[Option[Long]]("mas.seed").getOrElse(System.currentTimeMillis())
 
+  /** Factory method for creating a random generator. Override this to choose a different RNG algorithm.
+    */
   def randomGeneratorFactory(seed: Long): RandomGenerator = new Well19937c(seed)
 
+  /**
+   * Provide the RNG. Shortcut for randomData.getRandomGenerator()
+   */
   def random: RandomGenerator = randomData.getRandomGenerator
 
+  /**
+   * Provides a RandomDataGenerator for distribution-based operations.
+   */
   def randomData: RandomDataGenerator
 
 }

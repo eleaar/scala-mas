@@ -24,13 +24,16 @@ package pl.edu.agh.scalamas.app
 import akka.actor.ActorSystem
 
 /**
- * Created by Daniel on 2015-01-14.
+ * An concurrent agent runtime which also provides the application's actor system.
  */
 trait ConcurrentAgentRuntimeComponent extends AgentRuntimeComponent{
 
   def agentRuntime: ConcurrentAgentRuntime
 
   trait ConcurrentAgentRuntime extends AgentRuntime{
+    /**
+     * the application's actor system.
+     */
     def system: ActorSystem
   }
 }

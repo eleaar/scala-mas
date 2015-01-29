@@ -25,13 +25,20 @@ import pl.edu.agh.scalamas.emas.EmasTypes.Agent
 import pl.edu.agh.scalamas.genetic.GeneticProblem
 
 /**
- * Created by Daniel on 2015-01-14.
+ * Mix-in component for agent meetings reproduction strategy
  */
 trait ReproductionStrategy {
   this: GeneticProblem =>
 
+  /**
+   * A reproduction strategy transforms a list of agents into a new one.
+   */
   type Reproduction = (List[Agent[Genetic]]) => List[Agent[Genetic]]
 
+  /**
+   * The reproduction strategy.
+   * @return the reproduction strategy.
+   */
   def reproductionStrategy: Reproduction
 
 }

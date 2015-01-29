@@ -28,7 +28,11 @@ import pl.edu.agh.scalamas.genetic.GeneticProblem
 import scala.math._
 
 /**
- * Created by Daniel on 2015-01-14.
+ * Default EMAS fight strategy. Agents fight by comparing their evaluations, according to the genetic operator's ordering.
+ * Winners take some energy from the losers.
+ *
+ * Parameters:
+ *  - emas.fightTransfer - the amount of energy to transfer from the loser to the winner.
  */
 trait DefaultFight extends FightStrategy {
   this: AgentRuntimeComponent with GeneticProblem =>
@@ -37,8 +41,7 @@ trait DefaultFight extends FightStrategy {
 
   object DefaultFightImpl extends Fight {
 
-    val config = agentRuntime.config.getConfig("emas")
-    val fightTransfer = config.getInt("fightTransfer")
+    val fightTransfer = agentRuntime.config.getInt("emas.fightTransfer")
 
     def apply(agents: List[Agent[Genetic]]) = agents match {
       case List(a) => List(a)

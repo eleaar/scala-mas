@@ -27,7 +27,11 @@ import pl.edu.agh.scalamas.random.ConcurrentRandomGeneratorComponent
 import pl.edu.agh.scalamas.stats.{StatsComponent, ConcurrentStatsFactory}
 
 /**
- * Created by Daniel on 2015-01-14.
+ * Application stack for running concurrent applications.
+ *
+ * Provides a concurrent agent runtime, stats factory and random generators.
+ *
+ * This stacks still needs to be mixed-in with an Environment strategy to use fine or coarse-grained agent concurrency.
  */
 class ConcurrentStack(name: String)
   extends ConcurrentAgentRuntimeComponent

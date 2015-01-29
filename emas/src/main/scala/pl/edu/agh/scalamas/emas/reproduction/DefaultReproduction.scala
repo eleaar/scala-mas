@@ -28,7 +28,11 @@ import pl.edu.agh.scalamas.genetic.GeneticProblem
 import scala.math._
 
 /**
- * Created by Daniel on 2015-01-14.
+ * Default EMAS reproduction strategy. Two children agents are created out of two parent ones. A binary genetic operator is used
+ * to create the children solutions. The parents also give some of their energy to the children.
+ *
+ * Parameters:
+ *  - emas.reproductionTransfer - the amount of energy to transfer from parent to child.
  */
 trait DefaultReproduction extends ReproductionStrategy {
   this: AgentRuntimeComponent with GeneticProblem =>
@@ -36,8 +40,7 @@ trait DefaultReproduction extends ReproductionStrategy {
   def reproductionStrategy = DefaultReproductionImpl
 
   object DefaultReproductionImpl extends Reproduction {
-    val config = agentRuntime.config.getConfig("emas")
-    val reproductionTransfer = config.getInt("reproductionTransfer")
+    val reproductionTransfer = agentRuntime.config.getInt("emas.reproductionTransfer")
 
     def apply(agents: List[Agent[Genetic]]) = agents match {
       case List(a) =>

@@ -31,7 +31,13 @@ import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 import pl.edu.agh.scalamas.util.Util._
 
 /**
- * Created by Daniel on 2015-01-14.
+ * Default EMAS meetings component.
+ *
+ * Death meetings yield no agent.
+ * Reproduction and fight meetings group agents according to the capacity of the meeting and delegate to strategy functions.
+ * Migration is a no-op by default and is left the the agent environment to override if possible.
+ *
+ * After reproduction, stats are update with the number of fitness evaluation which happened and the best fitness among the new agents.
  */
 trait EmasMeetings extends MeetingsStrategy {
   this: GeneticProblem

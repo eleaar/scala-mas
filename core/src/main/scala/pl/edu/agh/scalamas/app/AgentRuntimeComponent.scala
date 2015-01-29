@@ -24,13 +24,22 @@ package pl.edu.agh.scalamas.app
 import com.typesafe.config.Config
 
 /**
- * Created by Daniel on 2015-01-14.
+ * Runtime component for agent applications. Provides the application configuration.
  */
 trait AgentRuntimeComponent {
 
+  /**
+   * Provides the agent runtime.
+   */
   def agentRuntime: AgentRuntime
 
+  /**
+   * The agent runtime.
+   */
   trait AgentRuntime {
+    /**
+     * The application's runtime configuration.
+     */
     def config: Config
   }
 }

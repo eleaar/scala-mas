@@ -27,7 +27,17 @@ import scala.util.Success
 import scala.concurrent.duration.FiniteDuration
 import scala.collection.mutable
 
+/**
+ * Utility methods for actor termination.
+ */
 object Reaper {
+
+  /**
+   * Returns a future which will be completed after the given actors have all terminated.
+   * @param actors - the actors to watch
+   * @param system - the implicit actor system in which to watch
+   * @return a future which will be completed once all the given actors have terminated.
+   */
   def actorsTerminate(actors: Seq[ActorRef])(implicit system: ActorSystem) = {
     val p = Promise[Unit]()
     val callback = () => p.complete(Success(()))
@@ -35,12 +45,18 @@ object Reaper {
     p.future
   }
 
+  /**
+   * Terminates all the given actors after some specified duration. Returns a future which will be completed after the given actors have all terminated.
+   */
   def terminateAfter(actor: ActorRef, duration: FiniteDuration)(implicit system: ActorSystem, executionContext: ExecutionContext) = {
     system.scheduler.scheduleOnce(duration, actor, PoisonPill)
     actorsTerminate(List(actor))
   }
 }
 
+/**
+ * Watches the given set of actors and trigger the given callback once they have all terminated.
+ */
 class Reaper(souls: Seq[ActorRef], callback: () => Unit) extends Actor with ActorLogging {
   val activeSouls = mutable.Set[ActorRef](souls: _*)
   activeSouls foreach (context watch _)

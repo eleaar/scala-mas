@@ -25,7 +25,7 @@ import pl.edu.agh.scalamas.genetic.GeneticProblem
 import pl.edu.agh.scalamas.stats.{Stats, StatsComponent, StatsFactoryComponent}
 
 /**
- * Created by Daniel on 2015-01-14.
+ * Default EMAS statistics. Records the number of fitness evaluations performed so far and the best evaluation found so far.
  */
 trait EmasStats extends StatsComponent {
   this: GeneticProblem with StatsFactoryComponent =>

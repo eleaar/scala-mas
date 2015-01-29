@@ -26,7 +26,9 @@ import pl.edu.agh.scalamas.random.SynchronousRandomGeneratorComponent
 import pl.edu.agh.scalamas.stats.SimpleStatsFactory
 
 /**
- * Created by Daniel on 2015-01-14.
+ * Application stack for running single-threaded applications.
+ *
+ * Provides a single-threaded agent runtime, stats factory and random generator.
  */
 class SequentialStack
   extends AgentRuntimeComponent

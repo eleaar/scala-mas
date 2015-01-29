@@ -26,6 +26,9 @@ import pl.edu.agh.scalamas.genetic.GeneticOps
 import pl.edu.agh.scalamas.mas.LogicTypes
 import pl.edu.agh.scalamas.mas.LogicTypes.{Population, Behaviour}
 
+/**
+ * Holder for the types of agents and behaviours used in EMAS.
+ */
 object EmasTypes {
 
   case class Agent[G <: GeneticOps[G]](val solution: G#Solution, val fitness: G#Evaluation, var energy: Int) extends LogicTypes.Agent

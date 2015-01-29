@@ -30,7 +30,8 @@ import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 import pl.edu.agh.scalamas.stats.StatsFactoryComponent
 
 /**
- * Created by Daniel on 2015-01-14.
+ * Default EMAS logic. Combines the default strategies for generating the initial population, agent behaviour and meetings,
+ * as well as default EMAS statistics.
  */
 trait EmasLogic extends DelegatingLogicStrategy
 with EmasPopulation

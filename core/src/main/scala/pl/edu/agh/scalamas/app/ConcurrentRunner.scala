@@ -30,7 +30,7 @@ import pl.edu.agh.scalamas.util.{Reaper, Logger}
 import scala.concurrent.duration._
 
 /**
- * Created by Daniel on 2015-01-14.
+ * Runner for concurrent apps.
  */
 trait ConcurrentRunner {
   this: ConcurrentAgentRuntimeComponent

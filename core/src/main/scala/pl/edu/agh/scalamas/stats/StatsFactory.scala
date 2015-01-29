@@ -24,17 +24,27 @@ package pl.edu.agh.scalamas.stats
 import pl.edu.agh.scalamas.app.ConcurrentAgentRuntimeComponent
 
 /**
- * Created by Daniel on 2015-01-13.
+ * Mixin component for a application statistics factory method.
  */
 trait StatsFactoryComponent {
 
+  /**
+   * The factory method.
+   * @return
+   */
   def statsFactory: StatsFactory
 
   trait StatsFactory {
+    /**
+     * Creates some statistics with the given initial value and update function.
+     */
     def apply[T](initialValue: T)(updateFunction: (T, T) => T): Stats[T]
   }
 }
 
+/**
+ * Factory for simple stats.
+ */
 trait SimpleStatsFactory extends StatsFactoryComponent {
 
   def statsFactory = SimpleStatsFactoryImpl
@@ -44,6 +54,9 @@ trait SimpleStatsFactory extends StatsFactoryComponent {
   }
 }
 
+/**
+ * Factory for concurrent stats.
+ */
 trait ConcurrentStatsFactory extends StatsFactoryComponent {
   this: ConcurrentAgentRuntimeComponent =>
 
