@@ -133,6 +133,10 @@ You can also fully change the EMAS logic and implement your own multi-agent algo
 
 ### Custom Multi-Agent Systems
 
+## API docs
+
+API docs are found [here](/latest/api)
+
 ## Configuration
 
 Scala-mas uses the typesafe config library for configuration. If you want to add some custom configuration or override scala-mas default,
