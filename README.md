@@ -135,7 +135,7 @@ You can also fully change the EMAS logic and implement your own multi-agent algo
 
 ## API docs
 
-API docs are found [here](/latest/api)
+API docs are found [here](http://www.paraphrase.agh.edu.pl/scala-mas//latest/api)
 
 ## Configuration
 
