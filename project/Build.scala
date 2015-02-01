@@ -36,15 +36,20 @@ object ScalaMasBuild extends Build {
   def subProject(name: String) = Project(name, file(name))
     .settings(commonSettings: _*)
     .settings(PublishSettings.sonatype: _*)
-    .settings(libraryDependencies ++= runtimeDeps)
 
   lazy val CoreProject = subProject("core")
+    .settings(libraryDependencies ++= coreDeps)
 
-  lazy val GeneticProject = subProject("genetic").dependsOn(CoreProject)
+  lazy val GeneticProject = subProject("genetic")
+    .settings(libraryDependencies ++= geneticDeps)
+    .dependsOn(CoreProject)
 
-  lazy val EmasProject = subProject("emas").dependsOn(CoreProject, GeneticProject)
+  lazy val EmasProject = subProject("emas")
+    .settings(libraryDependencies ++= emasDeps)
+    .dependsOn(CoreProject, GeneticProject)
 
-  lazy val ExamplesProject = subProject("examples").dependsOn(EmasProject, CoreProject, GeneticProject)
+  lazy val ExamplesProject = subProject("examples")
+    .dependsOn(EmasProject, CoreProject, GeneticProject)
 
   lazy val publishedProjects = Seq[ProjectReference](CoreProject, GeneticProject, EmasProject, ExamplesProject)
 

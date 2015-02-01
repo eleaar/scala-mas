@@ -10,14 +10,14 @@ object Dependencies {
     "akka-testkit"
   ).map("com.typesafe.akka" %% _ % akkaVersion)
 
-  val config = Seq("com.typesafe" % "config" % "1.2.1")
-
-  val logging = Seq("ch.qos.logback" % "logback-classic" % "1.1.2")
-
-  val misc = Seq(
-    "org.apache.commons" % "commons-math3" % "3.4.1",
+  val config = Seq(
+    "com.typesafe" % "config" % "1.2.1",
     "net.ceedubs" %% "ficus" % "1.1.2"
   )
+
+  val random = Seq("org.apache.commons" % "commons-math3" % "3.4.1")
+
+  val logging = Seq("ch.qos.logback" % "logback-classic" % "1.1.2")
 
   val test = Seq(
     "org.scalatest" %% "scalatest" % "2.2.3",
@@ -26,5 +26,9 @@ object Dependencies {
     "org.scalacheck" %% "scalacheck" % "1.12.1"
   ).map(_ % "test")
 
-  val runtimeDeps = akka ++ config ++ logging ++ misc ++ test
+  val geneticDeps = config ++ random
+
+  val emasDeps = config ++ logging
+
+  val coreDeps = config ++ random ++ logging ++ akka ++ test
 }
