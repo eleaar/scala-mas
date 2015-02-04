@@ -21,7 +21,7 @@ additional resources to solve harder problems or run bigger simulations.
 
 ## Instalation
 
-You can find published releases on Maven Central.
+You can find published releases on Maven Central. Scala-mas is build for scala 2.11.
 
 #### Project structure
 
@@ -35,15 +35,13 @@ The project is structures into the following modules:
 In order to grab all the modules, add the following lines to your build configuration:
 
 #### Sbt
-    resolvers += Resolver.sonatypeRepo("snapshots")
-
-    libraryDependencies += "pl.edu.agh.scalamas" %% "emas" % "0.1-SNAPSHOT"
+    libraryDependencies += "pl.edu.agh.scalamas" %% "emas" % "0.1"
 
 #### Maven
     <dependency>
-        <groupId>pl.edu.agh.scalamas</groupId>
-        <artifactId>emas</artifactId>
-        <version>0.1-SNAPSHOT</version>
+      <groupId>pl.edu.agh.scalamas</groupId>
+      <artifactId>emas_2.11</artifactId>
+      <version>0.1</version>
     </dependency>
 
 You can also choose to import only the modules you really need.
