@@ -37,13 +37,13 @@ In order to grab all the modules, add the following lines to your build configur
 #### Sbt
     resolvers += Resolver.sonatypeRepo("snapshots")
 
-    libraryDependencies += "pl.edu.agh.scalamas" %% "emas" % "0.1-SNAPSHOT"
+    libraryDependencies += "pl.edu.agh.scalamas" %% "emas" % "0.2.0-SNAPSHOT"
 
 #### Maven
     <dependency>
         <groupId>pl.edu.agh.scalamas</groupId>
-        <artifactId>emas</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <artifactId>emas_2.11</artifactId>
+        <version>0.2.0-SNAPSHOT</version>
     </dependency>
 
 You can also choose to import only the modules you really need.
