@@ -19,7 +19,7 @@ object PublishSettings  {
     publishTo := Some(Resolver.file("Unused transient repository", file("target/unusedrepo")))
   )
 
-  def sonatype: Seq[Setting[_]] = Seq(
+  def sonatype: Seq[Setting[_]] = xerial.sbt.Sonatype.sonatypeSettings ++ Seq(
     publishArtifact in (Compile, packageSrc) := true,
     publishArtifact in (Test, packageSrc) := false,
     publishTo := {
