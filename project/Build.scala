@@ -39,6 +39,7 @@ object ScalaMasBuild extends Build {
 
   lazy val CoreProject = subProject("core")
     .settings(libraryDependencies ++= coreDeps)
+    .settings(parallelExecution in Test := false)
 
   lazy val GeneticProject = subProject("genetic")
     .settings(libraryDependencies ++= geneticDeps)
