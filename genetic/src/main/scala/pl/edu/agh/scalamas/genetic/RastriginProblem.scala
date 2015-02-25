@@ -45,16 +45,19 @@ trait RastriginProblem extends GeneticProblem {
     val problemSize = config.getInt("problemSize")
     val mutationChance = config.getDouble("mutationChance")
     val mutationRate = config.getDouble("mutationRate")
+    val mutationRange = config.getDouble("mutationRange")
 
-    def generate = Array.fill(problemSize)(randomData.nextUniform(-50.0, 50.0))
+    val problemDomain = 50.0
+
+    // This estimate should be bigger than any reasonable solution inside the search domain
+    val minimal = problemSize / 25 * problemDomain * problemDomain
+
+    def generate = Array.fill(problemSize)(randomData.nextUniform(-problemDomain, problemDomain))
 
     def evaluate(solution: Solution) = {
       solution.foldLeft(0.0)(
         (sum, x) => sum + 10 + x * x - 10 * math.cos(2 * x * math.Pi))
     }
-
-    // TODO take problemSize into account
-    val minimal = 10000.0
 
     val ordering = Ordering[Double].reverse
 
@@ -74,15 +77,7 @@ trait RastriginProblem extends GeneticProblem {
       case (solution1, solution2) => (mutateSolution(solution1), mutateSolution(solution2))
     }
 
-    def mutateFeature(f: Feature): Feature = {
-      val range = random.nextDouble match {
-        case x if x < 0.2 => 5.0
-        case x if x < 0.4 => 0.2
-        case _ => 1.0
-      }
-      // TODO configurable range
-      f + range * randomData.nextCauchy(0.0, 1.0)
-    }
+    def mutateFeature(f: Feature): Feature = f + randomData.nextCauchy(0.0, mutationRange)
 
     def recombineSolutions(s1: Solution, s2: Solution): (Solution, Solution) = {
       val (s3, s4) = s1.zip(s2).map(recombineFeatures).unzip
