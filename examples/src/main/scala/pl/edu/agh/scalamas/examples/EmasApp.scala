@@ -22,22 +22,34 @@
 
 package pl.edu.agh.scalamas.examples
 
-import pl.edu.agh.scalamas.app.{ConcurrentStack, SynchronousEnvironment}
+import pl.edu.agh.scalamas.app.{AsynchronousEnvironment, ConcurrentStack, SynchronousEnvironment}
 import pl.edu.agh.scalamas.emas.EmasLogic
 import pl.edu.agh.scalamas.genetic.RastriginProblem
 
 import scala.concurrent.duration._
+import net.ceedubs.ficus.Ficus._
 
 /**
  * Example app.
  */
-object EmasApp extends ConcurrentStack("emas")
+object SyncEmasApp extends ConcurrentStack("emas")
   with SynchronousEnvironment
   with EmasLogic
   with RastriginProblem {
 
   def main(args: Array[String]) {
-    run(5 seconds)
+    run(agentRuntime.config.as[FiniteDuration]("duration"))
+  }
+
+}
+
+object AsyncEmasApp extends ConcurrentStack("emas")
+with AsynchronousEnvironment
+with EmasLogic
+with RastriginProblem {
+
+  def main(args: Array[String]) {
+    run(agentRuntime.config.as[FiniteDuration]("duration"))
   }
 
 }
