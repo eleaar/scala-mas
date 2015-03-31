@@ -1,6 +1,6 @@
 # scala-mas
 
-[![Build Status](https://travis-ci.org/ParaPhraseAGH/scala-mas.svg)](https://travis-ci.org/ParaPhraseAGH/scala-mas)
+[![Build Status](https://travis-ci.org/eleaar/scala-mas.svg?branch=develop)](https://travis-ci.org/eleaar/scala-mas?branch=develop)
 
 A Lightweight parallel Multi-Agent System library in Scala.
 The goal of this project is to help creating highly-concurrent multi-agent systems targeted at massively multicore hardware.
@@ -135,7 +135,7 @@ You can also fully change the EMAS logic and implement your own multi-agent algo
 
 ## API docs
 
-API docs are found [here](http://www.paraphrase.agh.edu.pl/scala-mas//latest/api)
+API docs are found [here](http://www.scalamas.agh.edu.pl/latest/api)
 
 ## Configuration
 
