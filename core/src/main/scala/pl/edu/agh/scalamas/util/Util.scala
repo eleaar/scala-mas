@@ -25,6 +25,7 @@ import org.apache.commons.math3.random.RandomDataGenerator
 
 import scala.collection.generic.CanBuildFrom
 import scala.collection.mutable.ArrayBuffer
+import scala.language.higherKinds
 
 object Util {
 
@@ -39,7 +40,7 @@ object Util {
     }
 
     private[util] def permutate(data: ArrayBuffer[T], perm: Array[Int]) = {
-      for (i <- 0 until data.size) {
+      for (i <- data.indices) {
         val x = data(i)
         var current = i
         var next = perm(i)

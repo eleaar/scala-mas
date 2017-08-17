@@ -25,7 +25,7 @@ import akka.actor._
 import akka.testkit.{TestActorRef, TestProbe, _}
 import org.mockito.Mockito._
 import org.scalacheck.Gen
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.mockito.MockitoSugar
 import org.scalatest.prop.PropertyChecks
 import pl.edu.agh.scalamas.mas.{ActorUnitSpecs, MockActor}
 
@@ -87,7 +87,7 @@ class ReaperSpecs extends ActorUnitSpecs(ActorSystem("ReaperSpecs")) with Mockit
           //given
           val souls = List.fill(count)(TestActorRef[MockActor])
           val future = Reaper.actorsTerminate(souls)
-          val duration = 100 millis
+          val duration = 100.millis
 
           // when
           souls.foreach(_ ! PoisonPill)
@@ -105,7 +105,7 @@ class ReaperSpecs extends ActorUnitSpecs(ActorSystem("ReaperSpecs")) with Mockit
       //given
       implicit val context = system.dispatcher
       val soul = TestActorRef[MockActor]
-      val duration = 100 millis
+      val duration = 100.millis
 
       // when
       val future = Reaper.terminateAfter(soul, duration)

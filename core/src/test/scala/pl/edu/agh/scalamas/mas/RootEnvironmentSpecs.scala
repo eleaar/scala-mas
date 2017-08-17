@@ -25,10 +25,10 @@ import akka.actor.ActorSystem
 import akka.testkit.{TestActorRef, TestProbe}
 import org.apache.commons.math3.random.JDKRandomGenerator
 import org.scalacheck.Gen
+import org.scalatest.mockito.MockitoSugar
+import org.scalatest.prop.PropertyChecks
 import pl.edu.agh.scalamas.mas.LogicTypes.Agent
 import pl.edu.agh.scalamas.mas.RootEnvironment.{Add, Migrate}
-import org.scalatest.mock.MockitoSugar
-import org.scalatest.prop.PropertyChecks
 
 import scala.concurrent.duration._
 
@@ -50,7 +50,7 @@ class RootEnvironmentSpecs extends ActorUnitSpecs(ActorSystem("RootEnvironmentSp
           probe.send(rootEnv, Migrate(agents))
 
           // then
-          within(100 millis) {
+          within(100.millis) {
             probe.receiveN(agents.size) should contain theSameElementsAs (agents.map(Add(_)))
           }
         }

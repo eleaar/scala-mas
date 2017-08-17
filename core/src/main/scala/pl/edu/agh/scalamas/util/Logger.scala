@@ -43,6 +43,6 @@ object Logger {
    */
   def apply(frequency: FiniteDuration)(fun: (Long) => Unit)(implicit system: ActorSystem) = {
     val ticker = new LazyTicker
-    system.scheduler.schedule(0 second, frequency)(fun(ticker.time))
+    system.scheduler.schedule(0.second, frequency)(fun(ticker.time))
   }
 }

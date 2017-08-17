@@ -42,7 +42,7 @@ class IndividualSpecs extends ActorUnitSpecs(ActorSystem("IndividualSpecs")) {
       val individual = TestActorRef(Individual.props(state, behaviour))
 
       // then
-      probe.expectMsg(100 millis, Join(state))
+      probe.expectMsg(100.millis, Join(state))
     }
 
     "update state and join new arena" in {
@@ -61,7 +61,7 @@ class IndividualSpecs extends ActorUnitSpecs(ActorSystem("IndividualSpecs")) {
       individual ! UpdateState(newState)
 
       // then
-      newArena.expectMsg(100 millis, Join(newState))
+      newArena.expectMsg(100.millis, Join(newState))
     }
   }
 }

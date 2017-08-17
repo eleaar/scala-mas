@@ -44,12 +44,12 @@ trait SequentialRunner {
   class Logger(loggingInterval: FiniteDuration) {
     val log = LoggerFactory.getLogger(classOf[SequentialRunner])
     val startTime = System.currentTimeMillis()
-    var logDeadline = loggingInterval fromNow
+    var logDeadline = loggingInterval.fromNow
 
     def printOverdueLog(): Unit = {
       if (logDeadline.isOverdue()) {
         printLog
-        logDeadline = loggingInterval fromNow
+        logDeadline = loggingInterval.fromNow
       }
     }
 
@@ -62,8 +62,8 @@ trait SequentialRunner {
   }
 
   def run(duration: FiniteDuration): Unit = {
-    val logger = new Logger(1 second)
-    val deadline = duration fromNow
+    val logger = new Logger(1.second)
+    val deadline = duration.fromNow
     var islands = Array.fill(islandsNumber)(logic.initialPopulation)
     while (deadline.hasTimeLeft) {
       val migrators = mutable.ArrayBuffer.empty[Agent]

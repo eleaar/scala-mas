@@ -58,7 +58,7 @@ trait EmasMeetings extends MeetingsStrategy {
         checked[Genetic](agents).shuffled.grouped(cap).flatMap(fightStrategy.apply).toList
       case (Reproduction(cap), agents) =>
         val newAgents = checked[Genetic](agents).shuffled.grouped(cap).flatMap(reproductionStrategy.apply).toList
-        stats.update((newAgents.maxBy(_.fitness).fitness, agents.size))
+        stats.update((newAgents.maxBy(_.fitness).fitness, agents.size.toLong))
         newAgents
       case (Migration(_), agents) => agents
     }

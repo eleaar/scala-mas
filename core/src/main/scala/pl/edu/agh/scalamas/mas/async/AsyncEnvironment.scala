@@ -53,9 +53,9 @@ class AsyncEnvironment(logic: Logic) extends Actor {
   def addAgent(agent: Agent) = context.actorOf(Individual.props(agent, switchingBehaviour))
 
   def arenasForBehaviours(behaviours: Seq[Behaviour], meetings: MeetingFunction) =
-    behaviours map {
+    behaviours.map {
       behaviour =>
         val meeting = (agents: List[Agent]) => meetings((behaviour, agents))
         behaviour -> context.actorOf(Arena.props(behaviour.capacity, meeting), behaviour.getClass.getSimpleName)
-    } toMap
+    }.toMap
 }

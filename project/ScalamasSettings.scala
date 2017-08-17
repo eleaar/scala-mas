@@ -20,7 +20,18 @@ object ScalamasSettings {
     organization := buildOrganization,
     version := buildVersion,
     scalaVersion := buildScalaVersion,
-    homepage := Some(url("http://paraphrase.agh.edu.pl/scala-mas/"))
+    homepage := Some(url("http://paraphrase.agh.edu.pl/scala-mas/")),
+    scalacOptions ++= Seq(
+      "-deprecation",
+      "-encoding", "UTF-8",
+      "-feature",
+      "-unchecked",
+      "-Yno-adapted-args",
+      "-Ywarn-dead-code",
+      "-Ywarn-numeric-widen",
+      "-language:existentials",
+      "-Xlint:missing-interpolator"
+    )
   ) ++ licenseSettings
 
   def subProject(name: String) = Project(name, file(name))

@@ -35,13 +35,12 @@ import scala.concurrent.duration._
 
 class ArenaSpecs extends ActorUnitSpecs(ActorSystem("ArenaSpecs")) {
 
-  def fixture(sizeBefore: Int, sizeAfter: Int) =
-    new {
-      val populationBefore = List.fill(sizeBefore)(mock[Agent])
-      val populationAfter = List.fill(sizeAfter)(mock[Agent])
-      val meeting = mock[(Population) => Population]
-      when(meeting.apply(populationBefore)).thenReturn(populationAfter)
-    }
+  case class fixture(sizeBefore: Int, sizeAfter: Int) {
+    val populationBefore = List.fill(sizeBefore)(mock[Agent])
+    val populationAfter = List.fill(sizeAfter)(mock[Agent])
+    val meeting = mock[(Population) => Population]
+    when(meeting.apply(populationBefore)).thenReturn(populationAfter)
+  }
 
   def moreAfterThanBefore = for {
     before <- Gen.choose(1, 50)
@@ -86,8 +85,8 @@ class ArenaSpecs extends ActorUnitSpecs(ActorSystem("ArenaSpecs")) {
             }
 
             // then
-            f.populationAfter take (math.min(sizeBefore, sizeAfter)) foreach {
-              agent => probe.expectMsg(100 millis, UpdateState(agent))
+            f.populationAfter take math.min(sizeBefore, sizeAfter) foreach {
+              agent => probe.expectMsg(100.millis, UpdateState(agent))
             }
           }
       }
@@ -106,7 +105,7 @@ class ArenaSpecs extends ActorUnitSpecs(ActorSystem("ArenaSpecs")) {
 
             // then
             f.populationAfter.drop(sizeBefore) foreach {
-              agent => probe.expectMsg(100 millis, Add(agent))
+              agent => probe.expectMsg(100.millis, Add(agent))
             }
           }
       }
@@ -125,7 +124,7 @@ class ArenaSpecs extends ActorUnitSpecs(ActorSystem("ArenaSpecs")) {
 
             // then
             f.populationAfter.drop(sizeAfter) foreach {
-              agent => probe.expectMsg(100 millis, PoisonPill)
+              agent => probe.expectMsg(100.millis, PoisonPill)
             }
           }
       }

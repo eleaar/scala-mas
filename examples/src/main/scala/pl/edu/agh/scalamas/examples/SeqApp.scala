@@ -26,7 +26,6 @@ import pl.edu.agh.scalamas.emas.EmasLogic
 import pl.edu.agh.scalamas.genetic.RastriginProblem
 
 import scala.concurrent.duration._
-
 /**
  * Example app.
  */
@@ -35,6 +34,6 @@ object SeqApp extends SequentialStack
   with RastriginProblem {
 
   def main(args: Array[String]) {
-    run(5 seconds)
+    run(5.seconds)
   }
 }
