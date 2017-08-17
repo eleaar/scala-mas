@@ -1,8 +1,6 @@
 import BuildSettings._
 import Dependencies._
-import com.banno.license.Licenses._
-import com.banno.license.Plugin.LicenseKeys._
-import com.banno.license.Plugin.{licenseSettings => defaultLicenseSettings}
+import de.heikoseeberger.sbtheader.AutomateHeaderPlugin
 import sbt.Keys._
 import sbt._
 import sbtunidoc.ScalaUnidocPlugin
@@ -15,10 +13,10 @@ object BuildSettings {
 
   val buildScalaVersion = "2.12.3"
 
-  val licenseSettings: Seq[Setting[_]] = defaultLicenseSettings ++ Seq(
-    licenses +=("MIT", url("http://opensource.org/licenses/MIT")),
-    license := mit("Copyright 2013 - 2015, Daniel Krzywicki <daniel.krzywicki@agh.edu.pl>"),
-    removeExistingHeaderBlock := true
+  val licenseSettings = Seq(
+    organizationName := "Daniel Krzywicki <daniel.krzywicki@agh.edu.pl>",
+    startYear := Some(2013),
+    licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
   )
 
   val commonSettings: Seq[Setting[_]] = Seq(
@@ -33,6 +31,7 @@ object BuildSettings {
 object ScalaMasBuild extends Build {
 
   def subProject(name: String) = Project(name, file(name))
+    .enablePlugins(AutomateHeaderPlugin)
     .settings(commonSettings: _*)
     .settings(PublishSettings.sonatype: _*)
 
@@ -53,7 +52,7 @@ object ScalaMasBuild extends Build {
   lazy val publishedProjects = Seq[ProjectReference](CoreProject, GeneticProject, EmasProject, ExamplesProject)
 
   lazy val Root = Project("Root", file("."))
-    .enablePlugins(ScalaUnidocPlugin)
+    .enablePlugins(ScalaUnidocPlugin, AutomateHeaderPlugin)
     .settings(commonSettings: _*)
     .settings(PublishSettings.nowhere: _*)
     .aggregate(publishedProjects: _*)
