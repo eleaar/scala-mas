@@ -5,7 +5,7 @@ import com.banno.license.Plugin.LicenseKeys._
 import com.banno.license.Plugin.{licenseSettings => defaultLicenseSettings}
 import sbt.Keys._
 import sbt._
-import sbtunidoc.Plugin._
+import sbtunidoc.ScalaUnidocPlugin
 
 object BuildSettings {
 
@@ -13,7 +13,7 @@ object BuildSettings {
 
   val buildVersion = "0.2.0-SNAPSHOT"
 
-  val buildScalaVersion = "2.11.4"
+  val buildScalaVersion = "2.12.3"
 
   val licenseSettings: Seq[Setting[_]] = defaultLicenseSettings ++ Seq(
     licenses +=("MIT", url("http://opensource.org/licenses/MIT")),
@@ -28,7 +28,6 @@ object BuildSettings {
     homepage := Some(url("http://paraphrase.agh.edu.pl/scala-mas/"))
   ) ++ licenseSettings
 
-  val docsSettings = unidocSettings
 }
 
 object ScalaMasBuild extends Build {
@@ -54,8 +53,8 @@ object ScalaMasBuild extends Build {
   lazy val publishedProjects = Seq[ProjectReference](CoreProject, GeneticProject, EmasProject, ExamplesProject)
 
   lazy val Root = Project("Root", file("."))
+    .enablePlugins(ScalaUnidocPlugin)
     .settings(commonSettings: _*)
     .settings(PublishSettings.nowhere: _*)
-    .settings(docsSettings: _*)
     .aggregate(publishedProjects: _*)
 }

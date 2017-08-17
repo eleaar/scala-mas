@@ -54,8 +54,9 @@ trait ConcurrentRunner {
     val root = system.actorOf(RootEnvironment.props(environmentProps, islands, random))
     for (
       _ <- Reaper.terminateAfter(root, duration);
-      _ <- stats.get) {
-      system.shutdown()
+      _ <- stats.get;
+      _ <- system.terminate()
+    ) {
     }
   }
 
