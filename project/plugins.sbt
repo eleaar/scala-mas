@@ -1,10 +1,6 @@
-resolvers += Resolver.url("bintray-sbt-plugin-releases", url("http://dl.bintray.com/banno/oss"))(Resolver.ivyStylePatterns)
+addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "2.0")
 
-resolvers += "jgit-repo" at "http://download.eclipse.org/jgit/maven"
-
-addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "0.2.1")
-
-addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.0.0")
+addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.1.0-M1")
 
 addSbtPlugin("com.eed3si9n" % "sbt-unidoc" % "0.4.1")
 
