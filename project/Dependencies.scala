@@ -7,7 +7,8 @@ object Dependencies {
     "akka-actor",
     "akka-slf4j",
     "akka-agent",
-    "akka-testkit"
+    "akka-testkit",
+    "akka-stream"
   ).map("com.typesafe.akka" %% _ % akkaVersion)
 
   val config = Seq(
