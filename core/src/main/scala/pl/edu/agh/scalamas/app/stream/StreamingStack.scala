@@ -19,28 +19,28 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.examples
+package pl.edu.agh.scalamas.app.stream
 
-import akka.NotUsed
-import akka.stream.scaladsl._
-import pl.edu.agh.scalamas.app.stream.StreamingStack
-import pl.edu.agh.scalamas.emas.EmasLogic
-import pl.edu.agh.scalamas.genetic.RastriginProblem
-import pl.edu.agh.scalamas.mas.LogicTypes.Population
+import akka.actor.ActorSystem
+import com.typesafe.config.{Config, ConfigFactory}
+import pl.edu.agh.scalamas.app.ConcurrentAgentRuntimeComponent
 import pl.edu.agh.scalamas.mas.stream.StreamingStrategy
+import pl.edu.agh.scalamas.random.ConcurrentRandomGeneratorComponent
+import pl.edu.agh.scalamas.stats.{ConcurrentStatsFactory, StatsComponent}
 
-import scala.concurrent.duration._
+class StreamingStack(name: String)
+  extends ConcurrentAgentRuntimeComponent
+    with ConcurrentStatsFactory
+    with ConcurrentRandomGeneratorComponent
+    with StreamingRunner {
 
-object StreamingApp extends StreamingStack("streamingEmas")
-  with StreamingStrategy
-  with EmasLogic
-  with RastriginProblem
-{
-  protected def populationFlow: Flow[Population, Population, NotUsed] = Flow.fromFunction {
-    _.groupBy(logic.behaviourFunction).flatMap(logic.meetingsFunction).toList
+  this: StreamingStrategy with StatsComponent =>
+
+  val agentRuntime = new ConcurrentAgentRuntime {
+
+    val config: Config = ConfigFactory.load()
+
+    val system: ActorSystem = ActorSystem(name)
   }
 
-  def main(args: Array[String]): Unit = {
-    run(5.seconds)
-  }
 }

@@ -58,7 +58,6 @@ trait EmasPopulation extends PopulationStrategy {
         val solution = genetic.generate
         Agent[Genetic](solution, genetic.evaluate(solution), initialEnergy)
       }
-      population.maxBy(_.fitness).fitness
       stats.update((population.maxBy(_.fitness).fitness, 0L))
       population
     }
