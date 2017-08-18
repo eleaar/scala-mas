@@ -24,9 +24,11 @@ package pl.edu.agh.scalamas.app.stream
 import akka.NotUsed
 import akka.stream.scaladsl.{Flow, Source}
 
-trait StreamingLoopStrategy[T] {
+trait StreamingLoopStrategy {
 
-  protected def initialSource: Source[T, NotUsed]
+  type Elem
 
-  protected def stepFlow: Flow[T, T, NotUsed]
+  protected def initialSource: Source[Elem, NotUsed]
+
+  protected def stepFlow: Flow[Elem, Elem, NotUsed]
 }

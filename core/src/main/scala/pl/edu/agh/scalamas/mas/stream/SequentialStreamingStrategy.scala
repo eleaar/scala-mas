@@ -27,8 +27,10 @@ import pl.edu.agh.scalamas.app.stream.StreamingLoopStrategy
 import pl.edu.agh.scalamas.mas.LogicStrategy
 import pl.edu.agh.scalamas.mas.LogicTypes.Population
 
-trait SequentialStreamingStrategy extends StreamingLoopStrategy[Population] {
+trait SequentialStreamingStrategy extends StreamingLoopStrategy {
   this: LogicStrategy =>
+
+  type Elem = Population
 
   protected final val initialSource: Source[Population, NotUsed] = Source.single(logic.initialPopulation)
 

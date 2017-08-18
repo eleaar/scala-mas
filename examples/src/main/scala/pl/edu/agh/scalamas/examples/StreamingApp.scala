@@ -24,12 +24,11 @@ package pl.edu.agh.scalamas.examples
 import pl.edu.agh.scalamas.app.stream.StreamingStack
 import pl.edu.agh.scalamas.emas.EmasLogic
 import pl.edu.agh.scalamas.genetic.RastriginProblem
-import pl.edu.agh.scalamas.mas.LogicTypes.Population
 import pl.edu.agh.scalamas.mas.stream.SequentialStreamingStrategy
 
 import scala.concurrent.duration._
 
-object StreamingApp extends StreamingStack[Population]("streamingEmas")
+object StreamingApp extends StreamingStack("streamingEmas")
   with SequentialStreamingStrategy
   with EmasLogic
   with RastriginProblem

@@ -59,8 +59,8 @@ object ElapsedTimeSource {
   }
 }
 
-trait StreamingRunner[T] { this: ConcurrentAgentRuntimeComponent
-  with StreamingLoopStrategy[T]
+trait StreamingRunner { this: ConcurrentAgentRuntimeComponent
+  with StreamingLoopStrategy
   with StatsComponent =>
 
   def run(duration: FiniteDuration): Unit = {

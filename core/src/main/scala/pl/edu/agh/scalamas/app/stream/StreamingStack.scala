@@ -27,13 +27,13 @@ import pl.edu.agh.scalamas.app.ConcurrentAgentRuntimeComponent
 import pl.edu.agh.scalamas.random.ConcurrentRandomGeneratorComponent
 import pl.edu.agh.scalamas.stats.{ConcurrentStatsFactory, StatsComponent}
 
-class StreamingStack[T](name: String)
+class StreamingStack(name: String)
   extends ConcurrentAgentRuntimeComponent
     with ConcurrentStatsFactory
     with ConcurrentRandomGeneratorComponent
-    with StreamingRunner[T] {
+    with StreamingRunner {
 
-  this: StreamingLoopStrategy[T] with StatsComponent =>
+  this: StreamingLoopStrategy with StatsComponent =>
 
   val agentRuntime = new ConcurrentAgentRuntime {
 
