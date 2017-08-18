@@ -28,7 +28,6 @@ import akka.pattern.after
 import akka.stream.scaladsl.{Broadcast, Flow, GraphDSL, MergePreferred, RunnableGraph, Sink, Source}
 import akka.stream.{ActorMaterializer, ClosedShape, Materializer}
 import pl.edu.agh.scalamas.app.ConcurrentAgentRuntimeComponent
-import pl.edu.agh.scalamas.mas.stream.StreamingStrategy
 import pl.edu.agh.scalamas.stats.StatsComponent
 
 import scala.concurrent.duration._
@@ -60,8 +59,8 @@ object ElapsedTimeSource {
   }
 }
 
-trait StreamingRunner { this: ConcurrentAgentRuntimeComponent
-  with StreamingStrategy
+trait StreamingRunner[T] { this: ConcurrentAgentRuntimeComponent
+  with StreamingLoopStrategy[T]
   with StatsComponent =>
 
   def run(duration: FiniteDuration): Unit = {
@@ -71,7 +70,7 @@ trait StreamingRunner { this: ConcurrentAgentRuntimeComponent
 
     val log = Logging(actorSystem, getClass)
 
-    LoopingGraph(populationSource, populationFlow).run()
+    LoopingGraph(initialSource, stepFlow).run()
     ElapsedTimeSource(interval = 1.second).runForeach { time =>
       log.info(s"$time ${formatter(stats.getNow)}")
     }

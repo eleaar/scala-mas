@@ -19,17 +19,14 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.mas.stream
+package pl.edu.agh.scalamas.app.stream
 
 import akka.NotUsed
 import akka.stream.scaladsl.{Flow, Source}
-import pl.edu.agh.scalamas.mas.LogicStrategy
-import pl.edu.agh.scalamas.mas.LogicTypes.Population
 
-trait StreamingStrategy {
-  this: LogicStrategy =>
+trait StreamingLoopStrategy[T] {
 
-  protected final val populationSource: Source[Population, NotUsed] = Source.single(logic.initialPopulation)
+  protected def initialSource: Source[T, NotUsed]
 
-  protected def populationFlow: Flow[Population, Population, NotUsed]
+  protected def stepFlow: Flow[T, T, NotUsed]
 }

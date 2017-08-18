@@ -24,17 +24,16 @@ package pl.edu.agh.scalamas.app.stream
 import akka.actor.ActorSystem
 import com.typesafe.config.{Config, ConfigFactory}
 import pl.edu.agh.scalamas.app.ConcurrentAgentRuntimeComponent
-import pl.edu.agh.scalamas.mas.stream.StreamingStrategy
 import pl.edu.agh.scalamas.random.ConcurrentRandomGeneratorComponent
 import pl.edu.agh.scalamas.stats.{ConcurrentStatsFactory, StatsComponent}
 
-class StreamingStack(name: String)
+class StreamingStack[T](name: String)
   extends ConcurrentAgentRuntimeComponent
     with ConcurrentStatsFactory
     with ConcurrentRandomGeneratorComponent
-    with StreamingRunner {
+    with StreamingRunner[T] {
 
-  this: StreamingStrategy with StatsComponent =>
+  this: StreamingLoopStrategy[T] with StatsComponent =>
 
   val agentRuntime = new ConcurrentAgentRuntime {
 
