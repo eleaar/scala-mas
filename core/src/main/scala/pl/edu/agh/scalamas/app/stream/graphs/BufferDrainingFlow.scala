@@ -19,22 +19,19 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.examples
+package pl.edu.agh.scalamas.app.stream.graphs
 
-import pl.edu.agh.scalamas.app.stream.StreamingStack
-import pl.edu.agh.scalamas.emas.EmasLogic
-import pl.edu.agh.scalamas.genetic.RastriginProblem
-import pl.edu.agh.scalamas.mas.stream.ContinuousStreamingStrategy
+import akka.NotUsed
+import akka.stream.scaladsl.Flow
 
-import scala.concurrent.duration._
+import scala.collection.immutable
 
-object StreamingApp extends StreamingStack("streamingEmas")
-  with ContinuousStreamingStrategy
-  with EmasLogic
-  with RastriginProblem
-{
+object BufferDrainingFlow {
 
-  def main(args: Array[String]): Unit = {
-    run(10.second)
+  def apply[T](): Flow[immutable.Seq[T], T, NotUsed] = {
+    Flow[immutable.Seq[T]]
+      .conflate(_ ++ _)
+      .mapConcat(x => x)
   }
+
 }

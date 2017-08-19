@@ -19,22 +19,27 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.examples
+package pl.edu.agh.scalamas.app.stream.graphs
 
-import pl.edu.agh.scalamas.app.stream.StreamingStack
-import pl.edu.agh.scalamas.emas.EmasLogic
-import pl.edu.agh.scalamas.genetic.RastriginProblem
-import pl.edu.agh.scalamas.mas.stream.ContinuousStreamingStrategy
+import akka.NotUsed
+import akka.stream.scaladsl.Flow
+import pl.edu.agh.scalamas.mas.Logic
+import pl.edu.agh.scalamas.mas.LogicTypes.{Agent, Behaviour}
 
 import scala.concurrent.duration._
+import scala.concurrent.{ExecutionContext, Future}
 
-object StreamingApp extends StreamingStack("streamingEmas")
-  with ContinuousStreamingStrategy
-  with EmasLogic
-  with RastriginProblem
-{
+object MeetingArenaFlow {
 
-  def main(args: Array[String]): Unit = {
-    run(10.second)
+  /**
+   * Creates a flow for a specific behaviour.
+   */
+  def apply(logic: Logic, timeout: FiniteDuration, parallelism: Int)(behaviour: Behaviour)(implicit ec: ExecutionContext): Flow[Agent, Agent, NotUsed] = {
+    Flow[Agent]
+      .groupedWithin(behaviour.capacity, 1.second)
+      .mapAsync(parallelism) { agents =>
+        Future(logic.meetingsFunction.apply((behaviour, agents.toList)))
+      }.mapConcat(x => x)
   }
+
 }

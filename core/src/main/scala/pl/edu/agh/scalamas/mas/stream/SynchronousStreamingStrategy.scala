@@ -19,22 +19,23 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.examples
+package pl.edu.agh.scalamas.mas.stream
 
-import pl.edu.agh.scalamas.app.stream.StreamingStack
-import pl.edu.agh.scalamas.emas.EmasLogic
-import pl.edu.agh.scalamas.genetic.RastriginProblem
-import pl.edu.agh.scalamas.mas.stream.ContinuousStreamingStrategy
+import akka.NotUsed
+import akka.stream.scaladsl.{Flow, Source}
+import pl.edu.agh.scalamas.app.stream.StreamingLoopStrategy
+import pl.edu.agh.scalamas.mas.LogicStrategy
+import pl.edu.agh.scalamas.mas.LogicTypes.Population
 
-import scala.concurrent.duration._
+trait SynchronousStreamingStrategy extends StreamingLoopStrategy {
+  this: LogicStrategy =>
 
-object StreamingApp extends StreamingStack("streamingEmas")
-  with ContinuousStreamingStrategy
-  with EmasLogic
-  with RastriginProblem
-{
+  type Elem = Population
 
-  def main(args: Array[String]): Unit = {
-    run(10.second)
+  protected final val initialSource: Source[Population, NotUsed] = Source.single(logic.initialPopulation)
+
+  protected final val stepFlow: Flow[Population, Population, NotUsed] = Flow.fromFunction {
+    _.groupBy(logic.behaviourFunction).flatMap(logic.meetingsFunction).toList
   }
+
 }

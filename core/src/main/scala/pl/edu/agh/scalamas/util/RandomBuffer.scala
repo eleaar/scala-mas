@@ -19,22 +19,36 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.examples
+package pl.edu.agh.scalamas.util
 
-import pl.edu.agh.scalamas.app.stream.StreamingStack
-import pl.edu.agh.scalamas.emas.EmasLogic
-import pl.edu.agh.scalamas.genetic.RastriginProblem
-import pl.edu.agh.scalamas.mas.stream.ContinuousStreamingStrategy
+import java.util
 
-import scala.concurrent.duration._
+import org.apache.commons.math3.random.RandomDataGenerator
 
-object StreamingApp extends StreamingStack("streamingEmas")
-  with ContinuousStreamingStrategy
-  with EmasLogic
-  with RastriginProblem
-{
+case class RandomBuffer[T]() {
+  private val buf = new util.ArrayList[T]()
 
-  def main(args: Array[String]): Unit = {
-    run(10.second)
+  def add(element: T): Unit = {
+    buf.add(element)
   }
+
+  def removeRandom()(implicit random: RandomDataGenerator): Option[T] = {
+    val size = buf.size()
+    if (size > 0) {
+      val lastIndex = size - 1
+      val chosenIndex = random.nextInt(0, lastIndex) // inclusive
+      val chosenElement = buf.get(chosenIndex)
+      buf.set(chosenIndex, buf.get(lastIndex))
+      buf.remove(lastIndex)
+      Some(chosenElement)
+    } else {
+      None
+    }
+  }
+
+  def size: Int = buf.size()
+
+  def isEmpty: Boolean = buf.isEmpty
+
+  def nonEmpty: Boolean = !buf.isEmpty
 }

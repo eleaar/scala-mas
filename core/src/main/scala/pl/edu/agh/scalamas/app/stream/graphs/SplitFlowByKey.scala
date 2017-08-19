@@ -19,23 +19,35 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.mas.stream
+package pl.edu.agh.scalamas.app.stream.graphs
 
 import akka.NotUsed
-import akka.stream.scaladsl.{Flow, Source}
-import pl.edu.agh.scalamas.app.stream.StreamingLoopStrategy
-import pl.edu.agh.scalamas.mas.LogicStrategy
-import pl.edu.agh.scalamas.mas.LogicTypes.Population
+import akka.stream.FlowShape
+import akka.stream.scaladsl.{Flow, GraphDSL, Merge, Partition}
 
-trait SequentialStreamingStrategy extends StreamingLoopStrategy {
-  this: LogicStrategy =>
+object SplitFlowByKey {
 
-  type Elem = Population
+  /**
+   * This flow will pass elements through the subflow corresponding to their key
+   */
+  def apply[A, K](groupKey: A => K, subFlows: Map[K, Flow[A, A, NotUsed]]): Flow[A, A, NotUsed] = {
+    Flow.fromGraph(
+      GraphDSL.create() { implicit b =>
+        import GraphDSL.Implicits._
 
-  protected final val initialSource: Source[Population, NotUsed] = Source.single(logic.initialPopulation)
+        val keys: Map[K, Int] = subFlows.keys.zipWithIndex.map {
+          case (key, i) => key -> i
+        }.toMap
 
-  protected final val stepFlow: Flow[Population, Population, NotUsed] = Flow.fromFunction {
-    _.groupBy(logic.behaviourFunction).flatMap(logic.meetingsFunction).toList
+        val partition = b.add(Partition[A](keys.size, groupKey andThen keys))
+        val merge = b.add(Merge[A](keys.size))
+
+        keys.foreach { case (key, i) =>
+          partition.out(i) ~> subFlows(key) ~> merge.in(i)
+        }
+
+        FlowShape(partition.in, merge.out)
+      })
   }
 
 }
