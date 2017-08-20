@@ -19,22 +19,17 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.examples
+package pl.edu.agh.scalamas.app.stream.graphs
 
-import pl.edu.agh.scalamas.app.stream.StreamingStack
-import pl.edu.agh.scalamas.emas.EmasLogic
-import pl.edu.agh.scalamas.genetic.RastriginProblem
-import pl.edu.agh.scalamas.mas.stream._
+import akka.NotUsed
+import akka.stream.scaladsl.Source
 
 import scala.concurrent.duration._
 
-object StreamingApp extends StreamingStack("streamingEmas")
-  with SequentialStreamingStrategy
-  with EmasLogic
-  with RastriginProblem
-{
-
-  def main(args: Array[String]): Unit = {
-    run(5.second)
+object ElapsedTimeSource {
+  def apply(interval: FiniteDuration): Source[Long, NotUsed] = {
+    Source.lazily(() => Source.tick(0.seconds, interval, System.currentTimeMillis()))
+      .mapMaterializedValue(_ => NotUsed)
+      .map(initialTime => System.currentTimeMillis() - initialTime)
   }
 }

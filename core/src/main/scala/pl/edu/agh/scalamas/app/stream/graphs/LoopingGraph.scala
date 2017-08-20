@@ -19,22 +19,31 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.examples
+package pl.edu.agh.scalamas.app.stream.graphs
 
-import pl.edu.agh.scalamas.app.stream.StreamingStack
-import pl.edu.agh.scalamas.emas.EmasLogic
-import pl.edu.agh.scalamas.genetic.RastriginProblem
-import pl.edu.agh.scalamas.mas.stream._
+import akka.{Done, NotUsed}
+import akka.stream.{ClosedShape, KillSwitches, UniqueKillSwitch}
+import akka.stream.scaladsl.{Broadcast, Flow, GraphDSL, Keep, MergePreferred, RunnableGraph, Sink, Source}
 
-import scala.concurrent.duration._
+import scala.concurrent.Future
 
-object StreamingApp extends StreamingStack("streamingEmas")
-  with SequentialStreamingStrategy
-  with EmasLogic
-  with RastriginProblem
-{
+object LoopingGraph {
+  def apply[T](source: Source[T, NotUsed], flow: Flow[T, T, NotUsed]): RunnableGraph[(UniqueKillSwitch, Future[Done])] = {
+    val switch = Flow.fromGraph(KillSwitches.single[T])
+      .watchTermination()(Keep.both)
 
-  def main(args: Array[String]): Unit = {
-    run(5.second)
+    RunnableGraph.fromGraph(
+      GraphDSL.create(switch) { implicit b => switchH =>
+        import GraphDSL.Implicits._
+
+        val merge = b.add(MergePreferred[T](1).async)
+        val bcast = b.add(Broadcast[T](2).async)
+
+        source ~> merge ~> switchH ~> flow ~> bcast ~> Sink.ignore
+        merge.preferred <~ bcast
+
+        ClosedShape
+      }
+    )
   }
 }

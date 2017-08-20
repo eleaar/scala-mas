@@ -21,43 +21,17 @@
 
 package pl.edu.agh.scalamas.app.stream
 
-import akka.NotUsed
 import akka.actor.ActorSystem
 import akka.event.Logging
 import akka.pattern.after
-import akka.stream.scaladsl.{Broadcast, Flow, GraphDSL, MergePreferred, RunnableGraph, Sink, Source}
-import akka.stream.{ActorMaterializer, ClosedShape, Materializer}
+import akka.stream.{ActorMaterializer, Materializer}
 import pl.edu.agh.scalamas.app.ConcurrentAgentRuntimeComponent
+import pl.edu.agh.scalamas.app.stream.graphs.{ElapsedTimeSource, LoopingGraph}
 import pl.edu.agh.scalamas.stats.StatsComponent
 
 import scala.concurrent.duration._
 import scala.concurrent.{ExecutionContext, Future}
 
-object LoopingGraph {
-  def apply[T](source: Source[T, NotUsed], flow: Flow[T, T, NotUsed]): RunnableGraph[NotUsed] = {
-    RunnableGraph.fromGraph(
-      GraphDSL.create() { implicit b =>
-        import GraphDSL.Implicits._
-
-        val merge = b.add(MergePreferred[T](1).async)
-        val bcast = b.add(Broadcast[T](2).async)
-
-        source ~> merge ~> flow ~> bcast ~> Sink.ignore
-        merge.preferred <~ bcast
-
-        ClosedShape
-      }
-    )
-  }
-}
-
-object ElapsedTimeSource {
-  def apply(interval: FiniteDuration): Source[Long, NotUsed] = {
-    Source.lazily(() => Source.tick(0.seconds, 1.second, System.currentTimeMillis()))
-      .mapMaterializedValue(_ => NotUsed)
-      .map(initialTime => System.currentTimeMillis() - initialTime)
-  }
-}
 
 trait StreamingRunner { this: ConcurrentAgentRuntimeComponent
   with StreamingLoopStrategy
@@ -70,13 +44,14 @@ trait StreamingRunner { this: ConcurrentAgentRuntimeComponent
 
     val log = Logging(actorSystem, getClass)
 
-    LoopingGraph(initialSource, stepFlow).run()
+    val (switch, loopStoppedFuture) = LoopingGraph(initialSource, stepFlow).run()
     ElapsedTimeSource(interval = 1.second).runForeach { time =>
       log.info(s"$time ${formatter(stats.getNow)}")
     }
 
     for {
-      _ <- after(duration, actorSystem.scheduler)(Future.successful(()))
+      _ <- after(duration, actorSystem.scheduler)(Future.successful(switch.shutdown()))
+      _ <- loopStoppedFuture
       _ <- stats.get
       _ <- actorSystem.terminate()
     } yield ()

@@ -19,22 +19,36 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.examples
+package pl.edu.agh.scalamas.mas.stream
 
-import pl.edu.agh.scalamas.app.stream.StreamingStack
-import pl.edu.agh.scalamas.emas.EmasLogic
-import pl.edu.agh.scalamas.genetic.RastriginProblem
-import pl.edu.agh.scalamas.mas.stream._
+import akka.NotUsed
+import akka.stream.scaladsl.{Flow, Source}
+import pl.edu.agh.scalamas.app.ConcurrentAgentRuntimeComponent
+import pl.edu.agh.scalamas.app.stream.StreamingLoopStrategy
+import pl.edu.agh.scalamas.mas.LogicStrategy
+import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 
-import scala.concurrent.duration._
+import scala.collection.immutable
+import pl.edu.agh.scalamas.util.Util._
 
-object StreamingApp extends StreamingStack("streamingEmas")
-  with SequentialStreamingStrategy
-  with EmasLogic
-  with RastriginProblem
-{
+trait TestStrategy extends StreamingLoopStrategy { this: LogicStrategy with ConcurrentAgentRuntimeComponent with
+  RandomGeneratorComponent =>
 
-  def main(args: Array[String]): Unit = {
-    run(5.second)
+  type Elem = immutable.Seq[Int]
+
+
+  protected final val initialSource: Source[Elem, NotUsed] = Source.single(1 to 10)
+
+  protected final val stepFlow: Flow[Elem, Elem, NotUsed] = {
+    implicit val rand = randomData
+
+    Flow[Elem]
+      .log("entering flow")
+      .splitAfter(_ => true)
+      .mapConcat(x => x.shuffled)
+        .log("inside subflow")
+        .fold[Elem](immutable.Seq.empty)(_.+:(_))
+      .concatSubstreams
   }
+
 }
