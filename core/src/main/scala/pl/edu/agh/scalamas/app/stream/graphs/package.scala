@@ -19,36 +19,13 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.mas.stream
+package pl.edu.agh.scalamas.app.stream
 
 import akka.NotUsed
-import akka.stream.scaladsl.{Flow, Source}
-import pl.edu.agh.scalamas.app.ConcurrentAgentRuntimeComponent
-import pl.edu.agh.scalamas.app.stream.StreamingLoopStrategy
-import pl.edu.agh.scalamas.mas.LogicStrategy
-import pl.edu.agh.scalamas.random.RandomGeneratorComponent
+import akka.stream.scaladsl.Flow
 
-import scala.collection.immutable
-import pl.edu.agh.scalamas.util.Util._
-
-trait TestStrategy extends StreamingLoopStrategy { this: LogicStrategy with ConcurrentAgentRuntimeComponent with
-  RandomGeneratorComponent =>
-
-  type Elem = immutable.Seq[Int]
-
-
-  protected final val initialSource: Source[Elem, NotUsed] = Source.single(1 to 10)
-
-  protected final val stepFlow: Flow[Elem, Elem, NotUsed] = {
-    implicit val rand = randomData
-
-    Flow[Elem]
-      .log("entering flow")
-      .splitAfter(_ => true)
-      .mapConcat(x => x.shuffled)
-        .log("inside subflow")
-        .fold[Elem](immutable.Seq.empty)(_.+:(_))
-      .concatSubstreams
-  }
+package object graphs {
+  def logThread[T](name: String): Flow[T, T, NotUsed] = Flow[T]
+    .log(name, x => s"$x " + Thread.currentThread().getName)
 
 }

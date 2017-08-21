@@ -39,7 +39,8 @@ object MeetingArenaFlow {
       .groupedWithin(behaviour.capacity, 1.second)
       .mapAsync(parallelism) { agents =>
         Future(logic.meetingsFunction.apply((behaviour, agents.toList)))
-      }.mapConcat(x => x)
+      }
+      .mapConcat(x => x)
   }
 
 }

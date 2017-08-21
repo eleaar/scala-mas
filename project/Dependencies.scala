@@ -31,5 +31,7 @@ object Dependencies {
 
   val emasDeps = config ++ logging
 
-  val coreDeps = config ++ random ++ logging ++ akka ++ test
+  val coreDeps = config ++ random ++ logging ++ akka ++ test ++ Seq(
+    "nl.grons" %% "metrics-scala" % "3.5.9_a2.4"
+  )
 }

@@ -36,8 +36,8 @@ object LoopingGraph {
       GraphDSL.create(switch) { implicit b => switchH =>
         import GraphDSL.Implicits._
 
-        val merge = b.add(MergePreferred[T](1).async)
-        val bcast = b.add(Broadcast[T](2).async)
+        val merge = b.add(MergePreferred[T](1))
+        val bcast = b.add(Broadcast[T](2))
 
         source ~> merge ~> switchH ~> flow ~> bcast ~> Sink.ignore
         merge.preferred <~ bcast

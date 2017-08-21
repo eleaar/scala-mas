@@ -25,16 +25,36 @@ import pl.edu.agh.scalamas.app.stream.StreamingStack
 import pl.edu.agh.scalamas.emas.EmasLogic
 import pl.edu.agh.scalamas.genetic.RastriginProblem
 import pl.edu.agh.scalamas.mas.stream._
+import net.ceedubs.ficus.Ficus._
 
 import scala.concurrent.duration._
 
-object StreamingApp extends StreamingStack("streamingEmas")
-  with SequentialStreamingStrategy
+object ContinuousStreamingApp extends StreamingStack("streamingEmas")
+  with ContinuousStreamingStrategy
   with EmasLogic
-  with RastriginProblem
-{
+  with RastriginProblem {
 
   def main(args: Array[String]): Unit = {
-    run(5.second)
+    run(agentRuntime.config.as[FiniteDuration]("duration"))
+  }
+}
+
+object SequentialStreamingApp extends StreamingStack("streamingEmas")
+  with SequentialStreamingStrategy
+  with EmasLogic
+  with RastriginProblem {
+
+  def main(args: Array[String]): Unit = {
+    run(agentRuntime.config.as[FiniteDuration]("duration"))
+  }
+}
+
+object SynchronousStreamingApp extends StreamingStack("streamingEmas")
+  with SynchronousStreamingStrategy
+  with EmasLogic
+  with RastriginProblem {
+
+  def main(args: Array[String]): Unit = {
+    run(agentRuntime.config.as[FiniteDuration]("duration"))
   }
 }

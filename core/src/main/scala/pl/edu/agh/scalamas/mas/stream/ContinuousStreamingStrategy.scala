@@ -23,9 +23,10 @@ package pl.edu.agh.scalamas.mas.stream
 
 import akka.NotUsed
 import akka.stream.scaladsl.{Flow, Source}
+import net.ceedubs.ficus.Ficus._
 import pl.edu.agh.scalamas.app.ConcurrentAgentRuntimeComponent
 import pl.edu.agh.scalamas.app.stream.StreamingLoopStrategy
-import pl.edu.agh.scalamas.app.stream.graphs.{BufferDrainingFlow, MeetingArenaFlow, ShufflingBufferFlow, SplitFlowByKey}
+import pl.edu.agh.scalamas.app.stream.graphs._
 import pl.edu.agh.scalamas.mas.LogicStrategy
 import pl.edu.agh.scalamas.mas.LogicTypes.Population
 import pl.edu.agh.scalamas.random.RandomGeneratorComponent
@@ -48,18 +49,19 @@ trait ContinuousStreamingStrategy
 
     val meetingArenaFlow = MeetingArenaFlow(
       logic,
-      timeout = 1.second,
-      parallelism = 4
+      timeout = agentRuntime.config.as[FiniteDuration]("streaming.arenas.timeout"),
+      parallelism = agentRuntime.config.as[Int]("streaming.arenas.parallelism")
     ) _
 
     Flow[Population]
       .map(_.to[immutable.Seq])
       .via(BufferDrainingFlow())
-      .via(ShufflingBufferFlow(10)(randomData))
+      .via(ShufflingBufferFlow(agentRuntime.config.as[Int]("streaming.continuous.shuffling-buffer-size"))(randomData).async)
+//      .via(Metrics.meter("scalamas.continuous.subflow"))
       .via(SplitFlowByKey(
         logic.behaviourFunction,
         logic.behaviours.map(b => b -> meetingArenaFlow(b).async).toMap
-      ))
+      ).async)
       .map(List(_))
   }
 

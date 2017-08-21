@@ -23,19 +23,22 @@ package pl.edu.agh.scalamas.mas.stream
 
 import akka.NotUsed
 import akka.stream.scaladsl.{Flow, Source}
+import net.ceedubs.ficus.Ficus._
+import nl.grons.metrics.scala.DefaultInstrumented
 import pl.edu.agh.scalamas.app.ConcurrentAgentRuntimeComponent
 import pl.edu.agh.scalamas.app.stream.StreamingLoopStrategy
 import pl.edu.agh.scalamas.app.stream.graphs.{MeetingArenaFlow, SplitFlowByKey}
 import pl.edu.agh.scalamas.mas.LogicStrategy
-import pl.edu.agh.scalamas.mas.LogicTypes.Population
+import pl.edu.agh.scalamas.mas.LogicTypes.{Agent, Population}
 import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 import pl.edu.agh.scalamas.util.Util._
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
+
 trait SequentialStreamingStrategy
-  extends StreamingLoopStrategy { this: LogicStrategy with ConcurrentAgentRuntimeComponent with
+  extends StreamingLoopStrategy with DefaultInstrumented { this: LogicStrategy with ConcurrentAgentRuntimeComponent with
   RandomGeneratorComponent =>
 
   type Elem = Population
@@ -49,23 +52,31 @@ trait SequentialStreamingStrategy
 
     val meetingArenaFlow = MeetingArenaFlow(
       logic,
-      timeout = 1.second,
-      parallelism = 4
+      timeout = agentRuntime.config.as[FiniteDuration]("streaming.arenas.timeout"),
+      parallelism = agentRuntime.config.as[Int]("streaming.arenas.parallelism")
     ) _
 
     val subFlow = Flow[Elem]
       .mapConcat(x => x.shuffled)
+//      .via(Metrics.meter("scalamas.sequential.subflow"))
       .via(
         SplitFlowByKey(
           logic.behaviourFunction,
-          logic.behaviours.map(b => b -> meetingArenaFlow(b).async).toMap
-        ))
+          logic.behaviours.map { b =>
+            b ->
+              Flow[Agent]
+                .via(meetingArenaFlow(b).async)
+          }.toMap
+        ).async)
       .fold[Elem](List.empty)(_.+:(_))
 
+
     Flow[Elem]
+//      .via(Metrics.meter("scalamas.sequential.steps"))
       .splitAfter(_ => true)
       .via(subFlow)
       .concatSubstreams
+      .async
   }
 
 }
