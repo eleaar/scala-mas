@@ -7,3 +7,5 @@ addSbtPlugin("com.eed3si9n" % "sbt-unidoc" % "0.4.1")
 addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.3.1")
 
 addSbtPlugin("de.heikoseeberger" % "sbt-header" % "3.0.1")
+
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.5")

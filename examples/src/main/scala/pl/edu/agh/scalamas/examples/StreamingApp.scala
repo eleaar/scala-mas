@@ -29,7 +29,7 @@ import net.ceedubs.ficus.Ficus._
 
 import scala.concurrent.duration._
 
-object ContinuousStreamingApp extends StreamingStack("streamingEmas")
+object ContinuousStreamingApp extends StreamingStack("ContinuousStreamingApp")
   with ContinuousStreamingStrategy
   with EmasLogic
   with RastriginProblem {
@@ -39,7 +39,7 @@ object ContinuousStreamingApp extends StreamingStack("streamingEmas")
   }
 }
 
-object SequentialStreamingApp extends StreamingStack("streamingEmas")
+object SequentialStreamingApp extends StreamingStack("SequentialStreamingApp")
   with SequentialStreamingStrategy
   with EmasLogic
   with RastriginProblem {
@@ -49,7 +49,7 @@ object SequentialStreamingApp extends StreamingStack("streamingEmas")
   }
 }
 
-object SynchronousStreamingApp extends StreamingStack("streamingEmas")
+object SynchronousStreamingApp extends StreamingStack("SynchronousStreamingApp")
   with SynchronousStreamingStrategy
   with EmasLogic
   with RastriginProblem {
