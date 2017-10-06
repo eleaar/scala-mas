@@ -24,10 +24,9 @@ package pl.edu.agh.scalamas.emas
 import pl.edu.agh.scalamas.app.AgentRuntimeComponent
 import pl.edu.agh.scalamas.emas.fight.DefaultFight
 import pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction
-import pl.edu.agh.scalamas.genetic.GeneticProblem
+import pl.edu.agh.scalamas.genetic.{GeneticProblem, GeneticStats}
 import pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy
 import pl.edu.agh.scalamas.random.RandomGeneratorComponent
-import pl.edu.agh.scalamas.stats.StatsFactoryComponent
 
 /**
  * Default EMAS logic. Combines the default strategies for generating the initial population, agent behaviour and meetings,
@@ -41,7 +40,6 @@ with EmasStats {
 
   // dependencies:
   this: AgentRuntimeComponent
-    with GeneticProblem
-    with StatsFactoryComponent
+    with GeneticProblem with GeneticStats
     with RandomGeneratorComponent =>
 }

@@ -23,16 +23,19 @@ package pl.edu.agh.scalamas.genetic
 
 import pl.edu.agh.scalamas.app.AgentRuntimeComponent
 import pl.edu.agh.scalamas.random.RandomGeneratorComponent
+import pl.edu.agh.scalamas.stats.HasStats
 
 /**
  * An implementation of genetic operators for finding the minimum of the Rastrigin function.
  */
-trait RastriginProblem extends GeneticProblem {
+trait RastriginProblem extends GeneticProblem with DefaultGeneticStats {
   this: AgentRuntimeComponent with RandomGeneratorComponent =>
 
   type Genetic = RastriginOps
 
   def genetic = new RastriginOps
+
+  protected def hasStats: HasStats[Genetic#Evaluation] = implicitly
 
   class RastriginOps extends GeneticOps[RastriginOps] {
 

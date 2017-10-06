@@ -21,9 +21,8 @@
 
 package pl.edu.agh.scalamas.stats
 
-import akka.agent.Agent
-
-import scala.concurrent.{ExecutionContext, Future}
+import java.util.concurrent.atomic.{DoubleAccumulator, LongAccumulator}
+import java.util.function.{DoubleBinaryOperator, LongBinaryOperator}
 
 /**
  * Interface for the gathering of statistics during computations. The statistics value is the result of folding in time all the provided updates.
@@ -36,49 +35,83 @@ trait Stats[T] {
   def update(newValue: T)
 
   /**
-   * Asynchronously returns the value of the statistics once all currently pending updates are done.
-   */
-  def get: Future[T]
-
-  /**
    * Synchronously returns the current value of the statistics (may not reflect pending udpates).
    */
-  def getNow: T
+  def get: T
 }
 
-private[stats] class SimpleStats[T](initialValue: T, updateFunction: (T, T) => T) extends Stats[T] {
-  private[this] var oldValue = initialValue
+object UnitStats extends Stats[Unit] {
+  def update(newValue: Unit): Unit = {}
 
-  def update(newValue: T) = {
-    oldValue = updateFunction(oldValue, newValue)
+  def get: Unit = ()
+}
+
+case class LongStats(initialValue: Long, updateFunction: (Long, Long) => Long) extends Stats[Long] {
+
+  private val operator = new LongBinaryOperator {
+    def applyAsLong(left: Long, right: Long) = updateFunction(left, right)
+  }
+  private val accumulator = new LongAccumulator(operator, initialValue)
+
+  def update(newValue: Long): Unit = accumulator.accumulate(newValue)
+
+  def get: Long = accumulator.get()
+}
+
+case class DoubleStats(initialValue: Double, updateFunction: (Double, Double) => Double) extends Stats[Double] {
+
+  private val operator = new DoubleBinaryOperator {
+    def applyAsDouble(left: Double, right: Double) = updateFunction(left, right)
+  }
+  private val accumulator = new DoubleAccumulator(operator, initialValue)
+
+  def update(newValue: Double): Unit = accumulator.accumulate(newValue)
+
+  def get: Double = accumulator.get()
+}
+
+/**
+ * Combines a tuple of stats into a stats of tuples. The resulting stats will be threadsafe but not atomic.
+ */
+case class TupleStats[A, B](
+  left: Stats[A],
+  right: Stats[B]
+) extends Stats[(A, B)] {
+
+  def update(newValue: (A, B)): Unit = {
+    left.update(newValue._1)
+    right.update(newValue._2)
   }
 
-  def get = Future.successful(oldValue)
-
-  def getNow = oldValue
+  def get: (A, B) = (left.get, right.get)
 }
 
-private[stats] class ConcurrentStats[T](initialValue: T, updateFunction: (T, T) => T)(implicit context: ExecutionContext) extends Stats[T] {
-
-  val stats = Agent(initialValue)
-
-  def update(newValue: T) = stats send ((oldValue: T) => updateFunction(oldValue, newValue))
-
-  def get = stats.future()
-
-  def getNow = stats()
+trait HasStats[T] {
+  def apply(initialValue: T, updateFunction: (T, T) => T): Stats[T]
 }
 
-object Stats {
+object HasStats {
+
+  implicit val longInstance: HasStats[Long] = new HasStats[Long] {
+    def apply(initialValue: Long, updateFunction: (Long, Long) => Long) = LongStats(initialValue, updateFunction)
+  }
+
+  implicit val doubleInstance: HasStats[Double] = new HasStats[Double] {
+    def apply(initialValue: Double, updateFunction: (Double, Double) => Double) = DoubleStats(initialValue, updateFunction)
+  }
 
   /**
-   * Factory method for synchronous, non thread-safe statistics.
+   * Assumes the update function is an independent product of two update functions
    */
-  def simple[T](initialValue: T)(updateFunction: (T, T) => T) = new SimpleStats[T](initialValue, updateFunction)
+  implicit def tupleInstance[A, B](implicit A: HasStats[A], B: HasStats[B]): HasStats[(A, B)] = new HasStats[(A, B)] {
+    def apply(initialValue: (A, B), updateFunction: ((A, B), (A, B)) => (A, B)) = {
+       val initialA = initialValue._1
+       val initialB = initialValue._2
 
-  /**
-   * Factory method for asynchronous, thread-safe statistics.
-   */
-  def concurrent[T](initialValue: T)(updateFunction: (T, T) => T)(implicit context: ExecutionContext) = new ConcurrentStats[T](initialValue, updateFunction)
+       val aStats = A(initialValue._1, (a1, a2) => updateFunction((a1, initialB), (a2, initialB))._1)
+       val bStats = B(initialValue._2, (b1, b2) => updateFunction((initialA, b1), (initialA, b2))._2)
 
+      TupleStats(aStats, bStats)
+    }
+  }
 }

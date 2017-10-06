@@ -55,7 +55,7 @@ trait SequentialRunner {
 
     def printLog: Unit = {
       val time = System.currentTimeMillis() - startTime
-      log info (s"$time ${formatter(stats.getNow)}")
+      log info (s"$time ${formatter(stats.get)}")
     }
 
     printLog

@@ -46,13 +46,12 @@ trait StreamingRunner { this: ConcurrentAgentRuntimeComponent
 
     val (switch, loopStoppedFuture) = LoopingGraph(initialSource, stepFlow).run()
     ElapsedTimeSource(interval = 1.second).runForeach { time =>
-      log.info(s"$time ${formatter(stats.getNow)}")
+      log.info(s"$time ${formatter(stats.get)}")
     }
 
     for {
       _ <- after(duration, actorSystem.scheduler)(Future.successful(switch.shutdown()))
       _ <- loopStoppedFuture
-      _ <- stats.get
       _ <- actorSystem.terminate()
     } yield ()
   }

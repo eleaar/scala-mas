@@ -21,28 +21,29 @@
 
 package pl.edu.agh.scalamas.emas
 
-import pl.edu.agh.scalamas.genetic.GeneticProblem
-import pl.edu.agh.scalamas.stats.{Stats, StatsComponent, StatsFactoryComponent}
+import pl.edu.agh.scalamas.genetic.{GeneticProblem, GeneticStats}
+import pl.edu.agh.scalamas.stats._
 
 /**
  * Default EMAS statistics. Records the number of fitness evaluations performed so far and the best evaluation found so far.
  */
 trait EmasStats extends StatsComponent {
-  this: GeneticProblem with StatsFactoryComponent =>
+  this: GeneticProblem with GeneticStats =>
 
   type StatsType = (Genetic#Evaluation, Long)
 
-  lazy val stats: Stats[StatsType] = statsFactory((genetic.minimal, 0L)) {
-    case ((oldFitness, oldReps), (newFitness, newReps)) =>
-      (fixedMax(oldFitness, newFitness)(genetic.ordering), oldReps + newReps)
+  lazy val stats: Stats[StatsType] = {
+    val evaluationStats = bestEvaluationStats
+    val reproductionCountStats = LongStats(0L, _ + _)
+
+    TupleStats(
+      evaluationStats,
+      reproductionCountStats,
+    )
   }
 
   def formatter = {
     case (fitness, reps) => s"$fitness $reps"
   }
 
-  /**
-   * Hack because of scala bug SI-9087
-   */
-  private[this] def fixedMax[T](x: T, y: T)(implicit ordering: Ordering[T]) = if (ordering.gt(x, y)) x else y
 }

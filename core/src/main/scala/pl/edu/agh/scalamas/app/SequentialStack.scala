@@ -24,7 +24,7 @@ package pl.edu.agh.scalamas.app
 import com.typesafe.config.{Config, ConfigFactory}
 import pl.edu.agh.scalamas.mas.LogicStrategy
 import pl.edu.agh.scalamas.random.SynchronousRandomGeneratorComponent
-import pl.edu.agh.scalamas.stats.{StatsComponent, SimpleStatsFactory}
+import pl.edu.agh.scalamas.stats.StatsComponent
 
 /**
  * Application stack for running single-threaded applications.
@@ -33,7 +33,6 @@ import pl.edu.agh.scalamas.stats.{StatsComponent, SimpleStatsFactory}
  */
 class SequentialStack
   extends AgentRuntimeComponent
-  with SimpleStatsFactory
   with SynchronousRandomGeneratorComponent
   with SequentialRunner {
 

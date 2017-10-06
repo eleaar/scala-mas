@@ -48,13 +48,12 @@ trait ConcurrentRunner {
     val log = Logging(system, classOf[ConcurrentRunner])
     Logger(frequency = 1.second) {
       time =>
-        log info (s"$time ${formatter(stats.getNow)}")
+        log info (s"$time ${formatter(stats.get)}")
     }
 
     val root = system.actorOf(RootEnvironment.props(environmentProps, islands, random))
     for (
       _ <- Reaper.terminateAfter(root, duration);
-      _ <- stats.get;
       _ <- system.terminate()
     ) {
     }

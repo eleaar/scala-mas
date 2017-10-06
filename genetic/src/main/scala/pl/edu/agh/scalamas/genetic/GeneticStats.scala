@@ -19,50 +19,41 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.stats
+package pl.edu.agh.scalamas.genetic
 
-import pl.edu.agh.scalamas.app.ConcurrentAgentRuntimeComponent
+import pl.edu.agh.scalamas.stats.{HasStats, Stats}
 
-/**
- * Mixin component for a application statistics factory method.
- */
-trait StatsFactoryComponent {
+trait GeneticStats {
+  this: GeneticProblem =>
 
   /**
-   * The factory method.
-   * @return
+   * Provides a stats implementation to accumulate the best evaluation value
    */
-  def statsFactory: StatsFactory
+  def bestEvaluationStats: Stats[Genetic#Evaluation]
 
-  trait StatsFactory {
-    /**
-     * Creates some statistics with the given initial value and update function.
-     */
-    def apply[T](initialValue: T)(updateFunction: (T, T) => T): Stats[T]
-  }
 }
 
 /**
- * Factory for simple stats.
+ * Mixin for default genetic stats based on the evaluation ordering, provided there exists a stats factory for the type of evaluation.
  */
-trait SimpleStatsFactory extends StatsFactoryComponent {
+trait DefaultGeneticStats extends GeneticStats {
+  this: GeneticProblem =>
 
-  def statsFactory = SimpleStatsFactoryImpl
+  /**
+   * Provides a stats implementation to accumulate values.
+   */
+  protected def hasStats: HasStats[Genetic#Evaluation]
 
-  object SimpleStatsFactoryImpl extends StatsFactory {
-    def apply[T](initialValue: T)(updateFunction: (T, T) => T) = Stats.simple(initialValue)(updateFunction)
+  final lazy val bestEvaluationStats: Stats[Genetic#Evaluation] = {
+    hasStats(
+      initialValue = genetic.minimal,
+      (a, b) => fixedMax(a, b)(genetic.ordering)
+    )
   }
-}
 
-/**
- * Factory for concurrent stats.
- */
-trait ConcurrentStatsFactory extends StatsFactoryComponent {
-  this: ConcurrentAgentRuntimeComponent =>
+  /**
+   * Hack because of scala bug SI-9087
+   */
+  private def fixedMax[T](x: T, y: T)(implicit ordering: Ordering[T]) = if (ordering.gt(x, y)) x else y
 
-  def statsFactory = ConcurrentStatsFactoryImpl
-
-  object ConcurrentStatsFactoryImpl extends StatsFactory {
-    def apply[T](initialValue: T)(updateFunction: (T, T) => T) = Stats.concurrent(initialValue)(updateFunction)(agentRuntime.system.dispatcher)
-  }
 }

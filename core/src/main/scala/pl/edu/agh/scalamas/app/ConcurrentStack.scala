@@ -24,7 +24,7 @@ package pl.edu.agh.scalamas.app
 import akka.actor.ActorSystem
 import com.typesafe.config.{Config, ConfigFactory}
 import pl.edu.agh.scalamas.random.ConcurrentRandomGeneratorComponent
-import pl.edu.agh.scalamas.stats.{StatsComponent, ConcurrentStatsFactory}
+import pl.edu.agh.scalamas.stats.StatsComponent
 
 /**
  * Application stack for running concurrent applications.
@@ -35,7 +35,6 @@ import pl.edu.agh.scalamas.stats.{StatsComponent, ConcurrentStatsFactory}
  */
 class ConcurrentStack(name: String)
   extends ConcurrentAgentRuntimeComponent
-  with ConcurrentStatsFactory
   with ConcurrentRandomGeneratorComponent
   with ConcurrentRunner {
 

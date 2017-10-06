@@ -23,17 +23,20 @@ package pl.edu.agh.scalamas.genetic
 
 import pl.edu.agh.scalamas.app.AgentRuntimeComponent
 import pl.edu.agh.scalamas.random.RandomGeneratorComponent
+import pl.edu.agh.scalamas.stats.HasStats
 
 /**
- * An implementation of genetic operators for finding the maximu of the Labs function.
+ * An implementation of genetic operators for finding the maximum of the Labs function.
  */
 
-trait LabsProblem extends GeneticProblem {
+trait LabsProblem extends GeneticProblem with DefaultGeneticStats {
   this: AgentRuntimeComponent with RandomGeneratorComponent =>
 
   type Genetic = LabsOps
 
-  def genetic = new LabsOps with SteepestDescend {
+  protected def hasStats: HasStats[Genetic#Evaluation] = implicitly
+
+  def genetic = new LabsOps with SteepestDescend  {
     def config = agentRuntime.config.getConfig("genetic.labs")
 
     val problemSize = config.getInt("problemSize")
@@ -87,7 +90,7 @@ trait LabsOps extends GeneticOps[LabsOps] with LocalSearch[LabsOps] {
 
   def recombineSolutions(s1: Solution, s2: Solution): (Solution, Solution) = {
     val (s3, s4) = s1.zip(s2).map(recombineFeatures).unzip
-    (s3.toArray, s4.toArray)
+    (s3, s4)
   }
 
   def recombineFeatures(features: (Feature, Feature)): (Feature, Feature) = {

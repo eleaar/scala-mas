@@ -46,14 +46,13 @@ trait EmasPopulation extends PopulationStrategy {
   def populationStrategy = EmasPopulationProvider
 
   object EmasPopulationProvider extends PopulationProvider {
-    def config = agentRuntime.config.getConfig("emas")
+    private def config = agentRuntime.config.getConfig("emas")
 
-    val populationSize = config.getInt("populationSize")
-    val initialEnergy = config.getInt("initialEnergy")
-
-    implicit val ordering = genetic.ordering
+    private def populationSize = config.getInt("populationSize")
+    private def initialEnergy = config.getInt("initialEnergy")
 
     def initialPopulation = {
+      implicit val ordering = genetic.ordering
       val population = List.fill(populationSize) {
         val solution = genetic.generate
         Agent[Genetic](solution, genetic.evaluate(solution), initialEnergy)

@@ -6,7 +6,6 @@ object Dependencies {
   val akka = Seq(
     "akka-actor",
     "akka-slf4j",
-    "akka-agent",
     "akka-testkit",
     "akka-stream"
   ).map("com.typesafe.akka" %% _ % akkaVersion)

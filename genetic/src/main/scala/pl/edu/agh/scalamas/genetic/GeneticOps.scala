@@ -109,6 +109,7 @@ trait GeneticEvaluator[G <: GeneticOps[G]] {
    * @return the evaluations ordering
    */
   def ordering: Ordering[G#Evaluation]
+
 }
 
 /**

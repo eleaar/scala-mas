@@ -25,11 +25,10 @@ import akka.actor.ActorSystem
 import com.typesafe.config.{Config, ConfigFactory}
 import pl.edu.agh.scalamas.app.ConcurrentAgentRuntimeComponent
 import pl.edu.agh.scalamas.random.ConcurrentRandomGeneratorComponent
-import pl.edu.agh.scalamas.stats.{ConcurrentStatsFactory, StatsComponent}
+import pl.edu.agh.scalamas.stats.StatsComponent
 
 class StreamingStack(name: String)
   extends ConcurrentAgentRuntimeComponent
-    with ConcurrentStatsFactory
     with ConcurrentRandomGeneratorComponent
     with StreamingRunner {
 
