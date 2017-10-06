@@ -21,6 +21,7 @@
 
 package pl.edu.agh.scalamas.examples
 
+import com.typesafe.config.ConfigFactory
 import pl.edu.agh.scalamas.app.stream.StreamingStack
 import pl.edu.agh.scalamas.emas.EmasLogic
 import pl.edu.agh.scalamas.genetic.RastriginProblem
@@ -28,6 +29,17 @@ import pl.edu.agh.scalamas.mas.stream._
 import net.ceedubs.ficus.Ficus._
 
 import scala.concurrent.duration._
+import TemporaryConfigurationLogging._
+
+object TemporaryConfigurationLogging{
+  def logPaths(paths: String*): Unit = {
+    val config = ConfigFactory.load()
+    paths.foreach { path =>
+
+      println(s"$path: ${config.getString(path)}")
+    }
+  }
+}
 
 object ContinuousStreamingApp extends StreamingStack("ContinuousStreamingApp")
   with ContinuousStreamingStrategy
@@ -35,6 +47,12 @@ object ContinuousStreamingApp extends StreamingStack("ContinuousStreamingApp")
   with RastriginProblem {
 
   def main(args: Array[String]): Unit = {
+    println("name: ContinuousStreamingApp")
+    logPaths(
+      "emas.populationSize",
+      "streaming.arenas.parallelism",
+      "streaming.continuous.shuffling-buffer-size"
+    )
     run(agentRuntime.config.as[FiniteDuration]("duration"))
   }
 }
@@ -45,6 +63,11 @@ object SequentialStreamingApp extends StreamingStack("SequentialStreamingApp")
   with RastriginProblem {
 
   def main(args: Array[String]): Unit = {
+    println("SequentialStreamingApp")
+    logPaths(
+      "emas.populationSize",
+      "streaming.arenas.parallelism"
+    )
     run(agentRuntime.config.as[FiniteDuration]("duration"))
   }
 }
@@ -55,6 +78,10 @@ object SynchronousStreamingApp extends StreamingStack("SynchronousStreamingApp")
   with RastriginProblem {
 
   def main(args: Array[String]): Unit = {
+    println("SynchronousStreamingApp")
+    logPaths(
+      "emas.populationSize"
+    )
     run(agentRuntime.config.as[FiniteDuration]("duration"))
   }
 }
