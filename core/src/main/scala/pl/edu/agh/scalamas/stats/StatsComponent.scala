@@ -29,17 +29,38 @@ package pl.edu.agh.scalamas.stats
 trait StatsComponent {
 
   /**
-   * The type of the application statistics
+   * An extensible reporter of application statistics. Only a single instance should be created and reused by an application runner.
    */
-  type StatsType
+  def createStatsReporter(): StatsReporter
+
+}
+
+trait StatsReporter {
+
+  def headers: Seq[String]
+
+
+  def currentValue: Seq[String]
 
   /**
-   * A handle to the application statistics.
+   * The names of the application statistics
    */
-  def stats: Stats[StatsType]
+  final def renderHeaders: String = headers.mkString(" ")
 
   /**
-   * A formatter for the application statistics.
+   * Current value of application statistics
    */
-  def formatter: (StatsType) => String
+  final def renderCurrentValue: String = currentValue.mkString(" ")
+}
+
+trait TimeStatsComponent extends StatsComponent {
+
+  def createStatsReporter(): StatsReporter = new StatsReporter {
+
+    private val startTime = System.currentTimeMillis()
+
+    val headers = Seq("Time")
+
+    def currentValue = Seq((System.currentTimeMillis() - startTime).toString)
+  }
 }

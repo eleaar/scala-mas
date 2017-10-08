@@ -30,9 +30,7 @@ import pl.edu.agh.scalamas.stats._
 trait EmasStats extends StatsComponent {
   this: GeneticProblem with GeneticStats =>
 
-  type StatsType = (Genetic#Evaluation, Long)
-
-  lazy val stats: Stats[StatsType] = {
+  lazy val stats: Stats[(Genetic#Evaluation, Long)] = {
     val evaluationStats = bestEvaluationStats
     val reproductionCountStats = LongStats(0L, _ + _)
 
@@ -42,8 +40,17 @@ trait EmasStats extends StatsComponent {
     )
   }
 
-  def formatter = {
-    case (fitness, reps) => s"$fitness $reps"
+
+  abstract override def createStatsReporter(): StatsReporter = {
+    val parent = super.createStatsReporter()
+    new StatsReporter {
+      def headers: Seq[String] = parent.headers ++ Seq("BestFitness", "EvaluationsNumber")
+
+      def currentValue: Seq[String] = {
+        val state = stats.get
+        parent.currentValue ++ Seq(state._1.toString, state._2.toString)
+      }
+    }
   }
 
 }

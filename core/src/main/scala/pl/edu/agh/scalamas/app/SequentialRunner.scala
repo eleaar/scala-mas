@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory
 import pl.edu.agh.scalamas.mas.LogicStrategy
 import pl.edu.agh.scalamas.mas.LogicTypes._
 import pl.edu.agh.scalamas.random.RandomGeneratorComponent
-import pl.edu.agh.scalamas.stats.StatsComponent
+import pl.edu.agh.scalamas.stats.TimeStatsComponent
 
 import scala.collection.mutable
 import scala.concurrent.duration._
@@ -33,10 +33,9 @@ import scala.concurrent.duration._
 /**
  * Runner for sequential apps.
  */
-trait SequentialRunner {
+trait SequentialRunner extends TimeStatsComponent {
   this: AgentRuntimeComponent
     with LogicStrategy
-    with StatsComponent
     with RandomGeneratorComponent=>
 
   lazy val islandsNumber = agentRuntime.config.getInt("mas.islandsNumber")
@@ -53,11 +52,13 @@ trait SequentialRunner {
       }
     }
 
+    val reporter = createStatsReporter()
+
     def printLog: Unit = {
-      val time = System.currentTimeMillis() - startTime
-      log info (s"$time ${formatter(stats.get)}")
+      log.info(reporter.renderCurrentValue)
     }
 
+    log.info(reporter.renderHeaders)
     printLog
   }
 
