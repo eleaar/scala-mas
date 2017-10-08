@@ -59,7 +59,7 @@ trait TimeStatsComponent extends StatsComponent {
 
     private val startTime = System.currentTimeMillis()
 
-    val headers = Seq("Time")
+    val headers = Seq("Time[ms]")
 
     def currentValue = Seq((System.currentTimeMillis() - startTime).toString)
   }

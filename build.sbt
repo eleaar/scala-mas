@@ -44,7 +44,7 @@ lazy val examples: Project = ScalamasSettings.subProject("examples")
     configAssembly(SynchronousStreamingApp)
   )
 
-lazy val root = project.in(file("."))
+lazy val ScalaMas = project.in(file("."))
   .enablePlugins(ScalaUnidocPlugin, AutomateHeaderPlugin)
   .settings(commonSettings: _*)
   .settings(PublishSettings.nowhere: _*)

@@ -23,7 +23,7 @@ package pl.edu.agh.scalamas.examples
 
 import com.typesafe.config.ConfigFactory
 import pl.edu.agh.scalamas.app.stream.StreamingStack
-import pl.edu.agh.scalamas.emas.EmasLogic
+import pl.edu.agh.scalamas.emas.{EmasLogic, EmasStreamingStats}
 import pl.edu.agh.scalamas.genetic.RastriginProblem
 import pl.edu.agh.scalamas.mas.stream._
 import net.ceedubs.ficus.Ficus._
@@ -44,6 +44,7 @@ object TemporaryConfigurationLogging{
 object ContinuousStreamingApp extends StreamingStack("ContinuousStreamingApp")
   with ContinuousStreamingStrategy
   with EmasLogic
+  with EmasStreamingStats
   with RastriginProblem {
 
   def main(args: Array[String]): Unit = {
@@ -53,6 +54,7 @@ object ContinuousStreamingApp extends StreamingStack("ContinuousStreamingApp")
       "streaming.arenas.parallelism",
       "streaming.continuous.shuffling-buffer-size"
     )
+    println()
     run(agentRuntime.config.as[FiniteDuration]("duration"))
   }
 }
@@ -60,14 +62,17 @@ object ContinuousStreamingApp extends StreamingStack("ContinuousStreamingApp")
 object SequentialStreamingApp extends StreamingStack("SequentialStreamingApp")
   with SequentialStreamingStrategy
   with EmasLogic
+  with EmasStreamingStats
   with RastriginProblem {
 
   def main(args: Array[String]): Unit = {
-    println("SequentialStreamingApp")
+    println("name: SequentialStreamingApp")
     logPaths(
       "emas.populationSize",
       "streaming.arenas.parallelism"
     )
+    println()
+    println()
     run(agentRuntime.config.as[FiniteDuration]("duration"))
   }
 }
@@ -75,13 +80,17 @@ object SequentialStreamingApp extends StreamingStack("SequentialStreamingApp")
 object SynchronousStreamingApp extends StreamingStack("SynchronousStreamingApp")
   with SynchronousStreamingStrategy
   with EmasLogic
+  with EmasStreamingStats
   with RastriginProblem {
 
   def main(args: Array[String]): Unit = {
-    println("SynchronousStreamingApp")
+    println("name: SynchronousStreamingApp")
     logPaths(
       "emas.populationSize"
     )
+    println()
+    println()
+    println()
     run(agentRuntime.config.as[FiniteDuration]("duration"))
   }
 }

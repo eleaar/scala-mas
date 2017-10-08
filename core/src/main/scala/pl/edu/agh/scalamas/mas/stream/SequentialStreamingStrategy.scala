@@ -47,7 +47,7 @@ trait SequentialStreamingStrategy
 
   protected final val initialSource: Source[Population, NotUsed] = Source.single(logic.initialPopulation)
 
-  protected final val stepFlow: Flow[Population, Population, NotUsed] = {
+  protected def stepFlow: Flow[Population, Population, NotUsed] = {
     implicit val rand = randomData
 
     val meetingArenaFlow = MeetingArenaFlow(

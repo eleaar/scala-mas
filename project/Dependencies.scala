@@ -31,6 +31,7 @@ object Dependencies {
   val emasDeps = config ++ logging
 
   val coreDeps = config ++ random ++ logging ++ akka ++ test ++ Seq(
+    "io.dropwizard.metrics" % "metrics-core" % "3.2.3",
     "nl.grons" %% "metrics-scala" % "3.5.9_a2.4"
   )
 }

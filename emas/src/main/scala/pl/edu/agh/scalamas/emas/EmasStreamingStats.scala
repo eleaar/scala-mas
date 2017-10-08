@@ -19,23 +19,36 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.mas.stream
+package pl.edu.agh.scalamas.emas
 
 import akka.NotUsed
-import akka.stream.scaladsl.{Flow, Source}
+import akka.stream.scaladsl.Flow
+import net.ceedubs.ficus.Ficus._
+import pl.edu.agh.scalamas.app.AgentRuntimeComponent
 import pl.edu.agh.scalamas.app.stream.StreamingLoopStrategy
-import pl.edu.agh.scalamas.mas.LogicStrategy
 import pl.edu.agh.scalamas.mas.LogicTypes.Population
 
-trait SynchronousStreamingStrategy extends StreamingLoopStrategy {
-  this: LogicStrategy =>
+trait EmasStreamingStats extends AgentGenerationStats with StreamingLoopStrategy {
+  this: AgentRuntimeComponent =>
 
-  type Elem = Population
+  override type Elem = Population
 
-  protected final val initialSource: Source[Population, NotUsed] = Source.single(logic.initialPopulation)
+  private val enabled = agentRuntime.config.as[Boolean]("stats.log-generations")
 
-  protected def stepFlow: Flow[Population, Population, NotUsed] = Flow.fromFunction {
-    _.groupBy(logic.behaviourFunction).flatMap(logic.meetingsFunction).toList
+  abstract override protected def stepFlow: Flow[Elem, Elem, NotUsed] = {
+    if(enabled) {
+      Flow.fromFunction[Elem, Elem] { population =>
+        population.foreach {
+          case a: EmasTypes.Agent[_] =>
+            sizedGenerationHistogram += a.generation
+            timedGenerationHistogram += a.generation
+          case _ =>
+        }
+        population
+      } via super.stepFlow
+    } else {
+      super.stepFlow
+    }
   }
 
 }
