@@ -55,7 +55,7 @@ trait EmasPopulation extends PopulationStrategy {
       implicit val ordering = genetic.ordering
       val population = List.fill(populationSize) {
         val solution = genetic.generate
-        Agent[Genetic](solution, genetic.evaluate(solution), initialEnergy)
+        Agent[Genetic](solution, genetic.evaluate(solution), initialEnergy, generation = 0L)
       }
       stats.update((population.maxBy(_.fitness).fitness, 0L))
       population

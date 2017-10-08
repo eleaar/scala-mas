@@ -63,7 +63,7 @@ trait EmasBehaviour extends BehaviourStrategy {
     val behaviours = List(death, fight, reproduce, migrate)
 
     def behaviourFunction = {
-      case Agent(_, _, energy) => energy match {
+      case Agent(_, _, energy, _) => energy match {
         case 0 => death
         case _ if random.nextDouble() < migrationProbability => migrate
         case energy if energy >= reproductionThreshold => reproduce
