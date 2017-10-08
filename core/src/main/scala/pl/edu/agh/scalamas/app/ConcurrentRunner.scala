@@ -22,9 +22,10 @@
 package pl.edu.agh.scalamas.app
 
 import akka.event.Logging
+import net.ceedubs.ficus.Ficus._
 import pl.edu.agh.scalamas.mas.RootEnvironment
 import pl.edu.agh.scalamas.random.RandomGeneratorComponent
-import pl.edu.agh.scalamas.stats.{StatsComponent, TimeStatsComponent}
+import pl.edu.agh.scalamas.stats.TimeStatsComponent
 import pl.edu.agh.scalamas.util.{Logger, Reaper}
 
 import scala.concurrent.duration._
@@ -37,9 +38,10 @@ trait ConcurrentRunner extends TimeStatsComponent {
     with EnvironmentStrategy
     with RandomGeneratorComponent =>
 
-  lazy val islands = agentRuntime.config.getInt("mas.islandsNumber")
+  lazy val islands = agentRuntime.config.as[Int]("mas.islandsNumber")
 
   def run(duration: FiniteDuration): Unit = {
+    val statsFrequency = agentRuntime.config.as[FiniteDuration]("stats.frequency")
 
     implicit val system = agentRuntime.system
     implicit val context = system.dispatcher
@@ -47,16 +49,16 @@ trait ConcurrentRunner extends TimeStatsComponent {
     val reporter = createStatsReporter()
     val log = Logging(system, classOf[ConcurrentRunner])
     log.info(reporter.renderHeaders)
-    Logger(frequency = 1.second) { _ =>
+    Logger(frequency = statsFrequency) { _ =>
         log.info(reporter.renderCurrentValue)
     }
 
     val root = system.actorOf(RootEnvironment.props(environmentProps, islands, random))
-    for (
-      _ <- Reaper.terminateAfter(root, duration);
+    for {
+      _ <- Reaper.terminateAfter(root, duration)
+      _ = log.info(reporter.renderCurrentValue)
       _ <- system.terminate()
-    ) {
-    }
+    } {}
   }
 
 }

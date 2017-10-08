@@ -21,6 +21,7 @@
 
 package pl.edu.agh.scalamas.app
 
+import net.ceedubs.ficus.Ficus._
 import org.slf4j.LoggerFactory
 import pl.edu.agh.scalamas.mas.LogicStrategy
 import pl.edu.agh.scalamas.mas.LogicTypes._
@@ -44,6 +45,7 @@ trait SequentialRunner extends TimeStatsComponent {
     val log = LoggerFactory.getLogger(classOf[SequentialRunner])
     val startTime = System.currentTimeMillis()
     var logDeadline = loggingInterval.fromNow
+    val reporter = createStatsReporter()
 
     def printOverdueLog(): Unit = {
       if (logDeadline.isOverdue()) {
@@ -51,8 +53,6 @@ trait SequentialRunner extends TimeStatsComponent {
         logDeadline = loggingInterval.fromNow
       }
     }
-
-    val reporter = createStatsReporter()
 
     def printLog: Unit = {
       log.info(reporter.renderCurrentValue)
@@ -63,7 +63,8 @@ trait SequentialRunner extends TimeStatsComponent {
   }
 
   def run(duration: FiniteDuration): Unit = {
-    val logger = new Logger(1.second)
+    val statsFrequency = agentRuntime.config.as[FiniteDuration]("stats.frequency")
+    val logger = new Logger(statsFrequency)
     val deadline = duration.fromNow
     var islands = Array.fill(islandsNumber)(logic.initialPopulation)
     while (deadline.hasTimeLeft) {
@@ -84,5 +85,6 @@ trait SequentialRunner extends TimeStatsComponent {
 
       logger.printOverdueLog()
     }
+    logger.printLog
   }
 }

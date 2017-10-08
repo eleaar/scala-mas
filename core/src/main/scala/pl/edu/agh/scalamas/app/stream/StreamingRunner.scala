@@ -25,13 +25,13 @@ import akka.actor.ActorSystem
 import akka.event.Logging
 import akka.pattern.after
 import akka.stream.{ActorMaterializer, Materializer}
+import net.ceedubs.ficus.Ficus._
 import pl.edu.agh.scalamas.app.ConcurrentAgentRuntimeComponent
 import pl.edu.agh.scalamas.app.stream.graphs.{ElapsedTimeSource, LoopingGraph}
 import pl.edu.agh.scalamas.stats.{StatsComponent, TimeStatsComponent}
 
 import scala.concurrent.duration._
 import scala.concurrent.{ExecutionContext, Future}
-
 
 trait StreamingRunner extends TimeStatsComponent {
   this: ConcurrentAgentRuntimeComponent
@@ -45,16 +45,18 @@ trait StreamingRunner extends TimeStatsComponent {
 
     val log = Logging(actorSystem, getClass)
 
+    val statsFrequency = agentRuntime.config.as[FiniteDuration]("stats.frequency")
     val reporter = createStatsReporter()
     log.info(reporter.renderHeaders)
     val (switch, loopStoppedFuture) = LoopingGraph(initialSource, stepFlow).run()
-    ElapsedTimeSource(interval = 1.second).runForeach { _ =>
+    ElapsedTimeSource(interval = statsFrequency).runForeach { _ =>
       log.info(reporter.renderCurrentValue)
     }
 
     for {
       _ <- after(duration, actorSystem.scheduler)(Future.successful(switch.shutdown()))
       _ <- loopStoppedFuture
+      _ = log.info(reporter.renderCurrentValue)
       _ <- actorSystem.terminate()
     } yield ()
   }
