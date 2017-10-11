@@ -19,38 +19,25 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.emas
+package pl.edu.agh.scalamas.stats
 
-import pl.edu.agh.scalamas.genetic.{GeneticProblem, GeneticStats}
-import pl.edu.agh.scalamas.stats._
+import com.codahale.metrics.MetricRegistry.MetricSupplier
+import com.codahale.metrics.Reservoir
+import nl.grons.metrics.scala.{DefaultInstrumented, Histogram}
 
-/**
- * Default EMAS statistics. Records the number of fitness evaluations performed so far and the best evaluation found so far.
- */
-trait EmasStats extends StatsComponent {
-  this: GeneticProblem with GeneticStats =>
+trait CustomizedHistograms {
+  this: DefaultInstrumented =>
 
-  lazy val stats: Stats[(Genetic#Evaluation, Long)] = {
-    val evaluationStats = bestEvaluationStats
-    val reproductionCountStats = LongStats(0L, _ + _)
-
-    TupleStats(
-      evaluationStats,
-      reproductionCountStats,
-    )
+  private def withReservoir(reservoir: => Reservoir) = {
+    new MetricSupplier[com.codahale.metrics.Histogram] {
+      def newMetric() = new com.codahale.metrics.Histogram(reservoir)
+    }
   }
 
-
-  abstract override def createStatsReporter(): StatsReporter = {
-    val parent = super.createStatsReporter()
-    new StatsReporter {
-      def headers: Seq[String] = parent.headers ++ Seq("BestFitness", "EvaluationsNumber")
-
-      def currentValue: Seq[String] = {
-        val state = stats.get
-        parent.currentValue ++ Seq(state._1.toString, state._2.toString)
-      }
-    }
+  def histogramWithReservoir(name: String)(reservoir: => Reservoir): Histogram = {
+    new Histogram(
+      metricRegistry.histogram("timedGenerationHistogram", withReservoir(reservoir))
+    )
   }
 
 }

@@ -19,28 +19,29 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.emas
+package pl.edu.agh.scalamas
 
-import pl.edu.agh.scalamas.app.AgentRuntimeComponent
-import pl.edu.agh.scalamas.emas.fight.DefaultFight
-import pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction
-import pl.edu.agh.scalamas.emas.stats.EmasStats
-import pl.edu.agh.scalamas.genetic.{GeneticProblem, GeneticStats}
-import pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy
-import pl.edu.agh.scalamas.random.RandomGeneratorComponent
+import java.util.concurrent.atomic.{DoubleAccumulator, LongAccumulator}
+import java.util.function.{DoubleBinaryOperator, LongBinaryOperator}
 
-/**
- * Default EMAS logic. Combines the default strategies for generating the initial population, agent behaviour and meetings,
- * as well as default EMAS statistics.
- */
-trait EmasLogic extends DelegatingLogicStrategy
-with EmasPopulation
-with EmasBehaviour
-with EmasMeetings with DefaultFight with DefaultReproduction
-with EmasStats {
+package object stats {
 
-  // dependencies:
-  this: AgentRuntimeComponent
-    with GeneticProblem with GeneticStats
-    with RandomGeneratorComponent =>
+  object LongAccumulator {
+    def apply(initialValue: Long, operator: (Long, Long) => Long): LongAccumulator = {
+      new LongAccumulator(
+        new LongBinaryOperator {
+          def applyAsLong(left: Long, right: Long) = operator(left, right)
+        }, initialValue)
+    }
+  }
+
+  object DoubleAccumulator {
+    def apply(initialValue: Double, operator: (Double, Double) => Double): DoubleAccumulator = {
+      new DoubleAccumulator(
+        new DoubleBinaryOperator {
+          def applyAsDouble(left: Double, right: Double) = operator(left, right)
+        }, initialValue)
+    }
+  }
+
 }

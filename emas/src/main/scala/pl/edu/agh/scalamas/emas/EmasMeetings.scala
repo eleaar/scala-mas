@@ -24,6 +24,7 @@ package pl.edu.agh.scalamas.emas
 import pl.edu.agh.scalamas.emas.EmasTypes.{Death, _}
 import pl.edu.agh.scalamas.emas.fight.FightStrategy
 import pl.edu.agh.scalamas.emas.reproduction.ReproductionStrategy
+import pl.edu.agh.scalamas.emas.stats.EmasStats
 import pl.edu.agh.scalamas.genetic.GeneticProblem
 import pl.edu.agh.scalamas.mas.LogicTypes.Migration
 import pl.edu.agh.scalamas.mas.logic.MeetingsStrategy

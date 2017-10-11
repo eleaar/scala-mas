@@ -19,35 +19,37 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.emas
+package pl.edu.agh.scalamas.emas.stats
 
-import akka.NotUsed
-import akka.stream.scaladsl.Flow
-import net.ceedubs.ficus.Ficus._
-import pl.edu.agh.scalamas.app.AgentRuntimeComponent
-import pl.edu.agh.scalamas.app.stream.StreamingLoopStrategy
-import pl.edu.agh.scalamas.mas.LogicTypes.Population
+import pl.edu.agh.scalamas.genetic.{GeneticProblem, GeneticStats}
+import pl.edu.agh.scalamas.stats._
 
-trait EmasStreamingStats extends AgentGenerationStats with StreamingLoopStrategy {
-  this: AgentRuntimeComponent =>
+/**
+ * Default EMAS statistics. Records the number of fitness evaluations performed so far and the best evaluation found so far.
+ */
+trait EmasStats extends StatsComponent {
+  this: GeneticProblem with GeneticStats =>
 
-  override type Elem = Population
+  lazy val stats: Stats[(Genetic#Evaluation, Long)] = {
+    val evaluationStats = bestEvaluationStats
+    val reproductionCountStats = LongStats(0L, _ + _)
 
-  private val enabled = agentRuntime.config.as[Boolean]("stats.log-generations")
+    TupleStats(
+      evaluationStats,
+      reproductionCountStats,
+    )
+  }
 
-  abstract override protected def stepFlow: Flow[Elem, Elem, NotUsed] = {
-    if(enabled) {
-      Flow.fromFunction[Elem, Elem] { population =>
-        population.foreach {
-          case a: EmasTypes.Agent[_] =>
-            sizedGenerationHistogram += a.generation
-            timedGenerationHistogram += a.generation
-          case _ =>
-        }
-        population
-      } via super.stepFlow
-    } else {
-      super.stepFlow
+
+  abstract override def createStatsReporter(): StatsReporter = {
+    val parent = super.createStatsReporter()
+    new StatsReporter {
+      def headers: Seq[String] = parent.headers ++ Seq("BestFitness", "EvaluationsNumber")
+
+      def currentValue: Seq[String] = {
+        val state = stats.get
+        parent.currentValue ++ Seq(state._1.toString, state._2.toString)
+      }
     }
   }
 

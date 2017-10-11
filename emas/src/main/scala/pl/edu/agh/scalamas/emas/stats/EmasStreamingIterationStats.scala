@@ -19,28 +19,34 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package pl.edu.agh.scalamas.emas
+package pl.edu.agh.scalamas.emas.stats
 
+import akka.NotUsed
+import akka.stream.scaladsl.Flow
 import pl.edu.agh.scalamas.app.AgentRuntimeComponent
-import pl.edu.agh.scalamas.emas.fight.DefaultFight
-import pl.edu.agh.scalamas.emas.reproduction.DefaultReproduction
-import pl.edu.agh.scalamas.emas.stats.EmasStats
-import pl.edu.agh.scalamas.genetic.{GeneticProblem, GeneticStats}
-import pl.edu.agh.scalamas.mas.logic.DelegatingLogicStrategy
-import pl.edu.agh.scalamas.random.RandomGeneratorComponent
+import pl.edu.agh.scalamas.app.stream.StreamingLoopStrategy
+import pl.edu.agh.scalamas.emas.EmasTypes
+import pl.edu.agh.scalamas.mas.LogicTypes.Population
 
-/**
- * Default EMAS logic. Combines the default strategies for generating the initial population, agent behaviour and meetings,
- * as well as default EMAS statistics.
- */
-trait EmasLogic extends DelegatingLogicStrategy
-with EmasPopulation
-with EmasBehaviour
-with EmasMeetings with DefaultFight with DefaultReproduction
-with EmasStats {
+trait EmasStreamingIterationStats extends AgentIterationStats with StreamingLoopStrategy {
+  this: AgentRuntimeComponent =>
 
-  // dependencies:
-  this: AgentRuntimeComponent
-    with GeneticProblem with GeneticStats
-    with RandomGeneratorComponent =>
+  override type Elem = Population
+
+  abstract override protected def stepFlow: Flow[Elem, Elem, NotUsed] = {
+    import agentIterationStats._
+    if(enabled) {
+      Flow.fromFunction[Elem, Elem] { population =>
+        population.map {
+          case a: EmasTypes.Agent[_] =>
+            timedIterationHistogram += a.iteration
+            a.copy(iteration = a.iteration + 1)
+          case x => x
+        }
+      } via super.stepFlow
+    } else {
+      super.stepFlow
+    }
+  }
+
 }

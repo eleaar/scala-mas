@@ -21,9 +21,6 @@
 
 package pl.edu.agh.scalamas.stats
 
-import java.util.concurrent.atomic.{DoubleAccumulator, LongAccumulator}
-import java.util.function.{DoubleBinaryOperator, LongBinaryOperator}
-
 /**
  * Interface for the gathering of statistics during computations. The statistics value is the result of folding in time all the provided updates.
  * @tparam T - compound type of the gathered statistics.
@@ -48,10 +45,7 @@ object UnitStats extends Stats[Unit] {
 
 case class LongStats(initialValue: Long, updateFunction: (Long, Long) => Long) extends Stats[Long] {
 
-  private val operator = new LongBinaryOperator {
-    def applyAsLong(left: Long, right: Long) = updateFunction(left, right)
-  }
-  private val accumulator = new LongAccumulator(operator, initialValue)
+  private val accumulator = LongAccumulator(initialValue, updateFunction)
 
   def update(newValue: Long): Unit = accumulator.accumulate(newValue)
 
@@ -60,10 +54,7 @@ case class LongStats(initialValue: Long, updateFunction: (Long, Long) => Long) e
 
 case class DoubleStats(initialValue: Double, updateFunction: (Double, Double) => Double) extends Stats[Double] {
 
-  private val operator = new DoubleBinaryOperator {
-    def applyAsDouble(left: Double, right: Double) = updateFunction(left, right)
-  }
-  private val accumulator = new DoubleAccumulator(operator, initialValue)
+  private val accumulator = DoubleAccumulator(initialValue, updateFunction)
 
   def update(newValue: Double): Unit = accumulator.accumulate(newValue)
 

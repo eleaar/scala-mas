@@ -23,13 +23,14 @@ package pl.edu.agh.scalamas.examples
 
 import com.typesafe.config.ConfigFactory
 import pl.edu.agh.scalamas.app.stream.StreamingStack
-import pl.edu.agh.scalamas.emas.{EmasLogic, EmasStreamingStats}
+import pl.edu.agh.scalamas.emas.EmasLogic
 import pl.edu.agh.scalamas.genetic.RastriginProblem
 import pl.edu.agh.scalamas.mas.stream._
 import net.ceedubs.ficus.Ficus._
 
 import scala.concurrent.duration._
 import TemporaryConfigurationLogging._
+import pl.edu.agh.scalamas.emas.stats.{EmasStreamingGenerationStats, EmasStreamingIterationStats}
 
 object TemporaryConfigurationLogging{
   def logPaths(paths: String*): Unit = {
@@ -44,7 +45,8 @@ object TemporaryConfigurationLogging{
 object ContinuousStreamingApp extends StreamingStack("ContinuousStreamingApp")
   with ContinuousStreamingStrategy
   with EmasLogic
-  with EmasStreamingStats
+  with EmasStreamingGenerationStats
+  with EmasStreamingIterationStats
   with RastriginProblem {
 
   def main(args: Array[String]): Unit = {
@@ -62,7 +64,8 @@ object ContinuousStreamingApp extends StreamingStack("ContinuousStreamingApp")
 object SequentialStreamingApp extends StreamingStack("SequentialStreamingApp")
   with SequentialStreamingStrategy
   with EmasLogic
-  with EmasStreamingStats
+  with EmasStreamingGenerationStats
+  with EmasStreamingIterationStats
   with RastriginProblem {
 
   def main(args: Array[String]): Unit = {
@@ -80,7 +83,8 @@ object SequentialStreamingApp extends StreamingStack("SequentialStreamingApp")
 object SynchronousStreamingApp extends StreamingStack("SynchronousStreamingApp")
   with SynchronousStreamingStrategy
   with EmasLogic
-  with EmasStreamingStats
+  with EmasStreamingGenerationStats
+  with EmasStreamingIterationStats
   with RastriginProblem {
 
   def main(args: Array[String]): Unit = {

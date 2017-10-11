@@ -30,7 +30,7 @@ import pl.edu.agh.scalamas.mas.LogicTypes.{Population, Behaviour}
  */
 object EmasTypes {
 
-  case class Agent[G <: GeneticOps[G]](solution: G#Solution, fitness: G#Evaluation, energy: Int, generation: Long) extends LogicTypes.Agent
+  case class Agent[G <: GeneticOps[G]](solution: G#Solution, fitness: G#Evaluation, energy: Int, generation: Long, iteration: Long) extends LogicTypes.Agent
 
   case class Death(capacity: Int) extends Behaviour
 
