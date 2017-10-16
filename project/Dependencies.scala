@@ -9,6 +9,9 @@ object Dependencies {
     "akka-testkit",
     "akka-stream"
   ).map("com.typesafe.akka" %% _ % akkaVersion)
+  val akkaTest = Seq(
+    "akka-stream-testkit"
+  ).map("com.typesafe.akka" %% _ % akkaVersion % Test)
 
   val config = Seq(
     "com.typesafe" % "config" % "1.3.1",
@@ -30,7 +33,7 @@ object Dependencies {
 
   val emasDeps = config ++ logging
 
-  val coreDeps = config ++ random ++ logging ++ akka ++ test ++ Seq(
+  val coreDeps = config ++ random ++ logging ++ akka ++ akkaTest ++ test ++ Seq(
     "io.dropwizard.metrics" % "metrics-core" % "3.2.3",
     "nl.grons" %% "metrics-scala" % "3.5.9_a2.4"
   )

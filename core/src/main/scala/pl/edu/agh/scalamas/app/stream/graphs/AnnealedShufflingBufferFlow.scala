@@ -22,39 +22,53 @@
 package pl.edu.agh.scalamas.app.stream.graphs
 
 import akka.NotUsed
-import akka.stream.Attributes.name
-import akka.stream.scaladsl.Flow
-import akka.stream.stage._
-import akka.stream.{Attributes, FlowShape, Inlet, Outlet}
+import akka.stream._
+import akka.stream.scaladsl.{Flow, GraphDSL, Source}
+import akka.stream.stage.{GraphStage, GraphStageLogic, InHandler, OutHandler}
 import org.apache.commons.math3.random.RandomDataGenerator
-import pl.edu.agh.scalamas.util.RandomBuffer
+import pl.edu.agh.scalamas.util.RandomOrderedBuffer
+import scala.concurrent.duration._
 
-final class ShufflingBufferFlow[T] private (size: Int)(implicit random: RandomDataGenerator) extends GraphStage[FlowShape[T, T]] {
+final class AnnealedShufflingBufferFlow[T] private (size: Int)(implicit random: RandomDataGenerator, ordering: Ordering[T]) extends GraphStage[FanInShape2[T, Double, T]] {
   require(size > 0, "size must be greater than 0")
 
   val in = Inlet[T]("in")
+  val temperatureIn = Inlet[Double]("temperature")
   val out = Outlet[T]("out")
 
-  override val initialAttributes = name("shufflingBuffer")
+  val shape = new FanInShape2(in, temperatureIn, out)
 
-  val shape = FlowShape(in, out)
+  def createLogic(inheritedAttributes: Attributes): GraphStageLogic = new GraphStageLogic(shape) with InHandler with OutHandler  {
 
-  def createLogic(inheritedAttributes: Attributes): GraphStageLogic = new GraphStageLogic(shape) with InHandler with OutHandler {
+    override def preStart(): Unit = {
+      pull(in)
+      pull(temperatureIn)
+    }
 
-    private val buffer = RandomBuffer[T]()
+
+    var temperature = 1.0
+    setHandler(temperatureIn, new InHandler {
+      def onPush(): Unit = {
+        val value = grab(temperatureIn)
+        temperature = math.min(1.0, math.max(0.0, value)) // constrain to [0, 1]
+        pull(temperatureIn)
+      }
+    })
+
+    val buffer = new RandomOrderedBuffer[T]()
     @inline private def notFull = buffer.size < size
     @inline private def isFull = !notFull
 
-
     private def flush(): Unit = {
       if(isFull) {
-        buffer.removeRandom().foreach { elem =>
-          push(out, elem)
+        val maybeElem = if(random.nextUniform(0.0, 1.0) < temperature) {
+          buffer.removeRandom()
+        } else {
+          buffer.removeMax()
         }
+        maybeElem.foreach(push(out, _))
       }
     }
-
-    override def preStart(): Unit = pull(in)
 
     def onPush(): Unit = {
       buffer.add(grab(in))
@@ -76,11 +90,24 @@ final class ShufflingBufferFlow[T] private (size: Int)(implicit random: RandomDa
     }
 
     setHandlers(in, out, this)
+
   }
 
 }
 
-object ShufflingBufferFlow {
-  def apply[T](size: Int)(implicit random: RandomDataGenerator): Flow[T, T, NotUsed] =
-    Flow.fromGraph(new ShufflingBufferFlow[T](size))
+object AnnealedShufflingBufferFlow {
+  def apply[T](size: Int, halfDecayInSeconds: Int)(implicit random: RandomDataGenerator, ordering: Ordering[T]): Flow[T, T, NotUsed] = {
+    Flow.fromGraph(GraphDSL.create() { implicit b =>
+      import GraphDSL.Implicits._
+
+      val temperatureDecay = math.pow(2, -1.0 / halfDecayInSeconds)
+      val temperature = Source.tick(initialDelay = 0.seconds, interval = 1.second, ())
+          .scan(1.0) { case (currentTemperature, _) => currentTemperature * temperatureDecay}
+      val flow = b.add(new AnnealedShufflingBufferFlow[T](size))
+
+      temperature ~> flow.in1
+
+      FlowShape(flow.in0, flow.out)
+    })
+  }
 }

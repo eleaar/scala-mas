@@ -14,6 +14,7 @@ lazy val emas = ScalamasSettings.subProject("emas")
   .dependsOn(core, genetic)
 
 val ContinuousStreamingApp = config("ContinuousStreamingApp") extend Compile
+val ContinuousAnnealedStreamingApp = config("ContinuousAnnealedStreamingApp") extend Compile
 val SequentialStreamingApp = config("SequentialStreamingApp") extend Compile
 val SynchronousStreamingApp = config("SynchronousStreamingApp") extend Compile
 
@@ -28,7 +29,7 @@ def configAssembly(configuration: Configuration) = inConfig(configuration)(
 )
 
 lazy val examples: Project = ScalamasSettings.subProject("examples")
-  .configs(ContinuousStreamingApp, SequentialStreamingApp, SynchronousStreamingApp)
+  .configs(ContinuousStreamingApp, SequentialStreamingApp, SynchronousStreamingApp, ContinuousAnnealedStreamingApp)
   .dependsOn(emas, core, genetic)
   .settings(
     test in assembly := {},
@@ -40,6 +41,7 @@ lazy val examples: Project = ScalamasSettings.subProject("examples")
         oldStrategy(x)
     },
     configAssembly(ContinuousStreamingApp),
+    configAssembly(ContinuousAnnealedStreamingApp),
     configAssembly(SequentialStreamingApp),
     configAssembly(SynchronousStreamingApp)
   )

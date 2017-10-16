@@ -29,15 +29,14 @@ import pl.edu.agh.scalamas.app.stream.StreamingLoopStrategy
 import pl.edu.agh.scalamas.app.stream.graphs._
 import pl.edu.agh.scalamas.mas.LogicStrategy
 import pl.edu.agh.scalamas.mas.LogicTypes.Population
-import pl.edu.agh.scalamas.random.RandomGeneratorComponent
+import pl.edu.agh.scalamas.mas.stream.buffer.AgentBufferStrategy
 
 import scala.collection.immutable
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
-trait ContinuousStreamingStrategy
-  extends StreamingLoopStrategy { this: LogicStrategy with ConcurrentAgentRuntimeComponent with
-  RandomGeneratorComponent =>
+trait ContinuousStreamingStrategy extends StreamingLoopStrategy {
+  this: LogicStrategy with AgentBufferStrategy with ConcurrentAgentRuntimeComponent =>
 
   type Elem = Population
 
@@ -56,7 +55,7 @@ trait ContinuousStreamingStrategy
     Flow[Population]
       .map(_.to[immutable.Seq])
       .via(BufferDrainingFlow())
-      .via(ShufflingBufferFlow(agentRuntime.config.as[Int]("streaming.continuous.shuffling-buffer-size"))(randomData).async)
+      .via(agentBufferFlow.async)
 //      .via(Metrics.meter("scalamas.continuous.subflow"))
       .via(SplitFlowByKey(
         logic.behaviourFunction,

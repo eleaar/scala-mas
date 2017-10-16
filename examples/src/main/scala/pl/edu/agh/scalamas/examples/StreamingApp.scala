@@ -22,15 +22,18 @@
 package pl.edu.agh.scalamas.examples
 
 import com.typesafe.config.ConfigFactory
-import pl.edu.agh.scalamas.app.stream.StreamingStack
-import pl.edu.agh.scalamas.emas.EmasLogic
-import pl.edu.agh.scalamas.genetic.RastriginProblem
-import pl.edu.agh.scalamas.mas.stream._
 import net.ceedubs.ficus.Ficus._
+import pl.edu.agh.scalamas.app.stream.StreamingStack
+import pl.edu.agh.scalamas.emas.EmasTypes.Agent
+import pl.edu.agh.scalamas.emas.stats.{EmasStreamingGenerationStats, EmasStreamingIterationStats}
+import pl.edu.agh.scalamas.emas.{EmasLogic, EmasOrderings}
+import pl.edu.agh.scalamas.examples.TemporaryConfigurationLogging._
+import pl.edu.agh.scalamas.genetic.RastriginProblem
+import pl.edu.agh.scalamas.mas.LogicTypes
+import pl.edu.agh.scalamas.mas.stream._
+import pl.edu.agh.scalamas.mas.stream.buffer.{AnnealedShufflingStrategy, ShufflingBufferStrategy}
 
 import scala.concurrent.duration._
-import TemporaryConfigurationLogging._
-import pl.edu.agh.scalamas.emas.stats.{EmasStreamingGenerationStats, EmasStreamingIterationStats}
 
 object TemporaryConfigurationLogging{
   def logPaths(paths: String*): Unit = {
@@ -44,10 +47,18 @@ object TemporaryConfigurationLogging{
 
 object ContinuousStreamingApp extends StreamingStack("ContinuousStreamingApp")
   with ContinuousStreamingStrategy
+  with ShufflingBufferStrategy
   with EmasLogic
   with EmasStreamingGenerationStats
   with EmasStreamingIterationStats
   with RastriginProblem {
+
+
+  protected def agentOrdering = Ordering.fromLessThan[LogicTypes.Agent] {
+    case (a: Agent[Genetic], b: Agent[Genetic]) =>
+      genetic.ordering.lt(a.fitness, b.fitness)
+    case (a, b) => a.hashCode() < b.hashCode()
+  }
 
   def main(args: Array[String]): Unit = {
     println("name: ContinuousStreamingApp")
@@ -55,6 +66,31 @@ object ContinuousStreamingApp extends StreamingStack("ContinuousStreamingApp")
       "emas.populationSize",
       "streaming.arenas.parallelism",
       "streaming.continuous.shuffling-buffer-size"
+    )
+    println()
+    println()
+    run(agentRuntime.config.as[FiniteDuration]("duration"))
+  }
+}
+
+object ContinuousAnnealedStreamingApp extends StreamingStack("ContinuousAnnealedStreamingApp")
+  with ContinuousStreamingStrategy
+  with AnnealedShufflingStrategy
+  with EmasLogic
+  with EmasOrderings
+  with EmasStreamingGenerationStats
+  with EmasStreamingIterationStats
+  with RastriginProblem {
+
+  protected def agentOrdering = agentOrderings.onFitness
+
+  def main(args: Array[String]): Unit = {
+    println("name: ContinuousAnnealedStreamingApp")
+    logPaths(
+      "emas.populationSize",
+      "streaming.arenas.parallelism",
+      "streaming.continuous.shuffling-buffer-size",
+      "streaming.continuous.halfDecayInSeconds"
     )
     println()
     run(agentRuntime.config.as[FiniteDuration]("duration"))
@@ -76,6 +112,7 @@ object SequentialStreamingApp extends StreamingStack("SequentialStreamingApp")
     )
     println()
     println()
+    println()
     run(agentRuntime.config.as[FiniteDuration]("duration"))
   }
 }
@@ -92,6 +129,7 @@ object SynchronousStreamingApp extends StreamingStack("SynchronousStreamingApp")
     logPaths(
       "emas.populationSize"
     )
+    println()
     println()
     println()
     println()

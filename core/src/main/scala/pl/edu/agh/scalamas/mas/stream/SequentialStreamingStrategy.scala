@@ -29,7 +29,7 @@ import pl.edu.agh.scalamas.app.ConcurrentAgentRuntimeComponent
 import pl.edu.agh.scalamas.app.stream.StreamingLoopStrategy
 import pl.edu.agh.scalamas.app.stream.graphs.{MeetingArenaFlow, SplitFlowByKey}
 import pl.edu.agh.scalamas.mas.LogicStrategy
-import pl.edu.agh.scalamas.mas.LogicTypes.{Agent, Population}
+import pl.edu.agh.scalamas.mas.LogicTypes.Population
 import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 import pl.edu.agh.scalamas.util.Util._
 
@@ -63,9 +63,7 @@ trait SequentialStreamingStrategy
         SplitFlowByKey(
           logic.behaviourFunction,
           logic.behaviours.map { b =>
-            b ->
-              Flow[Agent]
-                .via(meetingArenaFlow(b).async)
+            b -> meetingArenaFlow(b).async
           }.toMap
         ).async)
       .fold[Elem](List.empty)(_.+:(_))
