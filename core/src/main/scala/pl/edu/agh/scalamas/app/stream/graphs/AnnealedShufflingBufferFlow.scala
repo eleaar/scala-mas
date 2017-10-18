@@ -27,6 +27,7 @@ import akka.stream.scaladsl.{Flow, GraphDSL, Source}
 import akka.stream.stage.{GraphStage, GraphStageLogic, InHandler, OutHandler}
 import org.apache.commons.math3.random.RandomDataGenerator
 import pl.edu.agh.scalamas.util.RandomOrderedBuffer
+
 import scala.concurrent.duration._
 
 final class AnnealedShufflingBufferFlow[T] private (size: Int)(implicit random: RandomDataGenerator, ordering: Ordering[T]) extends GraphStage[FanInShape2[T, Double, T]] {

@@ -21,65 +21,118 @@
 
 package pl.edu.agh.scalamas.util
 
-import java.util
-
 import org.apache.commons.math3.random.RandomDataGenerator
+
+import scala.collection.mutable.ArrayBuffer
 
 class RandomOrderedBuffer[T](implicit ordering: Ordering[T]) {
 
-  private val setMapping = new util.TreeMap[T, Int](ordering)
-  private val buf = new util.ArrayList[T]()
+  // Heap algo copied and adapted from http://www.sanfoundry.com/java-program-implement-binary-heap/
+  private val heap = ArrayBuffer[T]()
 
   def add(element: T): Unit = {
-    buf.add(element)
-    setMapping.put(element, buf.size() - 1)
+    heap += element
+    heapifyUp(size - 1)
   }
 
   def removeRandom()(implicit random: RandomDataGenerator): Option[T] = {
-    val currentSize = size
-    if (currentSize > 0) {
-      val lastIndex = currentSize - 1
-      val chosenIndex = random.nextInt(0, lastIndex) // inclusive
-
-      val chosenElement = buf.get(chosenIndex)
-      val lastElement = buf.get(lastIndex)
-
-      buf.set(chosenIndex, lastElement)
-      buf.remove(lastIndex)
-
-      setMapping.put(lastElement, chosenIndex)
-      setMapping.remove(chosenElement)
-
-      Some(chosenElement)
-    } else {
+    if (heap.isEmpty) {
       None
+    } else {
+      Some(deleteAt(random.nextInt(0, size - 1)))
     }
   }
 
   def removeMax(): Option[T] = {
-    val currentSize = size
-    if (currentSize > 0) {
-      val lastIndex = currentSize - 1
-      val lastElement = buf.get(lastIndex)
-
-      val chosenElement = setMapping.lastKey
-      val chosenIndex = setMapping.get(chosenElement)
-
-      buf.set(chosenIndex, lastElement)
-      buf.remove(lastIndex)
-
-      setMapping.put(lastElement, chosenIndex)
-      setMapping.remove(chosenElement)
-
-      Some(chosenElement)
-    } else {
+    if (heap.isEmpty) {
       None
+    } else {
+      Some(deleteAt(0))
     }
   }
 
-  def size: Int = buf.size()
+  private def deleteAt(ind: Int): T = {
+    val keyItem = heap(ind)
+    heap(ind) = heap(size - 1)
+    heap.remove(size - 1)
+    if(ind < size) {
+      heapifyDown(ind)
+    }
+    keyItem
+  }
 
-  def isEmpty: Boolean = buf.isEmpty
+  private def heapifyUp(index: Int): Unit = {
+    val targetElement = heap(index)
 
-  def nonEmpty: Boolean = !buf.isEmpty
+    var currentIndex = index
+    var parentIndex = parent(currentIndex)
+    var parentElement = heap(parentIndex)
+
+    while (currentIndex > 0 && ordering.lt(targetElement, parentElement)) {
+      heap(currentIndex) = parentElement
+
+      currentIndex = parentIndex
+      parentIndex = parent(currentIndex)
+      parentElement = heap(parentIndex)
+    }
+
+    heap(currentIndex) = targetElement
+  }
+
+  // This implementation is really ugly, but I wanted to avoid the allocation overhead of using options to model the absence of children...
+  private def heapifyDown(index: Int): Unit = {
+    val targetElement = heap(index)
+
+    def minChild(ind: Int): Int = {
+      val firstIndex = firstChild(ind)
+      val secondIndex = secondChild(ind)
+
+      if (firstIndex < size) {
+        if(secondIndex < size) {
+          if(ordering.lt(heap(firstIndex), heap(secondIndex))) {
+            firstIndex
+          } else {
+            secondIndex
+          }
+        } else {
+          firstIndex
+        }
+      } else {
+        -1
+      }
+    }
+
+    var currentIndex = index
+    // at this point the childIndex may point out of bounds, but me make a check below before accessing the location
+    var childIndex = minChild(currentIndex)
+
+    while (
+      hasChildren(currentIndex) &&
+        ordering.lt(heap(childIndex), targetElement)
+    ) {
+      heap(currentIndex) = heap(childIndex)
+
+      currentIndex = childIndex
+      childIndex = minChild(currentIndex)
+    }
+
+    heap(currentIndex) = targetElement
+  }
+
+  @inline
+  def size: Int = heap.size
+
+  def isEmpty: Boolean = heap.isEmpty
+
+  @inline
+  private def parent(i: Int) = (i - 1) / 2
+
+  @inline
+  private def firstChild(i: Int) = 2 * i + 1
+
+  @inline
+  private def secondChild(i: Int) = 2 * i + 2
+
+  @inline private def hasChildren(i: Int) = firstChild(i) < size
+
 }
