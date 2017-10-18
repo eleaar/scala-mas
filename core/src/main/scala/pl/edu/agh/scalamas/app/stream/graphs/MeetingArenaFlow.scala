@@ -36,7 +36,7 @@ object MeetingArenaFlow {
    */
   def apply(logic: Logic, timeout: FiniteDuration, parallelism: Int)(behaviour: Behaviour)(implicit ec: ExecutionContext): Flow[Agent, Agent, NotUsed] = {
     Flow[Agent]
-      .groupedWithin(behaviour.capacity, 1.second)
+      .groupedWithin(behaviour.capacity, timeout)
       .mapAsync(parallelism) { agents =>
         Future(logic.meetingsFunction.apply((behaviour, agents.toList)))
       }

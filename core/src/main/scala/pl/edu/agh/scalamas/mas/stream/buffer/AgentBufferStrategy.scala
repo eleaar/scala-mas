@@ -24,8 +24,8 @@ package pl.edu.agh.scalamas.mas.stream.buffer
 import akka.NotUsed
 import akka.stream.scaladsl.Flow
 import net.ceedubs.ficus.Ficus._
-import pl.edu.agh.scalamas.app.ConcurrentAgentRuntimeComponent
-import pl.edu.agh.scalamas.app.stream.graphs.{AnnealedShufflingBufferFlow, ShufflingBufferFlow}
+import pl.edu.agh.scalamas.app.{AgentRuntimeComponent, ConcurrentAgentRuntimeComponent}
+import pl.edu.agh.scalamas.app.stream.graphs.{AnnealedShufflingBufferFlow, BarrierBufferFlow, ShufflingBufferFlow}
 import pl.edu.agh.scalamas.mas.LogicTypes.Agent
 import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 
@@ -36,7 +36,7 @@ trait AgentBufferStrategy {
 }
 
 trait ShufflingBufferStrategy
-  extends AgentBufferStrategy { this: ConcurrentAgentRuntimeComponent with RandomGeneratorComponent =>
+  extends AgentBufferStrategy { this: AgentRuntimeComponent with RandomGeneratorComponent =>
 
   private lazy val size = agentRuntime.config.as[Int]("streaming.continuous.shuffling-buffer-size")
 
@@ -46,7 +46,7 @@ trait ShufflingBufferStrategy
 }
 
 trait AnnealedShufflingStrategy
-  extends AgentBufferStrategy { this: ConcurrentAgentRuntimeComponent with RandomGeneratorComponent =>
+  extends AgentBufferStrategy { this: AgentRuntimeComponent with RandomGeneratorComponent =>
 
   protected def agentOrdering: Ordering[Agent]
 
@@ -60,13 +60,22 @@ trait AnnealedShufflingStrategy
   }
 }
 
-//trait BarrierBufferStrategy extends AgentBufferStrategy {
-//  protected def agentBufferFlow: Flow[Agent, Agent, NotUsed] = {
-//    BarrierBufferFlow.
-//  }
-//}
+trait BarrierBufferStrategy extends AgentBufferStrategy {
+  this: RandomGeneratorComponent =>
 
-//    val annealedShufflingBuffer = AnnealedShufflingBufferFlow[Agent](
-//      size = agentRuntime.config.as[Int]("streaming.continuous.shuffling-buffer-size"),
-//      halfDecayInSeconds = 60
-//    )(randomData, Ordering.by(_.ev))
+  protected def expectedTotal: Int
+
+  protected def weight(a: Agent): Int
+
+  protected def agentBufferFlow: Flow[Agent, Agent, NotUsed] = {
+    BarrierBufferFlow.withAcc[Int, Agent](0) {
+      case (currentTotal, agent) =>
+        val newTotal = currentTotal + weight(agent)
+        if (newTotal >= expectedTotal) {
+          0 -> true
+        } else {
+          newTotal -> false
+        }
+    }(randomData)
+  }
+}

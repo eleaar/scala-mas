@@ -94,13 +94,14 @@ class BarrierBufferFlowSpec extends StreamsSpec("BarrierBufferFlowSpec") {
       sub.expectNext(2)
       sub.expectComplete()
     }
+
   }
 
   private def fixtureFlow(f: Int => Boolean, expectedSize: Int) = {
     implicit val random: RandomDataGenerator = mock[RandomDataGenerator]
     when(random.nextPermutation(expectedSize, expectedSize))
       .thenReturn((0 until expectedSize).toArray)
-    BarrierBufferFlow[Int](f)
+    BarrierBufferFlow.withoutAcc[Int](f)
   }
 
   private def fixtureProbes(f: Int => Boolean, expectedSize: Int) = {

@@ -31,7 +31,7 @@ import pl.edu.agh.scalamas.examples.TemporaryConfigurationLogging._
 import pl.edu.agh.scalamas.genetic.RastriginProblem
 import pl.edu.agh.scalamas.mas.LogicTypes
 import pl.edu.agh.scalamas.mas.stream._
-import pl.edu.agh.scalamas.mas.stream.buffer.{AnnealedShufflingStrategy, ShufflingBufferStrategy}
+import pl.edu.agh.scalamas.mas.stream.buffer.{AnnealedShufflingStrategy, BarrierBufferStrategy, ShufflingBufferStrategy}
 
 import scala.concurrent.duration._
 
@@ -92,6 +92,39 @@ object ContinuousAnnealedStreamingApp extends StreamingStack("ContinuousAnnealed
       "streaming.continuous.shuffling-buffer-size",
       "streaming.continuous.halfDecayInSeconds"
     )
+    println()
+    run(agentRuntime.config.as[FiniteDuration]("duration"))
+  }
+}
+
+object ContinuousBarrierStreamingApp extends StreamingStack("ContinuousBarrierStreamingApp")
+  with ContinuousStreamingStrategy
+  with BarrierBufferStrategy
+  with EmasLogic
+  with EmasOrderings
+  with EmasStreamingGenerationStats
+  with EmasStreamingIterationStats
+  with RastriginProblem {
+
+  protected val expectedTotal = {
+    val populationSize = agentRuntime.config.getInt("emas.populationSize")
+    val initialEnergy = agentRuntime.config.getInt("emas.initialEnergy")
+    populationSize * initialEnergy
+  }
+
+  protected def weight(agent: LogicTypes.Agent) = agent match {
+    case a: Agent[Genetic] => a.energy
+    case _ => 0
+  }
+
+  def main(args: Array[String]): Unit = {
+    println("name: ContinuousBarrierStreamingApp")
+    logPaths(
+      "emas.populationSize",
+      "streaming.arenas.parallelism",
+    )
+    println()
+    println()
     println()
     run(agentRuntime.config.as[FiniteDuration]("duration"))
   }

@@ -31,7 +31,7 @@ import pl.edu.agh.scalamas.util.Util._
 
 import scala.collection.mutable.ArrayBuffer
 
-class BarrierBufferFlow[T](shouldFlushAfter: T => Boolean)(implicit random: RandomDataGenerator)
+class BarrierBufferFlow[A, T](zero: A, shouldFlushAfter: (A, T) => (A, Boolean))(implicit random: RandomDataGenerator)
   extends GraphStage[FlowShape[T, T]] {
 
   val in = Inlet[T]("in")
@@ -46,6 +46,7 @@ class BarrierBufferFlow[T](shouldFlushAfter: T => Boolean)(implicit random: Rand
     new GraphStageLogic(shape) with
       InHandler with OutHandler {
 
+      private var acc = zero
       private var i = 0
       private var buffer = ArrayBuffer[T]()
       private var isFlushing = false
@@ -55,7 +56,9 @@ class BarrierBufferFlow[T](shouldFlushAfter: T => Boolean)(implicit random: Rand
       def onPush(): Unit = {
         val elem = grab(in)
         buffer += elem
-        if (shouldFlushAfter(elem)) {
+        val (newAcc, shouldFlush) = shouldFlushAfter(acc, elem)
+        acc = newAcc
+        if (shouldFlush) {
           startFlushing()
         } else {
           pull(in)
@@ -107,7 +110,16 @@ class BarrierBufferFlow[T](shouldFlushAfter: T => Boolean)(implicit random: Rand
 }
 
 object BarrierBufferFlow {
-  def apply[T](shouldFlushAfter: T => Boolean)(implicit random: RandomDataGenerator): Flow[T, T, NotUsed] = {
-    Flow.fromGraph(new BarrierBufferFlow[T](shouldFlushAfter))
+  def withoutAcc[T](shouldFlushAfter: T => Boolean)(implicit random: RandomDataGenerator): Flow[T, T, NotUsed] = {
+    withAcc(()) {
+      case (_, t) => () -> shouldFlushAfter(t)
+    }
   }
+
+  def withAcc[A, T](zero: A)(shouldFlushAfter: (A, T) => (A, Boolean))(implicit random: RandomDataGenerator): Flow[T, T, NotUsed] = {
+    Flow.fromGraph(new BarrierBufferFlow[A, T](zero, shouldFlushAfter))
+  }
+
+
+
 }
