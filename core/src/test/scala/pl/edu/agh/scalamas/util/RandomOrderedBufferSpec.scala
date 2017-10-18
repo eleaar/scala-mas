@@ -85,7 +85,7 @@ class RandomOrderedBufferSpec extends WordSpecLike with Matchers with MockitoSug
         val result = Seq.fill(input.size)(buffer.removeMax()).flatten
 
         // then
-        result should contain theSameElementsInOrderAs input
+        result should contain theSameElementsInOrderAs input.reverse
         buffer.removeRandom() shouldBe None
       }
     }

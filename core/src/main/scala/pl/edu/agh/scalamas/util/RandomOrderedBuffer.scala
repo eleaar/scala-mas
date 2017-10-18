@@ -68,7 +68,7 @@ class RandomOrderedBuffer[T](implicit ordering: Ordering[T]) {
     var parentIndex = parent(currentIndex)
     var parentElement = heap(parentIndex)
 
-    while (currentIndex > 0 && ordering.lt(targetElement, parentElement)) {
+    while (currentIndex > 0 && ordering.gt(targetElement, parentElement)) {
       heap(currentIndex) = parentElement
 
       currentIndex = parentIndex
@@ -83,13 +83,13 @@ class RandomOrderedBuffer[T](implicit ordering: Ordering[T]) {
   private def heapifyDown(index: Int): Unit = {
     val targetElement = heap(index)
 
-    def minChild(ind: Int): Int = {
+    def maxChild(ind: Int): Int = {
       val firstIndex = firstChild(ind)
       val secondIndex = secondChild(ind)
 
       if (firstIndex < size) {
         if(secondIndex < size) {
-          if(ordering.lt(heap(firstIndex), heap(secondIndex))) {
+          if(ordering.gt(heap(firstIndex), heap(secondIndex))) {
             firstIndex
           } else {
             secondIndex
@@ -104,16 +104,16 @@ class RandomOrderedBuffer[T](implicit ordering: Ordering[T]) {
 
     var currentIndex = index
     // at this point the childIndex may point out of bounds, but me make a check below before accessing the location
-    var childIndex = minChild(currentIndex)
+    var childIndex = maxChild(currentIndex)
 
     while (
       hasChildren(currentIndex) &&
-        ordering.lt(heap(childIndex), targetElement)
+        ordering.gt(heap(childIndex), targetElement)
     ) {
       heap(currentIndex) = heap(childIndex)
 
       currentIndex = childIndex
-      childIndex = minChild(currentIndex)
+      childIndex = maxChild(currentIndex)
     }
 
     heap(currentIndex) = targetElement
