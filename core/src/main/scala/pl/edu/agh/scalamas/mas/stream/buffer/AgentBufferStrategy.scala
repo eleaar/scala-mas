@@ -29,6 +29,8 @@ import pl.edu.agh.scalamas.app.stream.graphs.{AnnealedShufflingBufferFlow, Barri
 import pl.edu.agh.scalamas.mas.LogicTypes.Agent
 import pl.edu.agh.scalamas.random.RandomGeneratorComponent
 
+import scala.util.Try
+
 trait AgentBufferStrategy {
 
   protected def agentBufferFlow: Flow[Agent, Agent, NotUsed]
@@ -51,7 +53,10 @@ trait AnnealedShufflingStrategy
   protected def agentOrdering: Ordering[Agent]
 
   private lazy val size = agentRuntime.config.as[Int]("streaming.continuous.shuffling-buffer-size")
-  private lazy val halfDecayInSeconds = agentRuntime.config.as[Int]("streaming.continuous.halfDecayInSeconds")
+  private lazy val halfDecayInSeconds = {
+    val decay = agentRuntime.config.as[String]("streaming.continuous.halfDecayInSeconds")
+    Try(decay.toInt).toOption
+  }
 
   protected final def agentBufferFlow: Flow[Agent, Agent, NotUsed] = {
     AnnealedShufflingBufferFlow[Agent](

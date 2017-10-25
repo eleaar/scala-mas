@@ -97,13 +97,18 @@ final class AnnealedShufflingBufferFlow[T] private (size: Int)(implicit random: 
 }
 
 object AnnealedShufflingBufferFlow {
-  def apply[T](size: Int, halfDecayInSeconds: Int)(implicit random: RandomDataGenerator, ordering: Ordering[T]): Flow[T, T, NotUsed] = {
+  def apply[T](size: Int, maybeHalfDecayInSeconds: Option[Int])(implicit random: RandomDataGenerator, ordering: Ordering[T]): Flow[T, T, NotUsed] = {
     Flow.fromGraph(GraphDSL.create() { implicit b =>
       import GraphDSL.Implicits._
 
-      val temperatureDecay = math.pow(2, -1.0 / halfDecayInSeconds)
-      val temperature = Source.tick(initialDelay = 0.seconds, interval = 1.second, ())
-          .scan(1.0) { case (currentTemperature, _) => currentTemperature * temperatureDecay}
+      val ticks = Source.tick(initialDelay = 0.seconds, interval = 1.second, ())
+      val temperature = maybeHalfDecayInSeconds.map { halfDecayInSeconds =>
+        val temperatureDecay = math.pow(2, -1.0 / halfDecayInSeconds)
+        ticks.scan(1.0) { case (currentTemperature, _) => currentTemperature * temperatureDecay}
+      }.getOrElse {
+        ticks.map(_ => 1.0)
+      }
+
       val flow = b.add(new AnnealedShufflingBufferFlow[T](size))
 
       temperature ~> flow.in1
