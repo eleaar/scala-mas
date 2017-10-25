@@ -23,7 +23,7 @@ package pl.edu.agh.scalamas.app.stream.graphs
 
 import akka.{Done, NotUsed}
 import akka.stream.{ClosedShape, KillSwitches, OverflowStrategy, UniqueKillSwitch}
-import akka.stream.scaladsl.{Broadcast, Flow, GraphDSL, Keep, MergePreferred, RunnableGraph, Sink, Source}
+import akka.stream.scaladsl.{Broadcast, Concat, Flow, GraphDSL, Keep, MergePreferred, RunnableGraph, Sink, Source}
 
 import scala.concurrent.Future
 
@@ -36,12 +36,12 @@ object LoopingGraph {
       GraphDSL.create(switch) { implicit b => switchH =>
         import GraphDSL.Implicits._
 
-        val merge = b.add(MergePreferred[T](1))
+        val concat = b.add(Concat[T](2))
         val bcast = b.add(Broadcast[T](2))
         val buffer = Flow[T].buffer(size = bufferSize, overflowStrategy = OverflowStrategy.fail)
 
-        source ~> merge ~> switchH ~> flow ~> bcast ~> Sink.ignore
-        merge.preferred <~ buffer <~ bcast
+        source ~> concat ~> switchH ~> flow ~> bcast ~> Sink.ignore
+        concat <~ buffer <~ bcast
 
         ClosedShape
       }
