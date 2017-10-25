@@ -31,7 +31,6 @@ import pl.edu.agh.scalamas.mas.LogicStrategy
 import pl.edu.agh.scalamas.mas.LogicTypes.Population
 import pl.edu.agh.scalamas.mas.stream.buffer.AgentBufferStrategy
 
-import scala.collection.immutable
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
@@ -53,8 +52,7 @@ trait ContinuousStreamingStrategy extends StreamingLoopStrategy {
     ) _
 
     Flow[Population]
-      .map(_.to[immutable.Seq])
-      .via(BufferDrainingFlow())
+      .mapConcat(x => x)
       .via(agentBufferFlow.async)
 //      .via(Metrics.meter("scalamas.continuous.subflow"))
       .via(SplitFlowByKey(

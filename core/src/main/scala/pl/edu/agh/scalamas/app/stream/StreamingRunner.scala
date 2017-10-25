@@ -48,7 +48,7 @@ trait StreamingRunner extends TimeStatsComponent {
     val statsFrequency = agentRuntime.config.as[FiniteDuration]("stats.frequency")
     val reporter = createStatsReporter()
     log.info(reporter.renderHeaders)
-    val (switch, loopStoppedFuture) = LoopingGraph(initialSource, stepFlow).run()
+    val (switch, loopStoppedFuture) = LoopingGraph(initialSource, stepFlow, loopingBufferSize).run()
     ElapsedTimeSource(interval = statsFrequency).runForeach { _ =>
       log.info(reporter.renderCurrentValue)
     }

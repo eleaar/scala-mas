@@ -31,4 +31,6 @@ trait StreamingLoopStrategy {
   protected def initialSource: Source[Elem, NotUsed]
 
   protected def stepFlow: Flow[Elem, Elem, NotUsed]
+
+  protected def loopingBufferSize: Int
 }

@@ -22,13 +22,13 @@
 package pl.edu.agh.scalamas.app.stream.graphs
 
 import akka.{Done, NotUsed}
-import akka.stream.{ClosedShape, KillSwitches, UniqueKillSwitch}
+import akka.stream.{ClosedShape, KillSwitches, OverflowStrategy, UniqueKillSwitch}
 import akka.stream.scaladsl.{Broadcast, Flow, GraphDSL, Keep, MergePreferred, RunnableGraph, Sink, Source}
 
 import scala.concurrent.Future
 
 object LoopingGraph {
-  def apply[T](source: Source[T, NotUsed], flow: Flow[T, T, NotUsed]): RunnableGraph[(UniqueKillSwitch, Future[Done])] = {
+  def apply[T](source: Source[T, NotUsed], flow: Flow[T, T, NotUsed], bufferSize: Int): RunnableGraph[(UniqueKillSwitch, Future[Done])] = {
     val switch = Flow.fromGraph(KillSwitches.single[T])
       .watchTermination()(Keep.both)
 
@@ -38,9 +38,10 @@ object LoopingGraph {
 
         val merge = b.add(MergePreferred[T](1))
         val bcast = b.add(Broadcast[T](2))
+        val buffer = Flow[T].buffer(size = bufferSize, overflowStrategy = OverflowStrategy.fail)
 
         source ~> merge ~> switchH ~> flow ~> bcast ~> Sink.ignore
-        merge.preferred <~ bcast
+        merge.preferred <~ buffer <~ bcast
 
         ClosedShape
       }

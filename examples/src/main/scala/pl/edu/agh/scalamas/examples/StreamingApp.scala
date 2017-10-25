@@ -23,6 +23,7 @@ package pl.edu.agh.scalamas.examples
 
 import com.typesafe.config.ConfigFactory
 import net.ceedubs.ficus.Ficus._
+import pl.edu.agh.scalamas.app.AgentRuntimeComponent
 import pl.edu.agh.scalamas.app.stream.StreamingStack
 import pl.edu.agh.scalamas.emas.EmasTypes.Agent
 import pl.edu.agh.scalamas.emas.stats.{EmasStreamingGenerationStats, EmasStreamingIterationStats}
@@ -45,12 +46,20 @@ object TemporaryConfigurationLogging{
   }
 }
 
+trait EmasLoopingBufferSize { this: AgentRuntimeComponent =>
+  protected final val loopingBufferSize = {
+    agentRuntime.config.as[Int]("emas.populationSize") *
+    agentRuntime.config.as[Int]("emas.initialEnergy")
+  }
+}
+
 object ContinuousStreamingApp extends StreamingStack("ContinuousStreamingApp")
   with ContinuousStreamingStrategy
   with ShufflingBufferStrategy
   with EmasLogic
   with EmasStreamingGenerationStats
   with EmasStreamingIterationStats
+  with EmasLoopingBufferSize
   with RastriginProblem {
 
 
@@ -80,6 +89,7 @@ object ContinuousAnnealedStreamingApp extends StreamingStack("ContinuousAnnealed
   with EmasOrderings
   with EmasStreamingGenerationStats
   with EmasStreamingIterationStats
+  with EmasLoopingBufferSize
   with RastriginProblem {
 
   protected def agentOrdering = agentOrderings.onFitness
@@ -104,6 +114,7 @@ object ContinuousBarrierStreamingApp extends StreamingStack("ContinuousBarrierSt
   with EmasOrderings
   with EmasStreamingGenerationStats
   with EmasStreamingIterationStats
+  with EmasLoopingBufferSize
   with RastriginProblem {
 
   protected val expectedTotal = {
@@ -135,6 +146,7 @@ object SequentialStreamingApp extends StreamingStack("SequentialStreamingApp")
   with EmasLogic
   with EmasStreamingGenerationStats
   with EmasStreamingIterationStats
+  with EmasLoopingBufferSize
   with RastriginProblem {
 
   def main(args: Array[String]): Unit = {
@@ -155,6 +167,7 @@ object SynchronousStreamingApp extends StreamingStack("SynchronousStreamingApp")
   with EmasLogic
   with EmasStreamingGenerationStats
   with EmasStreamingIterationStats
+  with EmasLoopingBufferSize
   with RastriginProblem {
 
   def main(args: Array[String]): Unit = {
