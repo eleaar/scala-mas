@@ -42,7 +42,7 @@ trait ShufflingBufferStrategy
 
   private lazy val size = agentRuntime.config.as[Int]("streaming.continuous.shuffling-buffer-size")
 
-  protected final def agentBufferFlow: Flow[Agent, Agent, NotUsed] = {
+  protected def agentBufferFlow: Flow[Agent, Agent, NotUsed] = {
     ShufflingBufferFlow[Agent](size)(randomData)
   }
 }
@@ -58,7 +58,7 @@ trait AnnealedShufflingStrategy
     Try(decay.toInt).toOption
   }
 
-  protected final def agentBufferFlow: Flow[Agent, Agent, NotUsed] = {
+  protected def agentBufferFlow: Flow[Agent, Agent, NotUsed] = {
     AnnealedShufflingBufferFlow[Agent](
       size, halfDecayInSeconds
     )(randomData, agentOrdering)

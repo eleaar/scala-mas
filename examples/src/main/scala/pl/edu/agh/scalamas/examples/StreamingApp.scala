@@ -27,6 +27,7 @@ import pl.edu.agh.scalamas.app.AgentRuntimeComponent
 import pl.edu.agh.scalamas.app.stream.StreamingStack
 import pl.edu.agh.scalamas.emas.EmasTypes.Agent
 import pl.edu.agh.scalamas.emas.stats.{EmasStreamingGenerationStats, EmasStreamingIterationStats}
+import pl.edu.agh.scalamas.emas.stream.EmergencyLoggingStream
 import pl.edu.agh.scalamas.emas.{EmasLogic, EmasOrderings}
 import pl.edu.agh.scalamas.examples.TemporaryConfigurationLogging._
 import pl.edu.agh.scalamas.genetic.RastriginProblem
@@ -60,6 +61,7 @@ object ContinuousStreamingApp extends StreamingStack("ContinuousStreamingApp")
   with EmasStreamingGenerationStats
   with EmasStreamingIterationStats
   with EmasLoopingBufferSize
+  with EmergencyLoggingStream
   with RastriginProblem {
 
 
@@ -90,6 +92,7 @@ object ContinuousAnnealedStreamingApp extends StreamingStack("ContinuousAnnealed
   with EmasStreamingGenerationStats
   with EmasStreamingIterationStats
   with EmasLoopingBufferSize
+  with EmergencyLoggingStream
   with RastriginProblem {
 
   protected def agentOrdering = agentOrderings.onFitness
@@ -115,6 +118,7 @@ object ContinuousBarrierStreamingApp extends StreamingStack("ContinuousBarrierSt
   with EmasStreamingGenerationStats
   with EmasStreamingIterationStats
   with EmasLoopingBufferSize
+  with EmergencyLoggingStream
   with RastriginProblem {
 
   protected val expectedTotal = {
