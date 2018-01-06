@@ -30,7 +30,7 @@ import pl.edu.agh.scalamas.emas.stats.{EmasStreamingGenerationStats, EmasStreami
 import pl.edu.agh.scalamas.emas.stream.EmergencyLoggingStream
 import pl.edu.agh.scalamas.emas.{EmasLogic, EmasOrderings}
 import pl.edu.agh.scalamas.examples.TemporaryConfigurationLogging._
-import pl.edu.agh.scalamas.genetic.RastriginProblem
+import pl.edu.agh.scalamas.genetic._
 import pl.edu.agh.scalamas.mas.LogicTypes
 import pl.edu.agh.scalamas.mas.stream._
 import pl.edu.agh.scalamas.mas.stream.buffer.{AnnealedShufflingStrategy, BarrierBufferStrategy, ShufflingBufferStrategy}
@@ -62,7 +62,7 @@ object ContinuousStreamingApp extends StreamingStack("ContinuousStreamingApp")
   with EmasStreamingIterationStats
   with EmasLoopingBufferSize
   with EmergencyLoggingStream
-  with RastriginProblem {
+  with ConfigurableProblem {
 
 
   protected def agentOrdering = Ordering.fromLessThan[LogicTypes.Agent] {
@@ -74,6 +74,7 @@ object ContinuousStreamingApp extends StreamingStack("ContinuousStreamingApp")
   def main(args: Array[String]): Unit = {
     println("name: ContinuousStreamingApp")
     logPaths(
+      "genetic.problem",
       "emas.populationSize",
       "streaming.arenas.parallelism",
       "streaming.continuous.shuffling-buffer-size"
@@ -93,7 +94,7 @@ object ContinuousAnnealedStreamingApp extends StreamingStack("ContinuousAnnealed
   with EmasStreamingIterationStats
   with EmasLoopingBufferSize
   with EmergencyLoggingStream
-  with RastriginProblem {
+  with ConfigurableProblem {
 
   protected def agentOrdering = agentOrderings.onFitness
 
@@ -119,7 +120,7 @@ object ContinuousBarrierStreamingApp extends StreamingStack("ContinuousBarrierSt
   with EmasStreamingIterationStats
   with EmasLoopingBufferSize
   with EmergencyLoggingStream
-  with RastriginProblem {
+  with ConfigurableProblem {
 
   protected val expectedTotal = {
     val populationSize = agentRuntime.config.getInt("emas.populationSize")
@@ -151,7 +152,7 @@ object SequentialStreamingApp extends StreamingStack("SequentialStreamingApp")
   with EmasStreamingGenerationStats
   with EmasStreamingIterationStats
   with EmasLoopingBufferSize
-  with RastriginProblem {
+  with ConfigurableProblem {
 
   def main(args: Array[String]): Unit = {
     println("name: SequentialStreamingApp")
@@ -172,7 +173,7 @@ object SynchronousStreamingApp extends StreamingStack("SynchronousStreamingApp")
   with EmasStreamingGenerationStats
   with EmasStreamingIterationStats
   with EmasLoopingBufferSize
-  with RastriginProblem {
+  with ConfigurableProblem {
 
   def main(args: Array[String]): Unit = {
     println("name: SynchronousStreamingApp")
