@@ -101,6 +101,7 @@ object ContinuousAnnealedStreamingApp extends StreamingStack("ContinuousAnnealed
   def main(args: Array[String]): Unit = {
     println("name: ContinuousAnnealedStreamingApp")
     logPaths(
+      "genetic.problem",
       "emas.populationSize",
       "streaming.arenas.parallelism",
       "streaming.continuous.shuffling-buffer-size",
@@ -136,6 +137,7 @@ object ContinuousBarrierStreamingApp extends StreamingStack("ContinuousBarrierSt
   def main(args: Array[String]): Unit = {
     println("name: ContinuousBarrierStreamingApp")
     logPaths(
+      "genetic.problem",
       "emas.populationSize",
       "streaming.arenas.parallelism",
     )
@@ -157,6 +159,7 @@ object SequentialStreamingApp extends StreamingStack("SequentialStreamingApp")
   def main(args: Array[String]): Unit = {
     println("name: SequentialStreamingApp")
     logPaths(
+      "genetic.problem",
       "emas.populationSize",
       "streaming.arenas.parallelism"
     )
@@ -178,6 +181,7 @@ object SynchronousStreamingApp extends StreamingStack("SynchronousStreamingApp")
   def main(args: Array[String]): Unit = {
     println("name: SynchronousStreamingApp")
     logPaths(
+      "genetic.problem",
       "emas.populationSize"
     )
     println()
