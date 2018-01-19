@@ -69,7 +69,7 @@ trait RosenbrockProblem extends GeneticProblem with DefaultGeneticStats {
         sum += 100.0 * a * a + b * b
         i += 1
       }
-      - sum
+      sum
     }
 
     val ordering = Ordering[Double].reverse
