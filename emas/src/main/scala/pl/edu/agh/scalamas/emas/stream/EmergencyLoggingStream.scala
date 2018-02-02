@@ -78,6 +78,7 @@ trait EmergencyLoggingStream extends AgentBufferStrategy {
       val agentsSnapshot = Flow[EmasTypes.Agent[Genetic]]
         .groupedWithin(snapshotSize, snapshotWindow)
         .buffer(1, OverflowStrategy.dropHead)
+        .expand(agents => Iterator.single(agents) ++ Iterator.continually(Nil))
 
       val snapshotWhenNoImprovement = extractAgents via Flow.fromGraph(
         GraphDSL.create() { implicit b =>
@@ -97,8 +98,12 @@ trait EmergencyLoggingStream extends AgentBufferStrategy {
         Sink.foreach { snapshot =>
           println(
             s"#>> Warning, no improvement since $improvementMemory. Took a snapshot of agents. " +
-              s"There are ${snapshot.size} agents in the snapshot with total energy ${snapshot.map(_.energy).sum}: \n${snapshot.mkString(",")}")
-
+              (if(snapshot.nonEmpty)
+                s"There are ${snapshot.size} agents in the snapshot with total energy ${snapshot.map(_.energy).sum}: \n${snapshot.mkString(",")}"
+              else
+                "The snapshot is empty! Agents are probably getting stuck somewhere in the flow."
+              )
+          )
         })
       probeWith(probe).via(super.agentBufferFlow)
     } else {
